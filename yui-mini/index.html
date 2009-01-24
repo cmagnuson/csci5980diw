@@ -34,6 +34,14 @@ a.expandContract:hover {
 #resultsHere a:hover {
 	color: #660000;
 }
+
+div.show {
+ visibility: visible;
+}
+div.hide {
+ visibility: collapse;
+}
+
 </style>
 
 <link rel="stylesheet" type="text/css"
@@ -79,10 +87,44 @@ a.expandContract:hover {
           var buttonQuery = new YAHOO.widget.Button("queryButton");
        });
        
+       function fillInResult(results){
+       	var html = "";
+       	if(results.length==0){
+       	 html = "There were no results found.";
+       	}
+       	else{
+       	 for(i=0; i<results.length; i++){
+       	  
+       	  html += results[i].getHTML(i);
+       	 }
+       	}
+       	document.getElementById("resultsHere").innerHTML = html;
+       }
        
-              function parseAmazonResults(title) {
+       function parseAmazonResults(title, callback) {
            function successHandler(o) {
           YAHOO.log("Our Amazon request succeeded!");
+
+		 var resultArray = new Array();
+	     var root = o.responseXML.documentElement; 
+	     var titles = root.getElementsByTagName('Item'); 
+	    
+	     for(i=0; i<titles.length; i++){
+	        var url = titles[i].getElementsByTagName('DetailPageURL')[0].firstChild.nodeValue;
+	        var title = titles[i].getElementsByTagName('Title')[0].firstChild.nodeValue;
+	        var actors = titles[i].getElementsByTagName('Actor');
+	        
+	     	var result = new ResultData(title, url);
+	     	for(j=0; j<actors.length; j++){
+	     	 result.addActor(actors[j].firstChild.nodeValue);
+	     	}
+	     	
+	     	YAHOO.log("Result "+i+" "+result.toString());
+	     	resultArray.push(result);
+	     }
+	   
+          
+          callback(resultArray);
       }
 
       function failureHandler(o) {
@@ -105,8 +147,53 @@ a.expandContract:hover {
        }
        
  	function runSearch(termField) {
-           parseAmazonResults(escape(document.getElementById(termField).value));
+           parseAmazonResults(escape(document.getElementById(termField).value), fillInResult);
        }
+       
+       // Create a new Object Type for the Result Data from one Amazon movie result.
+      function ResultData(in_title, in_url) {
+         this.title = in_title;
+    this.url = in_url;
+    this.actors = new Array();
+    this.addActor = function(actor) {
+        this.actors.push(actor);
+           };    
+         this.toString = function() {
+        var retval = "Title:" +  this.title;
+        for (var i = 0; i < this.actors.length; i++) {
+            retval += "Actor:" + this.actors[i];
+             }
+             return retval;
+        };
+        this.getHTML = function(num) {
+         var html = "<a href=\""+this.url+"\">"+this.title+"</a> &nbsp;&nbsp;&nbsp; <a href=\"#\" onclick=\"expand("+num+")\">Expand</a><br>";
+		 html += "<div class=\"hide\" id=\"actor"+num+"\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Actors: ";
+		 var i=-1;
+		 for(i=0; i<this.actors.length-1; i++){
+		   html += this.actors[i]+", ";
+		 }
+	     html += this.actors[i];
+		 html+= "<br></div>";
+		 
+    	 return html;
+        };
+     }
+
+     var YUI = {
+       getChildrenBy : YAHOO.util.Dom.getChildrenBy,
+       getFirstChildBy : YAHOO.util.Dom.getFirstChildBy,
+     };
+     
+     function expand(num){
+       var element = document.getElementById("actor"+num);
+	if(YAHOO.util.Dom.hasClass(element, "hide")){
+	   YAHOO.util.Dom.replaceClass(element, "hide", "show");
+	}
+	else{
+		   YAHOO.util.Dom.replaceClass(element, "show", "hide");
+	
+	}
+    }
        
   </script>
 </head>
