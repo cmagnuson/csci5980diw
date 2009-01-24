@@ -65,6 +65,11 @@
   // That's not really helpful when you want to debug, so we tell it to
   // behave properly for our testing purposes:
   YAHOO.util.Event.throwErrors = true;
+  
+      YAHOO.util.Event.onDOMReady(function() {
+          var buttonQuery = new YAHOO.widget.Button("queryButton");
+       });
+       
   </script>
 </head>
 
@@ -83,7 +88,7 @@
 
   <form id="queryForm">
     <input type="text" id="searchTerms" />
-    <input type="submit" value="Query" />
+    <input type="submit" id="queryButton" value="Query" />
   </form>
   <div id="resultsHere"></div>
 </div>
