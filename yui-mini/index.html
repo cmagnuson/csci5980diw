@@ -70,6 +70,11 @@
           var buttonQuery = new YAHOO.widget.Button("queryButton");
        });
        
+       
+              function runSearch(termField) {
+               YAHOO.log("Asked to fetch search terms in " + termField);
+               }
+       
   </script>
 </head>
 
@@ -86,7 +91,7 @@
     XMLHttpRequest's same-domain policy &mdash; to retrieve an XML
     document from an Amazon Web Service</p>
 
-  <form id="queryForm">
+  <form id="queryForm" onsubmit="runSearch('searchTerms');return false;">
     <input type="text" id="searchTerms" />
     <input type="submit" id="queryButton" value="Query" />
   </form>
