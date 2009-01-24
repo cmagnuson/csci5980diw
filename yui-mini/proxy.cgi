@@ -1,4 +1,4 @@
-#!/bin/python
+#!/soft/python-2.5-bin/python
 
 import os
 import cgi
