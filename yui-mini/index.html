@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!--BEGIN SOURCE CODE FOR EXAMPLE =============================== -->
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Amazon DVD Search Web Service Interface</title>
+
+  <style type="text/css">
+    /* margin and padding on body element
+       can introduce errors in determining
+       element position and are not recommended;
+       we turn them off as a foundation for YUI
+       CSS treatments. */
+    body {
+        margin:0;
+        padding:0;
+    }
+
+    /* But we like pretty look web pages, so we add a little
+       margin to our content anyway. :) */
+
+    #mainContent {
+        padding: 1em 2em;
+        width: 50%;
+    }
+
+    a.expandContract:link,
+    a.expandContract:visited {
+        color: blue;
+    }
+    a.expandContract:hover {
+        color: #990000;
+    }
+
+    #resultsHere a:hover {
+        color: #660000;
+    }
+  </style>
+
+  <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.6.0/build/fonts/fonts-min.css" />
+  <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.6.0/build/assets/skins/sam/logger.css" />
+  <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.6.0/build/assets/skins/sam/button.css" />
+
+  <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+  <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/yahoo/yahoo-min.js"></script>
+  <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/event/event-min.js"></script>
+  <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/connection/connection-min.js"></script>
+  <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/logger/logger-min.js"></script>
+  <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/element/element-beta-min.js"></script>
+  <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/button/button-min.js"></script>
+
+  <script type="text/javascript">
+  // The Yahoo logger utility is a pretty useful cool tool
+  // as it enables easy logging from inside your custom methods.
+
+  //create log reader instance on pageload 
+  function loggerInit() { 
+      var myLogReader = new YAHOO.widget.LogReader();
+  } 
+  YAHOO.util.Event.on(window, "load", loggerInit); 
+  YAHOO.log("Foo: logger initialized");
+
+  // OTOH, the Yahoo toolkit's Event handler utilities trap errors in
+  // event handlers (through a try/catch), which means they silently die.
+  // That's not really helpful when you want to debug, so we tell it to
+  // behave properly for our testing purposes:
+  YAHOO.util.Event.throwErrors = true;
+  </script>
+</head>
+
+<body class="yui-skin-sam">
+
+<div id="mainContent">
+<h1>Amazon DVD Search Web Service</h1>
+
+<div class="exampleIntro">
+  <p>This example demonstrates how to use the
+    <a href="http://developer.yahoo.com/yui/connection/">Connection Manager</a>
+
+    and a proxy &mdash; to work around
+    XMLHttpRequest's same-domain policy &mdash; to retrieve an XML
+    document from an Amazon Web Service</p>
+
+  <form id="queryForm">
+    <input type="text" id="searchTerms" />
+    <input type="submit" value="Query" />
+  </form>
+  <div id="resultsHere"></div>
+</div>
+
+</div>
+
+<!--END SOURCE CODE FOR EXAMPLE =============================== -->
+
+</body>
+</html>
