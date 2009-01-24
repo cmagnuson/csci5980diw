@@ -36,12 +36,12 @@ a.expandContract:hover {
 }
 
 div.show {
- visibility: visible;
-}
-div.hide {
- visibility: collapse;
+	display: inline;
 }
 
+div.hide {
+	display: none;
+}
 </style>
 
 <link rel="stylesheet" type="text/css"
@@ -88,7 +88,7 @@ div.hide {
        });
        
        function fillInResult(results){
-       	var html = "";
+       	var html = "<br>";
        	if(results.length==0){
        	 html = "There were no results found.";
        	}
@@ -96,6 +96,7 @@ div.hide {
        	 for(i=0; i<results.length; i++){
        	  
        	  html += results[i].getHTML(i);
+       	  html += "<br>";
        	 }
        	}
        	document.getElementById("resultsHere").innerHTML = html;
@@ -166,7 +167,7 @@ div.hide {
              return retval;
         };
         this.getHTML = function(num) {
-         var html = "<a href=\""+this.url+"\">"+this.title+"</a> &nbsp;&nbsp;&nbsp; <a href=\"#\" onclick=\"expand("+num+")\">Expand</a><br>";
+         var html = "<a href=\""+this.url+"\">"+this.title+"</a> &nbsp;&nbsp;&nbsp; <a id=\"expand"+num+"\" href=\"#\" onclick=\"expand("+num+")\">[Expand]</a><br>";
 		 html += "<div class=\"hide\" id=\"actor"+num+"\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Actors: ";
 		 var i=-1;
 		 for(i=0; i<this.actors.length-1; i++){
@@ -188,11 +189,12 @@ div.hide {
        var element = document.getElementById("actor"+num);
 	if(YAHOO.util.Dom.hasClass(element, "hide")){
 	   YAHOO.util.Dom.replaceClass(element, "hide", "show");
+	   document.getElementById("expand"+num).innerHTML = "[Collapse]";
 	}
 	else{
 		   YAHOO.util.Dom.replaceClass(element, "show", "hide");
-	
-	}
+		   document.getElementById("expand"+num).innerHTML = "[Expand]";
+	   }
     }
        
   </script>
