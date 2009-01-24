@@ -2,54 +2,63 @@
 <!--BEGIN SOURCE CODE FOR EXAMPLE =============================== -->
 <html>
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <title>Amazon DVD Search Web Service Interface</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>Amazon DVD Search Web Service Interface</title>
 
-  <style type="text/css">
-    /* margin and padding on body element
+<style type="text/css">
+/* margin and padding on body element
        can introduce errors in determining
        element position and are not recommended;
        we turn them off as a foundation for YUI
        CSS treatments. */
-    body {
-        margin:0;
-        padding:0;
-    }
+body {
+	margin: 0;
+	padding: 0;
+}
 
-    /* But we like pretty look web pages, so we add a little
+/* But we like pretty look web pages, so we add a little
        margin to our content anyway. :) */
+#mainContent {
+	padding: 1em 2em;
+	width: 50%;
+}
 
-    #mainContent {
-        padding: 1em 2em;
-        width: 50%;
-    }
+a.expandContract:link,a.expandContract:visited {
+	color: blue;
+}
 
-    a.expandContract:link,
-    a.expandContract:visited {
-        color: blue;
-    }
-    a.expandContract:hover {
-        color: #990000;
-    }
+a.expandContract:hover {
+	color: #990000;
+}
 
-    #resultsHere a:hover {
-        color: #660000;
-    }
-  </style>
+#resultsHere a:hover {
+	color: #660000;
+}
+</style>
 
-  <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.6.0/build/fonts/fonts-min.css" />
-  <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.6.0/build/assets/skins/sam/logger.css" />
-  <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.6.0/build/assets/skins/sam/button.css" />
+<link rel="stylesheet" type="text/css"
+	href="http://yui.yahooapis.com/2.6.0/build/fonts/fonts-min.css" />
+<link rel="stylesheet" type="text/css"
+	href="http://yui.yahooapis.com/2.6.0/build/assets/skins/sam/logger.css" />
+<link rel="stylesheet" type="text/css"
+	href="http://yui.yahooapis.com/2.6.0/build/assets/skins/sam/button.css" />
 
-  <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/yahoo-dom-event/yahoo-dom-event.js"></script>
-  <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/yahoo/yahoo-min.js"></script>
-  <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/event/event-min.js"></script>
-  <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/connection/connection-min.js"></script>
-  <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/logger/logger-min.js"></script>
-  <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/element/element-beta-min.js"></script>
-  <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/button/button-min.js"></script>
+<script type="text/javascript"
+	src="http://yui.yahooapis.com/2.6.0/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript"
+	src="http://yui.yahooapis.com/2.6.0/build/yahoo/yahoo-min.js"></script>
+<script type="text/javascript"
+	src="http://yui.yahooapis.com/2.6.0/build/event/event-min.js"></script>
+<script type="text/javascript"
+	src="http://yui.yahooapis.com/2.6.0/build/connection/connection-min.js"></script>
+<script type="text/javascript"
+	src="http://yui.yahooapis.com/2.6.0/build/logger/logger-min.js"></script>
+<script type="text/javascript"
+	src="http://yui.yahooapis.com/2.6.0/build/element/element-beta-min.js"></script>
+<script type="text/javascript"
+	src="http://yui.yahooapis.com/2.6.0/build/button/button-min.js"></script>
 
-  <script type="text/javascript">
+<script type="text/javascript">
   // The Yahoo logger utility is a pretty useful cool tool
   // as it enables easy logging from inside your custom methods.
 
@@ -71,9 +80,33 @@
        });
        
        
-              function runSearch(termField) {
-               YAHOO.log("Asked to fetch search terms in " + termField);
-               }
+              function parseAmazonResults(title) {
+           function successHandler(o) {
+          YAHOO.log("Our Amazon request succeeded!");
+      }
+
+      function failureHandler(o) {
+          YAHOO.log("Amazon request failed with HTTP status code "
+                    + o.status);
+      }
+
+      // A variable for the AWS account on which the requests will be made.
+      // Your AWS ID as a string.
+      var awsID = '1EMG6J1BK77DK46SF3G2';
+      // The URL for the asynchronous request, make sure this points to
+      // your own web proxy!
+      var sUrl = 'http://www-users.cs.umn.edu/~magnuson/yui-mini/proxy.cgi?Service=AWSECommerceService&AWSAccessKeyId=' +
+                  awsID + '&Operation=ItemSearch&SearchIndex=DVD&Title=' + title;
+
+      YAHOO.log("Submitting request " + sUrl, "info", "example");
+
+      var request = YAHOO.util.Connect.asyncRequest('GET', sUrl,
+           { success:successHandler, failure:failureHandler });
+       }
+       
+ 	function runSearch(termField) {
+           parseAmazonResults(escape(document.getElementById(termField).value));
+       }
        
   </script>
 </head>
@@ -84,18 +117,15 @@
 <h1>Amazon DVD Search Web Service</h1>
 
 <div class="exampleIntro">
-  <p>This example demonstrates how to use the
-    <a href="http://developer.yahoo.com/yui/connection/">Connection Manager</a>
+<p>This example demonstrates how to use the <a
+	href="http://developer.yahoo.com/yui/connection/">Connection
+Manager</a> and a proxy &mdash; to work around XMLHttpRequest's same-domain
+policy &mdash; to retrieve an XML document from an Amazon Web Service</p>
 
-    and a proxy &mdash; to work around
-    XMLHttpRequest's same-domain policy &mdash; to retrieve an XML
-    document from an Amazon Web Service</p>
-
-  <form id="queryForm" onsubmit="runSearch('searchTerms');return false;">
-    <input type="text" id="searchTerms" />
-    <input type="submit" id="queryButton" value="Query" />
-  </form>
-  <div id="resultsHere"></div>
+<form id="queryForm" onsubmit="runSearch('searchTerms');return false;">
+<input type="text" id="searchTerms" /> <input type="submit"
+	id="queryButton" value="Query" /></form>
+<div id="resultsHere"></div>
 </div>
 
 </div>
