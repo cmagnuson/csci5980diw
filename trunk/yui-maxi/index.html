@@ -23,9 +23,7 @@
  
         }
 
-        #searchAutoComplete { text-align: center; }
-        #movie { position: static, width: 20em; }
-        #searchContainer { text-align: left; width: 20em; }
+        #searchAutoComplete { width: 25em; padding-bottom: 2em; }
         
         div.show { visibility: visible; }
         div.hide { visibility: hidden; }
@@ -93,12 +91,15 @@
             var movieTitleAutoComplete = new YAHOO.widget.AutoComplete("movie", "searchContainer", movieLensDataSource);
             movieTitleAutoComplete.generateRequest = function(title)
             {
+                // Can't seem to make this work
+                //if( (title.length > 4) && (title.substring(0,3) == "the%20") )
+                //    title = title.substring(4);
                 return "?format=json&title=" + title;
             };
 
             return {
-                movieLensDataSource: movieLensDataSource,
-                movieTitleAutoComplete: movieTitleAutoComplete,
+                oDS: movieLensDataSource,
+                oAC: movieTitleAutoComplete,
             };
         }();    
     </script>
