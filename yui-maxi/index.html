@@ -91,9 +91,9 @@
             var movieTitleAutoComplete = new YAHOO.widget.AutoComplete("movie", "searchContainer", movieLensDataSource);
             movieTitleAutoComplete.generateRequest = function(title)
             {
-                // Can't seem to make this work
-                //if( (title.length > 4) && (title.substring(0,3) == "the%20") )
-                //    title = title.substring(4);
+                // Remove "the " from the beginning of a search
+                if( (title.length > 6) && (title.substring(0,6).toLowerCase() == "the%20") )
+                    title = title.substring(6);
                 return "?format=json&title=" + title;
             };
 
