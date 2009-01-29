@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>Amazon DVD Search Web Service Interface</title>
+
+<style type="text/css">
+/* margin and padding on body element
+can introduce errors in determining
+element position and are not recommended;
+we turn them off as a foundation for YUI
+CSS treatments.  */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* But we like pretty look web pages, so we add a little
+margin to our content anyway. :) */
+#mainContent {
+    padding: 1em 2em;
+    width: 50%;
+}
+
+a.expandContract:link, a.expandContract:visited {
+    color: blue;
+}
+
+a.expandContract:hover {
+    color: #990000;
+}
+
+#resultsHere a:hover {
+    color: #660000;
+}
+
+div.show {
+    display: inline;
+}
+
+div.hide {
+    display: none;
+}
+</style>
+
+
+<!-- Combo-handled YUI CSS files: --> 
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?2.6.0/build/datatable/assets/skins/sam/datatable.css"> 
+<!-- Combo-handled YUI JS files: --> 
+<script type="text/javascript" src="http://yui.yahooapis.com/combo?2.6.0/build/yahoo-dom-event/yahoo-dom-event.js&2.6.0/build/datasource/datasource-min.js&2.6.0/build/element/element-beta-min.js&2.6.0/build/json/json-min.js&2.6.0/build/charts/charts-experimental-min.js&2.6.0/build/datatable/datatable-min.js"></script> 
+ <script src="http://yui.yahooapis.com/2.6.0/build/yahoo/yahoo-min.js"></script> 	 
+	<!-- Used for Custom Events and event listener bindings --> 
+	<script src="http://yui.yahooapis.com/2.6.0/build/event/event-min.js"></script> 	 
+	<!-- Source file --> 
+	<script src="http://yui.yahooapis.com/2.6.0/build/connection/connection-min.js"></script> 
+
+</head>
+
+<body class="yui-skin-sam">
+<div id="mainContent">
+  <h1>Amazon DVD Search Web Service</h1>
+
+  <div class="exampleIntro">
+    <p>This example demonstrates how to use the <a href="http://developer.yahoo.com/yui/connection/">Connection Manager</a> and a proxy &mdash; to work around XMLHttpRequest's same-domain policy &mdash; to retrieve an XML document from an Amazon Web Service</p>
+  </div>
+
+  <form id="queryForm" onsubmit="runSearch('searchTerms'); return false;">
+    <input type="text" id="searchTerms" />
+    <input type="submit" id="queryButton" value="Query" />
+  </form>
+  <span class="chart_title">Blog Posts</span>
+
+<div style="float:right"><img class="thaimage" /></div>
+<div id="chart">
+</div>
+
+</div>
+</body>
+
+<script type="text/javascript">
+
+    YAHOO.widget.Chart.SWFURL = "http://yui.yahooapis.com/2.6.0/build//charts/assets/charts.swf";
+    var mychart;
+    var blogData;
+    var seriesDef;
+    var blogResults;
+
+  function fillInResult(results) {
+      if(results.length==0) {
+      }
+      else {
+       blogResults = results;
+	blogData = new YAHOO.util.DataSource(blogResults); 
+	blogData.responseType = YAHOO.util.DataSource.TYPE_JSARRAY; 
+	blogData.responseSchema = { fields: [ "date", "count"] }; 
+
+	mychart = new YAHOO.widget.LineChart( "chart",  blogData, 
+	{ 
+            yField: "count",
+	    xField: "date"
+	}); 
+      }				     
+  }
+
+  function parseAmazonResults(title, callback) {
+      function successHandler(o) {
+
+          var resultArray = new Array();
+          var root = o.responseXML.documentElement;
+          var titles = root.getElementsByTagName('item');
+
+          for(i=0; i<titles.length; i++){
+	      var date = titles[i].getElementsByTagName('date')[0].firstChild.nodeValue;
+	      var count = titles[i].getElementsByTagName('count')[0].firstChild.nodeValue;
+		resultArray.push({"date":date,"count":parseInt(count)});
+          }
+          callback(resultArray);
+      }
+
+      function failureHandler(o) {
+      }
+
+      // A variable for the AWS account on which the requests will be made.
+      // Your AWS ID as a string.
+      var apiKey = '1c448f36f2564d9a126ae581078b818e';
+      // The URL for the asynchronous request, make sure this points to
+      // your own web proxy!
+      var sUrl = 'TechnoratiProxy.cgi?http://api.technorati.com/dailycounts?key=' +
+                  apiKey + '&q=' + title;
+
+
+      var request = YAHOO.util.Connect.asyncRequest('GET', sUrl,
+           {success:successHandler, failure:failureHandler});
+  }
+
+  function runSearch(termField) {
+      parseAmazonResults(escape(document.getElementById(termField).value), fillInResult);
+  }
+
+
+</script>
+</html>
