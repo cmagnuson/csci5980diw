@@ -55,6 +55,7 @@ body {
 
 <span class="chart_title">Box Office</span>
 
+<div style="float:right"><img class="thaimage" /></div>
 <div id="chart">Unable to load Flash content. The YUI Charts Control requires Flash Player 9.0.45 or higher. You can download the latest version of Flash Player from the <a href="http://www.adobe.com/go/getflashplayer">Adobe Flash Player Download Center</a>.</p></div>
 
 <script type="text/javascript">
@@ -69,8 +70,9 @@ body {
 	{
         resultsList: "results",
         fields: ["day", "date", "gross", "theaters", "avg", "grosstd", "daynum"],
-        metaFields: {"id": "trynt.matched-id", "title": "trynt.matched-title"},
+        metaFields: {"id": "trynt['matched-id']", "title": "trynt['matched-title']"},
 	};
+    myDataSource.maxCacheEntries = 4;
 
 //--- chart
 
@@ -109,6 +111,14 @@ body {
 		//only needed for flash player express install
 		expressInstall: "assets/expressinstall.swf"
 	});
+
+    myDataSource.sendRequest(null, {success: function(oRequest, oParsedResponse, oPayload) {
+        console.log(oParsedResponse);
+        var title = YAHOO.util.Dom.getElementsByClassName('chart_title', 'span')[0];
+        title.innerHTML = "Box Office success for " + oParsedResponse.meta.title;
+        var image = YAHOO.util.Dom.getElementsByClassName('thaimage', 'img')[0];
+        image.src = "http://www.boxofficemojo.com/images/" + oParsedResponse.meta.id + "_poster.jpg";
+    }})
 
 </script>
 
