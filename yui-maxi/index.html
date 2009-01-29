@@ -56,11 +56,12 @@
 <body class="yui-skin-sam">
 <div id="mainContent">
     <h1>Achievers @ the Movies</h1>
+    <form action="#">
     <div id="searchAutoComplete">
-        <input id="movie" type="text"/>
-        <input id="submit" type="submit" value="Get Movie" />
+        <input id="movie" type="text"/><input id="search" type="submit" value="Get Movie" />
         <div id="searchContainer"></div>
     </div>
+    </form>
     <script type="text/javascript">
         autoComplete = function()
         {
@@ -70,18 +71,16 @@
             movieLensDataSource.responseSchema = 
             {
                 resultsList: "ResultSet.Result",
-                fields: 
-                [
-                    //{ key: "Title" },
-                    //{ key: "imdbId" },
-                    //{ key: "movieLensId" },
-                    //{ key: "genre" },
-                    //{ key: "avgRating" },
-                    //{ key: "popularity" },
+                fields: [
+                    { key: "Title" },
+                    { key: "imdbId" },
+                    { key: "movieLensId" },
+                    { key: "genre" },
+                    { key: "avgRating" },
+                    { key: "popularity" },
                     { key: "fullTitle" } 
                 ],
-                metaFields: 
-                {
+                metaFields: {
                     totalRecords: "ResultSet.totalResultsReturned",
                     firstResultPosition: "ResultSet.firstResultPosition"
                 }
@@ -89,6 +88,7 @@
 
             // Instantiate movieTitleAutoComplete
             var movieTitleAutoComplete = new YAHOO.widget.AutoComplete("movie", "searchContainer", movieLensDataSource);
+            movieTitleAutoComplete.resultTypeList = false;
             movieTitleAutoComplete.generateRequest = function(title)
             {
                 // Remove "the " from the beginning of a search
@@ -99,7 +99,7 @@
 
             return {
                 oDS: movieLensDataSource,
-                oAC: movieTitleAutoComplete,
+                oAC: movieTitleAutoComplete
             };
         }();    
     </script>
