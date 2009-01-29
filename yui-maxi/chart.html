@@ -68,7 +68,8 @@ body {
 	myDataSource.responseSchema =
 	{
         resultsList: "results",
-        fields: ["day", "date", "gross", "theaters", "avg", "grosstd", "daynum"]
+        fields: ["day", "date", "gross", "theaters", "avg", "grosstd", "daynum"],
+        metaFields: {"id": "trynt.matched-id", "title": "trynt.matched-title"},
 	};
 
 //--- chart
@@ -90,7 +91,7 @@ body {
 
 	YAHOO.example.getDataTipText = function( item, index, series )
 	{
-		var toolTipText = series.displayName + " for "; // + item['date'];
+		var toolTipText = series.displayName + " for " + item['date'];
 		toolTipText += "\n" + YAHOO.example.formatCurrencyAxisLabel( item[series.yField] );
 		return toolTipText;
 	}

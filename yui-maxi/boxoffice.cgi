@@ -8,8 +8,8 @@ import cgitb; cgitb.enable()
 
 url = 'http://www.trynt.com/movie-boxofficemojo-similar-api/v1/?fo=json&t=' + os.getenv('QUERY_STRING')
 json_string = urllib.urlopen(url).read()
-data = JSONDecoder().decode(json_string)
-movie_id = data[u'trynt'][u'movie-boxoffice'][u'matched-id']
+movie_data = JSONDecoder().decode(json_string)
+movie_id = movie_data[u'trynt'][u'movie-boxoffice'][u'matched-id']
 
 url = 'http://www.boxofficemojo.com/movies/?page=daily&view=chart&id=%s.htm' % movie_id
 html_string = urllib.urlopen(url).read()
@@ -51,7 +51,10 @@ for line in data:
         'daynum': clean_int(line[9]),
         })
 
-data = {'results': newlist}
+data = {
+    'results': newlist,
+    'trynt': movie_data[u'trynt'][u'movie-boxoffice'],
+    }
 
 print "Content-Type: text/plain\r\n"
 print JSONEncoder().encode(data)
