@@ -51,5 +51,7 @@ for line in data:
         'daynum': clean_int(line[9]),
         })
 
+data = {'results': newlist}
+
 print "Content-Type: text/plain\r\n"
-print JSONEncoder().encode(newlist)
+print JSONEncoder().encode(data)
