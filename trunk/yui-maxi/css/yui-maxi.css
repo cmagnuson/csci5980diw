@@ -11,6 +11,8 @@ body
 
 #mainContent
 {
+    margin: 0 auto;
+    width: 800px;
     overflow: hidden;
 }
 
