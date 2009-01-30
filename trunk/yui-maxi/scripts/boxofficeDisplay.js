@@ -1,12 +1,12 @@
-function display_image(div, movie) {
+function display_image(movie, div) {
     var image = YAHOO.util.Dom.get(div);
     image.src = movie.tryntData.img;
 }
 
-function create_box_office_chart(the_div, data) {
+function create_box_office_chart(movie, div) {
 	YAHOO.widget.Chart.SWFURL = "http://yui.yahooapis.com/2.6.0/build//charts/assets/charts.swf";
 
-	var myDataSource = new YAHOO.util.DataSource(data);
+	var myDataSource = new YAHOO.util.DataSource(movie.boxOfficeMojoData);
 	myDataSource.responseSchema =
 	{
         resultsList: "results",
@@ -39,7 +39,7 @@ function create_box_office_chart(the_div, data) {
 	currencyAxis.minimum = 0;
 	currencyAxis.labelFunction = YAHOO.example.formatCurrencyAxisLabel;
 
-	var mychart = new YAHOO.widget.LineChart(the_div, myDataSource,
+	var mychart = new YAHOO.widget.LineChart(div, myDataSource,
 	{
 		series: seriesDef,
 		xField: "daynum",

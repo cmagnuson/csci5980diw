@@ -5,10 +5,16 @@ import urllib
 import os
 import cgitb; cgitb.enable()
 
+print "Content-Type: text/plain\r\n"
+
 url = 'http://www.boxofficemojo.com/movies/?page=daily&view=chart&id=%s.htm' % os.getenv('QUERY_STRING')
 html_string = urllib.urlopen(url).read()
 soup = BeautifulSoup.BeautifulSoup(html_string)
-table = soup.find("tr", {"bgcolor": "#f4f4ff"}).findParent("table")
+try:
+    table = soup.find("tr", {"bgcolor": "#f4f4ff"}).findParent("table")
+except AttributeError:
+    print JSONEncoder().encode({'results': []})
+    import sys; sys.exit()
 
 def removeextraspaces(string):
     while '  ' in string:
@@ -49,5 +55,4 @@ data = {
     'results': newlist,
     }
 
-print "Content-Type: text/plain\r\n"
 print JSONEncoder().encode(data)

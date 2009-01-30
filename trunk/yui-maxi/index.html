@@ -33,6 +33,8 @@
     <!-- LL Urban Achiever JavaScript -->
     <script src="scripts/awsSearch.js"></script> 	 
     <script src="scripts/technoratiSearch.js"></script> 
+    <script src="scripts/boxofficeSearch.js"></script> 
+    <script src="scripts/boxofficeDisplay.js"></script> 
     <script src="scripts/display.js"></script> 	 
     <script type="text/javascript">
   	//Global variables for each of three movies we may be dealing with
@@ -45,6 +47,12 @@
 	 	searchMovie.title = document.getElementById(termField).value;
      	requestAwsData(searchMovie);
      	requestTechnoratiData(searchMovie,"chart");
+        get_trynt_data(searchMovie, function() {
+            display_image(searchMovie, "posterImage");
+            get_box_office_data(searchMovie, function() {
+                //create_box_office_chart(searchMovie, "boxoffice_chart");
+            });
+        });
 	   	//setTimeout("showBlogChart(searchMovie, \"dragDropArea1\")",6000);
 		//setTimeout("showBasicInfo(searchMovie, \"dragDropArea2\")",6000);
 	  }
