@@ -31,7 +31,22 @@
     <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/datatable/datatable-min.js"></script> 
     
     <!-- LL Urban Achiever JavaScript -->
+    <script src="scripts/awsSearch.js"></script> 	 
+    <script src="scripts/technoratiSearch.js"></script> 
+    <script src="scripts/display.js"></script> 	 
     <script type="text/javascript">
+  	//Global variables for each of three movies we may be dealing with
+  	var searchMovie = {};
+  	var leftMovie = {};
+  	var rightMovie = {};
+  	
+  	function runSearch(termField) {
+	 	searchMovie.title = document.getElementById(termField).value;
+     	requestAwsData(searchMovie);
+     	requestTechnoratiData(searchMovie,"chart");
+	   	//setTimeout("showBlogChart(searchMovie, \"chart\")",6000);
+		//setTimeout("showBasicInfo(searchMovie, \"info\")",6000);
+	  }
     </script>
     <!-- END JS -->
 
@@ -46,7 +61,7 @@
     
     <div id="searchArea"> 
         <div id="searchBox">
-            <form action="#">
+            <form action="#" onsubmit="runSearch('movie'); return false;">
             <div id="searchAutoComplete">
                 Search for a movie:&nbsp;
                 <input id="movie" type="text"/>&nbsp;
