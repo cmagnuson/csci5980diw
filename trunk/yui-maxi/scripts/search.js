@@ -23,7 +23,7 @@ var autoComplete = function()
 
     // Instantiate movieTitleAutoComplete
     var movieTitleAutoComplete = 
-        new YAHOO.widget.AutoComplete("movie", "searchContainer", 
+        new YAHOO.widget.AutoComplete("searchMovieTitle", "searchContainer", 
                                       movieLensDataSource);
     movieTitleAutoComplete.resultTypeList = false;
     movieTitleAutoComplete.generateRequest = function(title)

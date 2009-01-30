@@ -1,3 +1,6 @@
+@charset "utf-8";
+/* CSS Document */
+
 body
 {
     margin: 0;
@@ -8,7 +11,7 @@ body
 
 #mainContent
 {
-
+    overflow: hidden;
 }
 
 #headerImage
@@ -16,34 +19,68 @@ body
     width: 800px;
     height: 213px;
     border-bottom: 3px solid black;
-
+    margin: 0;
+    padding: 0;
 }
 
 #searchArea
 {
     width: 800px;
+    height: 230px;
     background: #e8d48f;
+    margin: 0;
+    padding: 0;
 }
 
 #searchBox
 {
-
-
+    margin: 0;
+    padding: 0;
+    width: 500px;
+    padding-top: 90px;
+    text-align: center;
+    float: left;
+    display: block;
 }
 
 #searchAutoComplete 
 { 
-    width: 25em; 
-    padding-bottom: 2em; 
+
 }
 
-#posterImage
+#searchMovieTitle
 {
-    width: 150px;
-    height: 222px;
+    width: 300px;
+    position: static;
+}
+
+#searchButton
+{
+    position: static;
+}
+
+#searchContainer
+{
+    text-align: left;
+}
+
+#posterImageArea
+{
+    float: right;
+    width: 300px;
+    height: 230px;
     margin: 0;
     padding: 0;
+    float: left;
+    display: block;
+}
+
+img#posterImage
+{
     border: 2px solid black;
+    position: relative;
+    top: 2px;
+    left: 20px;
 }
 
 #dragArea
@@ -54,17 +91,41 @@ body
 
 #dragDropArea1
 {
-
+    position: relative;
+    left: 21px;
+    width: 350px;
+    background: #fdfadc;
+    border: 2px solid black;
+    float: left;
+    display: block;
 }
 
 #dragDropArea2
 {
-
+    position: relative;
+    left: 21px;
+    width: 350px;
+    background: #fdfadc;
+    border: 2px solid black;
+    float: left;
+    display: block;
 }
 
 #dragVersus
 {
+    position: relative;
+    left: 21px;
+    width: 50px;
+    float: left;
+    display: block;
 
+}
+
+#copyright
+{
+    width: 800px;
+    background: #e8d48f;
+    text-align: center;
 }
 
 div.show { visibility: visible; }
