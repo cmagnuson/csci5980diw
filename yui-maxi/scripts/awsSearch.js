@@ -9,7 +9,7 @@ function requestAwsData(movie){
           var titles = root.getElementsByTagName('Item');
           
           if(movie.awsData === undefined){
-           movie.awsData = {}
+           movie.awsData = {};
 		  }
 			
           for(var i=0; i<1; i++){
