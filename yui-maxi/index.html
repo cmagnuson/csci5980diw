@@ -39,13 +39,14 @@
   	var searchMovie = {};
   	var leftMovie = {};
   	var rightMovie = {};
+  	YAHOO.widget.Chart.SWFURL = "http://yui.yahooapis.com/2.6.0/build//charts/assets/charts.swf";
   	
   	function runSearch(termField) {
 	 	searchMovie.title = document.getElementById(termField).value;
      	requestAwsData(searchMovie);
      	requestTechnoratiData(searchMovie,"chart");
-	   	//setTimeout("showBlogChart(searchMovie, \"chart\")",6000);
-		//setTimeout("showBasicInfo(searchMovie, \"info\")",6000);
+	   	//setTimeout("showBlogChart(searchMovie, \"dragDropArea1\")",6000);
+		//setTimeout("showBasicInfo(searchMovie, \"dragDropArea2\")",6000);
 	  }
     </script>
     <!-- END JS -->
