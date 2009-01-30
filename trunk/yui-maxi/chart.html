@@ -23,6 +23,8 @@ body {
 <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/datasource/datasource-min.js"></script>
 <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/charts/charts-experimental-min.js"></script>
 <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/connection/connection-min.js"></script>
+<script type="text/javascript" src="./scripts/boxofficeSearch.js"></script>
+<script type="text/javascript" src="./scripts/boxofficeDisplay.js"></script>
 
 <style type="text/css">
 	#chart
@@ -53,90 +55,14 @@ body {
 </div>
 
 
-<span class="chart_title">Box Office</span>
-
-<div style="float:right"><img class="thaimage" /></div>
-<div id="chart">Unable to load Flash content. The YUI Charts Control requires Flash Player 9.0.45 or higher. You can download the latest version of Flash Player from the <a href="http://www.adobe.com/go/getflashplayer">Adobe Flash Player Download Center</a>.</p></div>
+<div style="float:right"><img id="thaimage" /></div>
+<div id="chart">Loading...</div>
 
 <script type="text/javascript">
 
-function get_trynt_data(movie, callback) {
-	var url = './proxies/trynt.cgi?' + movie.title;
-    YAHOO.util.Connect.asyncRequest('GET', url, {success: function(o) {
-        movie.tryntData = YAHOO.lang.JSON.parse(o.responseText).trynt['movie-boxoffice'];
-        movie.tryntData.id = movie.tryntData['matched-id'];
-        movie.tryntData.img = "http://www.boxofficemojo.com/images/" + movie.tryntData.id + "_poster.jpg";
-        if (callback) callback(movie);
-    }})
-}
-
-function display_info(movie) {
-    var title = YAHOO.util.Dom.getElementsByClassName('chart_title', 'span')[0];
-    title.innerHTML = "Box Office success for " + movie.title;
-    var image = YAHOO.util.Dom.getElementsByClassName('thaimage', 'img')[0];
-    image.src = movie.tryntData.img;
-}
-
-function get_box_office_data(movie, callback) {
-	var url = './proxies/boxoffice.cgi?' + movie.tryntData['matched-id'];
-    YAHOO.util.Connect.asyncRequest('GET', url, {success: function(o) {
-        movie.boxOfficeMojoData = YAHOO.lang.JSON.parse(o.responseText);
-        if (callback) callback(movie);
-    }});
-}
-
-function create_box_office_chart(the_div, data) {
-	YAHOO.widget.Chart.SWFURL = "http://yui.yahooapis.com/2.6.0/build//charts/assets/charts.swf";
-
-	var myDataSource = new YAHOO.util.DataSource(data);
-	myDataSource.responseSchema =
-	{
-        resultsList: "results",
-        fields: ["day", "date", "gross", "theaters", "avg", "grosstd", "daynum"],
-	};
-
-	var seriesDef =
-	[
-		{ displayName: "Gross", yField: "gross" },
-	];
-
-	YAHOO.example.formatCurrencyAxisLabel = function( value )
-	{
-		return YAHOO.util.Number.format( value,
-		{
-			prefix: "$",
-			thousandsSeparator: ",",
-			decimalPlaces: 0
-		});
-	}
-
-	YAHOO.example.getDataTipText = function( item, index, series )
-	{
-		var toolTipText = series.displayName + " for " + item['date'];
-		toolTipText += "\n" + YAHOO.example.formatCurrencyAxisLabel( item[series.yField] );
-		return toolTipText;
-	}
-
-	var currencyAxis = new YAHOO.widget.NumericAxis();
-	currencyAxis.minimum = 0;
-	currencyAxis.labelFunction = YAHOO.example.formatCurrencyAxisLabel;
-
-	var mychart = new YAHOO.widget.LineChart(the_div, myDataSource,
-	{
-		series: seriesDef,
-		xField: "daynum",
-		yAxis: currencyAxis,
-		dataTipFunction: YAHOO.example.getDataTipText,
-		//only needed for flash player express install
-		expressInstall: "assets/expressinstall.swf"
-	});
-    return mychart;
-}
-
 var movie = {title: "lady in the"}
 get_trynt_data(movie, function() {
-    display_info(movie);
-    console.log(movie);
+    display_image("thaimage", movie);
     get_box_office_data(movie, function() {
         create_box_office_chart("chart", movie.boxOfficeMojoData);
     });
