@@ -61,7 +61,7 @@ body {
 <script type="text/javascript">
 
 function get_trynt_data(movie, callback) {
-	var url = './trynt.cgi?' + movie.title;
+	var url = './proxies/trynt.cgi?' + movie.title;
     YAHOO.util.Connect.asyncRequest('GET', url, {success: function(o) {
         movie.tryntData = YAHOO.lang.JSON.parse(o.responseText).trynt['movie-boxoffice'];
         movie.tryntData.id = movie.tryntData['matched-id'];
@@ -78,7 +78,7 @@ function display_info(movie) {
 }
 
 function get_box_office_data(movie, callback) {
-	var url = './boxoffice.cgi?' + movie.tryntData['matched-id'];
+	var url = './proxies/boxoffice.cgi?' + movie.tryntData['matched-id'];
     YAHOO.util.Connect.asyncRequest('GET', url, {success: function(o) {
         movie.boxOfficeMojoData = YAHOO.lang.JSON.parse(o.responseText);
         if (callback) callback(movie);
