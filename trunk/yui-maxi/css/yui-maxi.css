@@ -2,6 +2,8 @@ body
 {
     margin: 0;
     padding: 0;
+    background: black;
+    color: black;
 }
 
 #mainContent
@@ -13,12 +15,14 @@ body
 {
     width: 800px;
     height: 213px;
+    border-bottom: 3px solid black;
 
 }
 
 #searchArea
 {
-
+    width: 800px;
+    background: #e8d48f;
 }
 
 #searchBox
@@ -40,6 +44,27 @@ body
     margin: 0;
     padding: 0;
     border: 2px solid black;
+}
+
+#dragArea
+{
+    width: 800px;
+    background: #e8d48f;
+}
+
+#dragDropArea1
+{
+
+}
+
+#dragDropArea2
+{
+
+}
+
+#dragVersus
+{
+
 }
 
 div.show { visibility: visible; }
