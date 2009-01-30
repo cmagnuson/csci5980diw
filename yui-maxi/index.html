@@ -11,24 +11,8 @@
     <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.6.0/build/assets/skins/sam/autocomplete.css"> 
 
     <!-- LL Urban Achiever Styles -->
+    <link rel="stylesheet" type="text/css" href="css/yui-maxi.css"> 
     <style type="text/css">
-        body
-        {
-            margin: 0;
-            padding: 0;
-        }
-
-        #mainContent
-        {
-            padding: 1em 2em;
- 
-        }
-
-        #searchAutoComplete { width: 25em; padding-bottom: 2em; }
-        
-        div.show { visibility: visible; }
-        div.hide { visibility: hidden; }
-
     </style>
     <!-- END STYLES -->
 
@@ -48,7 +32,6 @@
     
     <!-- LL Urban Achiever JavaScript -->
     <script type="text/javascript">
-
     </script>
     <!-- END JS -->
 
@@ -57,58 +40,36 @@
 
 <body class="yui-skin-sam">
 <div id="mainContent">
-    <h1>Achievers @ the Movies</h1>
-    <form action="#">
-    <div id="searchAutoComplete">
-        <input id="movie" type="text"/><input id="search" type="submit" value="Get Movie" />
-        <div id="searchContainer"></div>
+    <div id="headerImage">
+        <img src="images/big_lebowski_header.jpg" width="800" height="213" alt="Achievers @ The Movies" />
     </div>
-    </form>
-    <script type="text/javascript">
-        var autoComplete = function()
-        {
-            // Instantiate movieLensDataSource
-            var movieLensDataSource = new YAHOO.util.ScriptNodeDataSource("http://frost.cs.umn.edu/morten/movielenstitle.php");
-            movieLensDataSource.responseType = YAHOO.util.XHRDataSource.TYPE_JSON;
-            movieLensDataSource.responseSchema = 
-            {
-                resultsList: "ResultSet.Result",
-                fields: [
-                    { key: "Title" },
-                    { key: "imdbId" },
-                    { key: "movieLensId" },
-                    { key: "genre" },
-                    { key: "avgRating" },
-                    { key: "popularity" },
-                    { key: "fullTitle" } 
-                ],
-                metaFields: {
-                    totalRecords: "ResultSet.totalResultsReturned",
-                    firstResultPosition: "ResultSet.firstResultPosition"
-                }
-            };
+    
+    <div id="searchArea"> 
+        <div id="searchBox">
+            <form action="#">
+            <div id="searchAutoComplete">
+                <input id="movie" type="text"/>
+                <input id="search" type="submit" value="Get Movie" />
+                <div id="searchContainer"></div>
+            </div>
+            </form>
+            <script type="text/javascript" src="scripts/search.js"></script>
+        </div>
+        <div id="posterImage">
+            <img src="images/no_result.jpg" width="150" height="222" alt="No result available" />
+        </div>
+    </div>
 
-            // Instantiate movieTitleAutoComplete
-            var movieTitleAutoComplete = new YAHOO.widget.AutoComplete("movie", "searchContainer", movieLensDataSource);
-            movieTitleAutoComplete.resultTypeList = false;
-            movieTitleAutoComplete.generateRequest = function(title)
-            {
-                // Remove "a " from the beginning of a search
-                if( (title.length > 4) && (title.substring(0,4).toLowerCase() == "a%20") )
-                    title = title.substring(4);
-                // Remove "the " from the beginning of a search
-                else if( (title.length > 6) && (title.substring(0,6).toLowerCase() == "the%20") )
-                    title = title.substring(6);
-                
-                return "?format=json&title=" + title;
-            };
+    <div id="dragArea">
+        <div id="dragDropArea1">
+        </div>
 
-            return {
-                "oDS": movieLensDataSource,
-                "oAC": movieTitleAutoComplete
-            };
-        }();    
-    </script>
+        <div id="dragVersus">
+        </div>
+
+        <div id="dragDropArea2">
+        </div>
+    </div>
 </div>
 </body>
 </html>
