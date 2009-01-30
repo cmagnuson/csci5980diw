@@ -62,30 +62,36 @@
     
     <div id="searchArea"> 
         <div id="searchBox">
-            <form action="#" onsubmit="runSearch('movie'); return false;">
+            <form action="#" onsubmit="runSearch('searchMovieTitle'); return false;">
             <div id="searchAutoComplete">
-                Search for a movie:&nbsp;
-                <input id="movie" type="text"/>&nbsp;
-                <input id="search" type="submit" value="Get Movie" />
+                Search:
+                <input id="searchMovieTitle" type="text"/><input id="searchButton" type="submit" value="Get Movie" />
                 <div id="searchContainer"></div>
             </div>
             </form>
             <script type="text/javascript" src="scripts/search.js"></script>
         </div>
-        <div id="posterImage">
-            <img src="images/no_result.jpg" width="150" height="222" alt="No result available" />
+        <div id="posterImageArea">
+            <img id="posterImage" src="images/no_result.jpg" width="150" height="222" alt="No result available" />
         </div>
     </div>
 
     <div id="dragArea">
         <div id="dragDropArea1">
+            <img id="drag1" src="images/dragarea.png" alt="Drag and drop poster image here" />
         </div>
 
         <div id="dragVersus">
+            <img id="vs" src="images/vs.png" alt="versus" />
         </div>
 
         <div id="dragDropArea2">
+            <img id="drag2" src="images/dragarea.png" alt="Drag and drop poster image here" />
         </div>
+    </div>
+
+    <div id="copyright">
+        Copyright &copy; 2009 The Little Lebowski Urban Achievers
     </div>
 </div>
 </body>
