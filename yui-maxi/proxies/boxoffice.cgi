@@ -35,6 +35,7 @@ data = table2list(table)
 
 #clean data
 def clean_int(num):
+    if num == "n/a": return None
     return int(num.replace('$','').replace(',','').replace('%',''))
 newlist = []
 for line in data:
