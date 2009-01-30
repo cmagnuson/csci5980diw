@@ -44,6 +44,10 @@ var autoComplete = function()
         return "?format=json&title=" + title;
     };
 
+    movieTitleAutoComplete.itemSelectEvent.subscribe(function (el, args) {
+        runSearch('searchMovieTitle')
+    });
+
     return {
         oDS: movieLensDataSource,
         oAC: movieTitleAutoComplete
