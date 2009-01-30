@@ -1,0 +1,46 @@
+body
+{
+    margin: 0;
+    padding: 0;
+}
+
+#mainContent
+{
+
+}
+
+#headerImage
+{
+    width: 800px;
+    height: 213px;
+
+}
+
+#searchArea
+{
+
+}
+
+#searchBox
+{
+
+
+}
+
+#searchAutoComplete 
+{ 
+    width: 25em; 
+    padding-bottom: 2em; 
+}
+
+#posterImage
+{
+    width: 150px;
+    height: 222px;
+    margin: 0;
+    padding: 0;
+    border: 2px solid black;
+}
+
+div.show { visibility: visible; }
+div.hide { visibility: hidden; }
