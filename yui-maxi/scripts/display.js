@@ -1,3 +1,19 @@
+
+  function displayLeftSide(movie){
+    var html =  " <div id=\"basicInfo1\">"+
+	            "</div>"+
+                "<div id=\"boxOfficeChart1\">"+
+                 "</div>"+
+            "<div id=\"blogMentionsChart1\">"+
+            "</div>"+          
+            "<div id=\"reviewsDataTable1\">"+
+            "</div>";
+    document.getElementById("dragDropArea1").innerHTML = html;
+    showBlogChart(movie, "blogMentionsChart1");
+    showBasicInfo(movie, "basicInfo1");
+    showReviewTable(movie, "reviewsDataTable1");
+  }
+
   function showBlogChart(movie, div) {
       if(movie.technoratiData === undefined){
       }
@@ -36,7 +52,7 @@
   	 html+="<br>";
      html+="Rating: "+movie.awsData.reviewScore;
 	 html+="<br>";
-     html+="# Reviews: "+movie.awsData.totalReviews;
+     html+="Amazon Reviews: "+movie.awsData.totalReviews;
      html+="<br>";
     
      document.getElementById(div).innerHTML = html;
