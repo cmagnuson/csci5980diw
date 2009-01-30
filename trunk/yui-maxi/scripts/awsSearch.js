@@ -17,6 +17,9 @@ function requestAwsData(movie){
               movie.awsData.title = titles[i].getElementsByTagName('Title')[0].firstChild.nodeValue;
 			  movie.awsData.reviewScore = titles[i].getElementsByTagName('AverageRating')[0].firstChild.nodeValue;
 			  movie.awsData.totalReviews = titles[i].getElementsByTagName('TotalReviews')[0].firstChild.nodeValue;
+			  movie.awsData.studio = titles[i].getElementsByTagName('Studio')[0].firstChild.nodeValue;
+			  movie.awsData.releaseDate = titles[i].getElementsByTagName('TheatricalReleaseDate')[0].firstChild.nodeValue;
+
 			  movie.awsData.reviews = new Array();
               movie.awsData.actors = new Array();
               var actors = titles[i].getElementsByTagName('Actor');

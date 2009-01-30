@@ -21,7 +21,7 @@
    if(movie.awsData === undefined){
    }
    else{
-      var html = movie.title+"<br>";
+      var html = "<center><h1>"+movie.title+"</h1></center><br>";
       html+= "Actors: ";
       var actors = movie.awsData.actors;
       for(var i=0; i<actors.length-1; i++) {
@@ -30,6 +30,10 @@
       html += actors[i];
       html+="<br>";
   
+  	 html+="Studio: "+movie.awsData.studio;
+  	 html+="<br>";
+  	 html+="Release Date: "+movie.awsData.releaseDate;
+  	 html+="<br>";
      html+="Rating: "+movie.awsData.reviewScore;
 	 html+="<br>";
      html+="# Reviews: "+movie.awsData.totalReviews;
@@ -57,7 +61,7 @@
 	        }; 
 	 
 	        var myDataTable = new YAHOO.widget.DataTable(div, 
-	                myColumnDefs, myDataSource, {caption:"DataTable Caption"}); 
+	                myColumnDefs, myDataSource, {caption:"Amazon Reviews"}); 
 	                 
 	        return { 
 	            oDS: myDataSource, 
