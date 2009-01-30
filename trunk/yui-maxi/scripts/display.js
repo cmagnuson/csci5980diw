@@ -16,3 +16,26 @@
 	}); 
       }				     
   }
+  
+  function showBasicInfo(movie, div) {
+   if(movie.awsData === undefined){
+   }
+   else{
+      var html = movie.title+"<br>";
+      html+= "Actors: ";
+      var actors = movie.awsData.actors;
+      for(var i=0; i<actors.length-1; i++) {
+          html += actors[i]+", ";
+      }
+      html += actors[i];
+      html+="<br>";
+  
+     html+="Rating: "+movie.awsData.reviewScore;
+	 html+="<br>";
+     html+="# Reviews: "+movie.awsData.totalReviews;
+     html+="<br>";
+    
+     document.getElementById(div).innerHTML = html;
+   
+   }
+ }
