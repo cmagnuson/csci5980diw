@@ -46,7 +46,7 @@
   	function runSearch(termField) {
 	 	searchMovie.title = document.getElementById(termField).value;
      	requestAwsData(searchMovie);
-     	requestTechnoratiData(searchMovie,"chart");
+     	requestTechnoratiData(searchMovie);
         get_trynt_data(searchMovie, function() {
             display_image(searchMovie, "posterImage");
             get_box_office_data(searchMovie, function() {
@@ -55,6 +55,11 @@
         });
 	   	//setTimeout("showBlogChart(searchMovie, \"dragDropArea1\")",6000);
 		//setTimeout("showBasicInfo(searchMovie, \"dragDropArea2\")",6000);
+	  }
+	  
+	  function sendMovieLeft(){
+	    leftMovie = searchMovie;
+	    displayLeftSide(leftMovie);
 	  }
     </script>
     <!-- END JS -->
@@ -79,7 +84,9 @@
             </form>
             <script type="text/javascript" src="scripts/search.js"></script>
             <!-- TEST BUTTONS -->
-            <input id="sendLeft" type="button" value="Send Left" />
+            <form action="#" onsubmit="sendMovieLeft(); return false;">
+            <input id="sendLeft" type="submit" value="Send Left" />
+            </form>
             <input id="sendRight" type="button" value="Send Right" />
             <!-- -->
         </div>
