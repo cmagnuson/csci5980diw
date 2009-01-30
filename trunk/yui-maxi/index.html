@@ -93,9 +93,13 @@
             movieTitleAutoComplete.resultTypeList = false;
             movieTitleAutoComplete.generateRequest = function(title)
             {
+                // Remove "a " from the beginning of a search
+                if( (title.length > 4) && (title.substring(0,4).toLowerCase() == "a%20") )
+                    title = title.substring(4);
                 // Remove "the " from the beginning of a search
-                if( (title.length > 6) && (title.substring(0,6).toLowerCase() == "the%20") )
+                else if( (title.length > 6) && (title.substring(0,6).toLowerCase() == "the%20") )
                     title = title.substring(6);
+                
                 return "?format=json&title=" + title;
             };
 
