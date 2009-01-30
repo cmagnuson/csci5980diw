@@ -39,3 +39,29 @@
    
    }
  }
+ 
+ function showReviewTable(movie, div) { 
+ 		if(movie.awsData === undefined){
+		 }
+	      else{  var myColumnDefs = [ 
+	            {key:"rating", sortable:true, resizeable:true}, 
+	            {key:"date", formatter:YAHOO.widget.DataTable.formatDate, sortable:true, sortOptions:{defaultDir:YAHOO.widget.DataTable.CLASS_DESC},resizeable:true}, 
+	            {key:"votes", formatter:YAHOO.widget.DataTable.formatNumber, sortable:true, resizeable:true}, 
+	            {key:"content", sortable:true, resizeable:true} 
+	        ]; 
+	 
+	        var myDataSource = new YAHOO.util.DataSource(movie.awsData.reviews); 
+	        myDataSource.responseType = YAHOO.util.DataSource.TYPE_JSARRAY; 
+	        myDataSource.responseSchema = { 
+	            fields: ["rating","date","votes","content"] 
+	        }; 
+	 
+	        var myDataTable = new YAHOO.widget.DataTable(div, 
+	                myColumnDefs, myDataSource, {caption:"DataTable Caption"}); 
+	                 
+	        return { 
+	            oDS: myDataSource, 
+	            oDT: myDataTable 
+	        }; 
+	        }
+	    }
