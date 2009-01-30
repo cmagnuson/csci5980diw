@@ -1,17 +1,11 @@
 #!/soft/python-2.5-bin/python
-from simplejson.decoder import JSONDecoder
 from simplejson.encoder import JSONEncoder
 import BeautifulSoup
 import urllib
 import os
 import cgitb; cgitb.enable()
 
-url = 'http://www.trynt.com/movie-boxofficemojo-similar-api/v1/?fo=json&t=' + os.getenv('QUERY_STRING')
-json_string = urllib.urlopen(url).read()
-movie_data = JSONDecoder().decode(json_string)
-movie_id = movie_data[u'trynt'][u'movie-boxoffice'][u'matched-id']
-
-url = 'http://www.boxofficemojo.com/movies/?page=daily&view=chart&id=%s.htm' % movie_id
+url = 'http://www.boxofficemojo.com/movies/?page=daily&view=chart&id=%s.htm' % os.getenv('QUERY_STRING')
 html_string = urllib.urlopen(url).read()
 soup = BeautifulSoup.BeautifulSoup(html_string)
 table = soup.find("tr", {"bgcolor": "#f4f4ff"}).findParent("table")
@@ -53,7 +47,6 @@ for line in data:
 
 data = {
     'results': newlist,
-    'trynt': movie_data[u'trynt'][u'movie-boxoffice'],
     }
 
 print "Content-Type: text/plain\r\n"
