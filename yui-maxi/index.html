@@ -62,6 +62,11 @@
 	    leftMovie = searchMovie;
 	    displayLeftSide(leftMovie);
 	  }
+	  function sendMovieRight(){
+	    rightMovie = searchMovie;
+	    displayRightSide(rightMovie);
+	  }
+	  
     </script>
     <!-- END JS -->
 
@@ -88,7 +93,9 @@
             <form action="#" onsubmit="sendMovieLeft(); return false;">
             <input id="sendLeft" type="submit" value="Send Left" />
             </form>
+            <form action="#" onsubmit="sendMovieLeft(); return false;">
             <input id="sendRight" type="button" value="Send Right" />
+            </form>
             <!-- -->
         </div>
         <div id="posterImageArea">
