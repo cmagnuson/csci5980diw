@@ -14,6 +14,22 @@
     showReviewTable(movie, "reviewsDataTable1");
     create_box_office_chart(movie, "boxOfficeChart1");
   }
+  
+   function displayRightSide(movie){
+    var html =  " <div id=\"basicInfo2\">"+
+	            "</div>"+
+                "<div id=\"boxOfficeChart2\">"+
+                 "</div>"+
+            "<div id=\"blogMentionsChart2\">"+
+            "</div>"+          
+            "<div id=\"reviewsDataTable2\">"+
+            "</div>";
+    document.getElementById("dragDropArea2").innerHTML = html;
+    showBlogChart(movie, "blogMentionsChart2");
+    showBasicInfo(movie, "basicInfo2");
+    showReviewTable(movie, "reviewsDataTable2");
+        create_box_office_chart(movie, "boxOfficeChart2");
+  }
 
   function showBlogChart(movie, div) {
       if(movie.technoratiData === undefined){
