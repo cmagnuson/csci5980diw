@@ -12,6 +12,7 @@
     showBlogChart(movie, "blogMentionsChart1");
     showBasicInfo(movie, "basicInfo1");
     showReviewTable(movie, "reviewsDataTable1");
+    create_box_office_chart(movie, "boxOfficeChart1");
   }
 
   function showBlogChart(movie, div) {
