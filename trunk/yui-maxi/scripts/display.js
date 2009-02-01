@@ -64,12 +64,25 @@
 	}); 
       }				     
   }
+
+  function displayImage(movie, div)
+  {
+    if(movie.awsData === undefined)
+    {
+    }
+    else
+    {
+        var image = YAHOO.util.Dom.get("poster");
+        image.src = movie.awsData.imageURL;
+    }
+  }
   
   function showBasicInfo(movie, div) {
    if(movie.awsData === undefined){
    }
    else{
       var html = "<center><h1>"+movie.fullTitle+"</h1></center><br>";
+      html+= "<img id=\"poster\" src=\"images/no_result.jpg\" alt=\"Image of " + movie.fullTitle + "\" />";
       html+= "<b>Actors:</b> ";
       var actors = movie.awsData.actors;
       for(var i=0; i<actors.length-1; i++) {
@@ -88,7 +101,7 @@
      html+="<br>";
     
      document.getElementById(div).innerHTML = html;
-   
+     displayImage(movie, "poster");
    }
  }
  

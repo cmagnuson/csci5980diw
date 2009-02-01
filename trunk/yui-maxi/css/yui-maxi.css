@@ -94,6 +94,7 @@ img#posterImage
 
 #dragDropArea1
 {
+    padding: 4px;
     position: relative;
     left: 20px;
     width: 426px;
@@ -120,6 +121,7 @@ img#posterImage
 
 #dragDropArea2
 {
+    padding: 4px;
     position: relative;
     left: 20px;
     width: 426px;
