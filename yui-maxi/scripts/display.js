@@ -69,7 +69,7 @@
    if(movie.awsData === undefined){
    }
    else{
-      var html = "<center><h1>"+movie.title+"</h1></center><br>";
+      var html = "<center><h1>"+movie.fullTitle+"</h1></center><br>";
       html+= "<b>Actors:</b> ";
       var actors = movie.awsData.actors;
       for(var i=0; i<actors.length-1; i++) {
