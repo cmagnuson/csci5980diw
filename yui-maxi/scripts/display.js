@@ -16,16 +16,13 @@
   
    function displayRightSide(movie){
     var html =  " <div id=\"basicInfo2\">"+
-	            "</div>"+
-                "<div id=\"boxOfficeChart2\">"+
-                 "</div>"+
-            "<div id=\"blogMentionsChart2\">"+
-            "</div>"+          
+	            "</div>"+      
             "<div id=\"tabbedCharts2\""+
             "</div>"+        
             "<div id=\"reviewsDataTable2\">"+
             "</div>";
     document.getElementById("dragDropArea2").innerHTML = html;
+    createChartTabs("boxOfficeChart2","blogMentionsChart2","tabbedCharts2");
     showBlogChart(movie, "blogMentionsChart2");
     showBasicInfo(movie, "basicInfo2");
     showReviewTable(movie, "reviewsDataTable2");
