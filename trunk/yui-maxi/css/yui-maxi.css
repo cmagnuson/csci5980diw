@@ -110,16 +110,12 @@ img#posterImage
 
 #tabbedCharts1
 {
-    position: relative;
-    top: 10px;
-
+    padding-top: 10px;
 }
 
 #reviewsDataTable1
 {
-    position: relative;
-    top: 10px;
-
+    padding-top: 10px;
 }
 
 #dragDropArea2
