@@ -9,9 +9,9 @@
           var titles = root.getElementsByTagName('item');
 
           for(i=0; i<titles.length; i++){
-	      var date = titles[i].getElementsByTagName('date')[0].firstChild.nodeValue;
+	      var postdate = titles[i].getElementsByTagName('date')[0].firstChild.nodeValue;
 	      var count = titles[i].getElementsByTagName('count')[0].firstChild.nodeValue;
-			resultArray.push({"date":date,"count":parseInt(count)});
+			resultArray.push({"date": postdate, "count": parseInt(count)});
           }
           
           if(movie.technoratiData === undefined){

@@ -65,6 +65,11 @@
 
         // make requests for data from our data sources
      	requestAwsData(searchMovie);
+        
+        //var poster = YAHOO.util.Dom.get("posterImage");
+        //poster.src = imgURL;
+        //poster.alt = "Image for " + searchMovie.title;
+
      	requestTechnoratiData(searchMovie);
         get_trynt_data(searchMovie, function() {
             display_image(searchMovie, "posterImage");
@@ -78,12 +83,25 @@
 	  
 	  function sendMovieLeft(){
 	    leftMovie = searchMovie;
+        resetSearch();
 	    displayLeftSide(leftMovie);
 	  }
 	  function sendMovieRight(){
 	    rightMovie = searchMovie;
+        resetSearch();
 	    displayRightSide(rightMovie);
 	  }
+
+      function resetSearch()
+      {
+          searchMovie = {};
+          var poster = YAHOO.util.Dom.get("posterImage");
+          var searchField = YAHOO.util.Dom.get("searchMovieTitle");
+
+          poster.src = "images/no_result.jpg";
+          poster.alt = "No result available";
+          searchField.value = "";
+      }
 	  
     </script>
     <!-- END JS -->
@@ -117,7 +135,7 @@
             <!-- -->
         </div>
         <div id="posterImageArea">
-            <img id="posterImage" src="images/no_result.jpg" width="150" height="222" alt="No result available" />
+            <img id="posterImage" src="images/no_result.jpg" alt="No result available" />
         </div>
     </div>
 
