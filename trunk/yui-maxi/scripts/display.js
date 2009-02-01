@@ -26,20 +26,20 @@
     showBlogChart(movie, "blogMentionsChart2");
     showBasicInfo(movie, "basicInfo2");
     showReviewTable(movie, "reviewsDataTable2");
-        create_box_office_chart(movie, "boxOfficeChart2");
+    create_box_office_chart(movie, "boxOfficeChart2");
   }
   
   function createChartTabs(boxOfficeDiv, blogDiv, displayDiv){
      var tabView = new YAHOO.widget.TabView(); 
      tabView.addTab( new YAHOO.widget.Tab({ 
 	    label: 'Box Office vs. Time', 
-	    content:  "<div id=\"boxOfficeChart1\"></div>", 
+	    content:  "<div id=\""+boxOfficeDiv+"\"></div>", 
 	    active: true 
 	})); 
 	 
 	tabView.addTab( new YAHOO.widget.Tab({ 
 	    label: 'Blog Posts vs. Time', 
-	    content: "<div id=\"blogMentionsChart1\"></div>" 
+	    content: "<div id=\""+blogDiv+"\"></div>" 
 	 
 	})); 	 
 	
