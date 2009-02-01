@@ -70,7 +70,7 @@
    }
    else{
       var html = "<center><h1>"+movie.title+"</h1></center><br>";
-      html+= "Actors: ";
+      html+= "<b>Actors:</b> ";
       var actors = movie.awsData.actors;
       for(var i=0; i<actors.length-1; i++) {
           html += actors[i]+", ";
@@ -78,13 +78,13 @@
       html += actors[i];
       html+="<br>";
   
-  	 html+="Studio: "+movie.awsData.studio;
+  	 html+="<b>Studio:</b> "+movie.awsData.studio;
   	 html+="<br>";
-  	 html+="Release Date: "+movie.awsData.releaseDate;
+  	 html+="<b>Release Date:</b> "+movie.awsData.releaseDate;
   	 html+="<br>";
-     html+="Rating: "+movie.awsData.reviewScore;
+     html+="<b>Rating:</b> "+movie.awsData.reviewScore;
 	 html+="<br>";
-     html+="Amazon Reviews: "+movie.awsData.totalReviews;
+     html+="<b>Amazon Reviews:</b> "+movie.awsData.totalReviews;
      html+="<br>";
     
      document.getElementById(div).innerHTML = html;
