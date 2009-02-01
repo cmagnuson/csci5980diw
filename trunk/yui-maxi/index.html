@@ -47,7 +47,23 @@
   	YAHOO.widget.Chart.SWFURL = "http://yui.yahooapis.com/2.6.0/build//charts/assets/charts.swf";
   	
   	function runSearch(termField) {
-	 	searchMovie.title = document.getElementById(termField).value;
+	 	searchMovie.fullTitle = document.getElementById(termField).value;
+        var tempTitle = searchMovie.fullTitle;
+
+        // truncate title to exclude string after "(", ",", or ":"
+        var index = tempTitle.search(/\u0028/);
+        if( index > -1 )
+            tempTitle = tempTitle.substring(0, index);
+        index = tempTitle.search(",");
+        if( index > -1 )
+            tempTitle = tempTitle.substring(0, index);
+        index = tempTitle.search(":");
+        if( index > -1 )
+            tempTitle = tempTitle.substring(0, index);
+
+        searchMovie.title = tempTitle;
+
+        // make requests for data from our data sources
      	requestAwsData(searchMovie);
      	requestTechnoratiData(searchMovie);
         get_trynt_data(searchMovie, function() {
