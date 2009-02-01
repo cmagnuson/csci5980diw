@@ -2,13 +2,12 @@
   function displayLeftSide(movie){
     var html =  " <div id=\"basicInfo1\">"+
 	            "</div>"+
-                "<div id=\"boxOfficeChart1\">"+
-                 "</div>"+
-            "<div id=\"blogMentionsChart1\">"+
+            "<div id=\"tabbedCharts1\">"+
             "</div>"+          
             "<div id=\"reviewsDataTable1\">"+
             "</div>";
     document.getElementById("dragDropArea1").innerHTML = html;
+    createChartTabs("boxOfficeChart1","blogMentionsChart1","tabbedCharts1");
     showBlogChart(movie, "blogMentionsChart1");
     showBasicInfo(movie, "basicInfo1");
     showReviewTable(movie, "reviewsDataTable1");
@@ -22,6 +21,8 @@
                  "</div>"+
             "<div id=\"blogMentionsChart2\">"+
             "</div>"+          
+            "<div id=\"tabbedCharts2\""+
+            "</div>"+        
             "<div id=\"reviewsDataTable2\">"+
             "</div>";
     document.getElementById("dragDropArea2").innerHTML = html;
@@ -29,6 +30,23 @@
     showBasicInfo(movie, "basicInfo2");
     showReviewTable(movie, "reviewsDataTable2");
         create_box_office_chart(movie, "boxOfficeChart2");
+  }
+  
+  function createChartTabs(boxOfficeDiv, blogDiv, displayDiv){
+     var tabView = new YAHOO.widget.TabView(); 
+     tabView.addTab( new YAHOO.widget.Tab({ 
+	    label: 'Box Office vs. Time', 
+	    content:  "<div id=\"boxOfficeChart1\"></div>", 
+	    active: true 
+	})); 
+	 
+	tabView.addTab( new YAHOO.widget.Tab({ 
+	    label: 'Blog Posts vs. Time', 
+	    content: "<div id=\"blogMentionsChart1\"></div>" 
+	 
+	})); 	 
+	
+	tabView.appendTo(displayDiv);
   }
 
   function showBlogChart(movie, div) {
