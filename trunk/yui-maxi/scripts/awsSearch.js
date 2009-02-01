@@ -22,6 +22,7 @@ function requestAwsData(movie){
 			  movie.awsData.totalReviews = titles[i].getElementsByTagName('TotalReviews')[0].firstChild.nodeValue;
 			  movie.awsData.studio = titles[i].getElementsByTagName('Studio')[0].firstChild.nodeValue;
 			  movie.awsData.releaseDate = titles[i].getElementsByTagName('TheatricalReleaseDate')[0].firstChild.nodeValue;
+              movie.awsData.imageURL = titles[i].getElementsByTagName('MediumImage')[0].getElementsByTagName('URL')[0].firstChild.nodeValue;
 
 			  movie.awsData.reviews = new Array();
               movie.awsData.actors = new Array();
@@ -36,7 +37,7 @@ function requestAwsData(movie){
                  var date = reviews[j].getElementsByTagName('Date')[0].firstChild.nodeValue;
                  var rating = parseFloat(reviews[j].getElementsByTagName('Rating')[0].firstChild.nodeValue);
                  var votes = parseFloat(reviews[j].getElementsByTagName('TotalVotes')[0].firstChild.nodeValue);
-                 movie.awsData.reviews.push({"content":content, "date":date, "rating":rating, "votes":votes});
+                 movie.awsData.reviews.push({"Content":content, "Rating":rating});
               }
 
           }

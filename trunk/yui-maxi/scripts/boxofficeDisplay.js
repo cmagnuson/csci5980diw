@@ -1,6 +1,7 @@
 function display_image(movie, div) {
     var image = YAHOO.util.Dom.get(div);
-    image.src = movie.tryntData.img;
+    image.src = movie.tryntData.img; //movie.awsData.imageURL; 
+    image.alt = "Image for " + movie.fullTitle;
 }
 
 function create_box_office_chart(movie, div) {
