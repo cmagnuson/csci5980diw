@@ -49,6 +49,7 @@
   	YAHOO.widget.Chart.SWFURL = "http://yui.yahooapis.com/2.6.0/build//charts/assets/charts.swf";
   	
   	function runSearch(termField) {
+  	    searchMovie = {};
 	 	searchMovie.fullTitle = document.getElementById(termField).value;
         var tempTitle = searchMovie.fullTitle;
 
@@ -76,14 +77,22 @@
 	  }
 	  
 	  function sendMovieLeft(){
-	    leftMovie = searchMovie;
-        resetSearch();
-	    displayLeftSide(leftMovie);
+	    if(searchMovie.awsData === undefined){
+	    }
+	    else{
+	   	 	leftMovie = searchMovie;
+        	resetSearch();
+	   	 	displayLeftSide(leftMovie);
+	    }
 	  }
 	  function sendMovieRight(){
-	    rightMovie = searchMovie;
-        resetSearch();
-	    displayRightSide(rightMovie);
+	    if(searchMovie.awsData === undefined){
+	    }
+	    else{
+	    	rightMovie = searchMovie;
+        	resetSearch();
+	    	displayRightSide(rightMovie);
+	    }
 	  }
 
       function resetSearch()
