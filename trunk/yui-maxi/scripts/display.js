@@ -121,6 +121,12 @@
       html+="<b>MovieLens Popularity:</b> "+movie.movieLensData.popularity;
       html+="<br>";
      }
+     if(movie.boxOfficeMojoData.totalIncome===undefined){
+     }
+     else{
+      html+="<b>Total Gross:</b> $"+movie.boxOfficeMojoData.totalIncome;
+      html+="<br>";
+     }
     
      document.getElementById(div).innerHTML = html;
    }
