@@ -85,15 +85,6 @@ img#posterImage
     left: 10px;
 }
 
-#sendButtons
-{
-    padding: 0;
-    padding-top: 60px;
-    padding-left: 15px;
-    float: left;
-    display: block;
-}
-
 #dragArea
 {
     width: 100%;
