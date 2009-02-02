@@ -35,9 +35,9 @@
 	  }
 	  
 	  function sendMovieLeft(){
-	    if(searchMovie.awsData === undefined){
+	    if(searchMovie.awsData === undefined || searchMovie.awsData.error){
 	    }
-	    if(searchMovie.boxOfficeMojoData === undefined){
+	    else if(searchMovie.boxOfficeMojoData === undefined){
 	    }
 	    else{
 	   	 	leftMovie = searchMovie;
@@ -46,9 +46,9 @@
 	    }
 	  }
 	  function sendMovieRight(){
-	    if(searchMovie.awsData === undefined){
+	    if(searchMovie.awsData === undefined || searchMovie.awsData.error){
 	    }
-	    if(searchMovie.boxOfficeMojoData === undefined){
+	    else if(searchMovie.boxOfficeMojoData === undefined){
 	    }
 	    else{
 	    	rightMovie = searchMovie;

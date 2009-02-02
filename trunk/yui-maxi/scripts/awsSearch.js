@@ -14,7 +14,7 @@ function requestAwsData(movie){
 			
           for(var i=0; i<1; i++){
               if(titles[i]===undefined){
-                return;
+                  movie.awsData.error = true;
               }
               movie.awsData.url = titles[i].getElementsByTagName('DetailPageURL')[0].firstChild.nodeValue;
               movie.awsData.title = titles[i].getElementsByTagName('Title')[0].firstChild.nodeValue;
