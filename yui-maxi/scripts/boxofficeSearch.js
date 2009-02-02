@@ -11,7 +11,11 @@ function get_trynt_data(movie, callback) {
 function get_box_office_data(movie, callback) {
 	var url = './proxies/boxoffice.cgi?' + movie.tryntData['matched-id'];
     YAHOO.util.Connect.asyncRequest('GET', url, {success: function(o) {
-        movie.boxOfficeMojoData = YAHOO.lang.JSON.parse(o.responseText);
+        data = YAHOO.lang.JSON.parse(o.responseText);
+        if (data.results.length > 0) {
+            data.totalIncome = data.results[data.results.length-1].grosstd;
+        }
+        movie.boxOfficeMojoData = data;
         if (callback) callback(movie);
     }});
 }
