@@ -1,4 +1,10 @@
 
+  function displaySide(movie, element) {
+    if (element.id == "dragDropArea1") return displayLeftSide(movie);
+    if (element.id == "dragDropArea2") return displayRightSide(movie);
+    alert("Invalid Side: " + element.id);
+  }
+
   function displayLeftSide(movie){
     var html =  " <div id=\"basicInfo1\">"+
 	            "</div>"+
@@ -100,6 +106,8 @@
         var image = YAHOO.util.Dom.get(div);
         image.src = movie.awsData.imageURL;
         image.alt = "Image of " + movie.awsData.title;
+        // Attach the movie object to the image for future reference.
+        image.movie = movie;
     }
   }
   
