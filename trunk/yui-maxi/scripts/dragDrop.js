@@ -1,9 +1,7 @@
-var leftArea = null;
-var rightArea = null;
 
 YAHOO.util.Event.onDOMReady(function() {
-    leftArea = YAHOO.util.Dom.get("dragDropArea1");
-    rightArea = YAHOO.util.Dom.get("dragDropArea2");
+    var leftArea = YAHOO.util.Dom.get("dragDropArea1");
+    var rightArea = YAHOO.util.Dom.get("dragDropArea2");
 
     var dd = new YAHOO.util.DD("posterImage");
     dd.startDrag = function() {
