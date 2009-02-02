@@ -9,7 +9,8 @@
     document.getElementById("dragDropArea1").innerHTML = html;
     createChartTabs("boxOfficeChart1","blogMentionsChart1","tabbedCharts1");
     showBlogChart(movie, "blogMentionsChart1");
-    showBasicInfo(movie, "basicInfo1");
+    showBasicInfo(movie, "basicInfo1", 1);
+    displayImage(movie, "poster1");
     showReviewTable(movie, "reviewsDataTable1");
     create_box_office_chart(movie, "boxOfficeChart1");
   }
@@ -24,7 +25,8 @@
     document.getElementById("dragDropArea2").innerHTML = html;
     createChartTabs("boxOfficeChart2","blogMentionsChart2","tabbedCharts2");
     showBlogChart(movie, "blogMentionsChart2");
-    showBasicInfo(movie, "basicInfo2");
+    showBasicInfo(movie, "basicInfo2", 2);
+    displayImage(movie, "poster2");
     showReviewTable(movie, "reviewsDataTable2");
     create_box_office_chart(movie, "boxOfficeChart2");
   }
@@ -72,17 +74,17 @@
     }
     else
     {
-        var image = YAHOO.util.Dom.get("poster");
+        var image = YAHOO.util.Dom.get(div);
         image.src = movie.awsData.imageURL;
     }
   }
   
-  function showBasicInfo(movie, div) {
+  function showBasicInfo(movie, div, leftOrRight) {
    if(movie.awsData === undefined){
    }
    else{
-      var html = "<img id=\"poster\" src=\"images/no_result.jpg\" alt=\"Image of " + movie.fullTitle + "\" />";
-      html += "<h1 style=\"text-align: center\">"+movie.fullTitle+"</h1>";
+      var html = "<img id=\"poster" + leftOrRight + "\" src=\"images/no_result.jpg\" alt=\"Image of " + movie.fullTitle + "\" />";
+      html += "<h1 style=\"text-align: center\">"+movie.awsData.title+"</h1>";
       html += "<b>Actors:</b> ";
       var actors = movie.awsData.actors;
       for(var i=0; i<actors.length-1; i++) {
@@ -101,7 +103,6 @@
      html+="<br>";
     
      document.getElementById(div).innerHTML = html;
-     displayImage(movie, "poster");
    }
  }
  
