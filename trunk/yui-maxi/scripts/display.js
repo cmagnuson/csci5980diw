@@ -80,7 +80,6 @@
   {
     if(movie.awsData === undefined)
     {
-        alert("HELLO!");
     }
     else
     {

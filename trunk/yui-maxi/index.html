@@ -13,8 +13,6 @@
 
     <!-- LL Urban Achiever Styles -->
     <link rel="stylesheet" type="text/css" href="css/yui-maxi.css"> 
-    <style type="text/css">
-    </style>
     <!-- END STYLES -->
 
     <!-- JAVASCRIPT -->
@@ -42,7 +40,7 @@
     <script src="scripts/display.js"></script> 	 
     <script src="scripts/dragDrop.js"></script> 	 
     <script src="scripts/main.js"></script> 	 
-
+    <!-- END SCRIPTS -->
 
     <title>Achievers @ the Movies</title>
 </head>
@@ -63,19 +61,20 @@
             </div>
             </form>
             <script type="text/javascript" src="scripts/search.js"></script>
-            <!-- TEST BUTTONS -->
-            <input id="sendLeft" type="submit" value="Send Left" onclick="sendMovieLeft()" />
-            <input id="sendRight" type="submit" value="Send Right" onclick="sendMovieRight()" />
-            <!-- -->
         </div>
         <div id="posterImageArea">
             <img id="posterImage" src="images/noResult.jpg" alt="No result available" />
+        </div>
+        <div id="sendButtons">
+            <input id="sendLeft" type="submit" value="Send Left" onclick="sendMovieLeft()" />
+            <br />
+            <input id="sendRight" type="submit" value="Send Right" onclick="sendMovieRight()" />
         </div>
     </div>
 
     <div id="dragArea">
         <div id="dragDropArea1">
-            <img id="drag1" src="images/dragArea.png" alt="Drag and drop poster image here" />
+            <img id="drag1" src="images/leftDisplay.png" alt="Left side display area" />
         </div>
 
         <div id="dragVersus">
@@ -83,7 +82,7 @@
         </div>
 
         <div id="dragDropArea2">
-            <img id="drag2" src="images/dragArea.png" alt="drag and drop poster image here" />
+            <img id="drag2" src="images/rightDisplay.png" alt="Right side display area" />
         </div>
     </div>
 
