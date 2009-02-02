@@ -1,29 +1,30 @@
-
 YAHOO.util.Event.onDOMReady(function() {
+    make_draggable("posterImage");
+});
+
+function make_draggable(element) {
     var leftArea = YAHOO.util.Dom.get("dragDropArea1");
     var rightArea = YAHOO.util.Dom.get("dragDropArea2");
 
-    var dd = new YAHOO.util.DD("posterImage");
+    var dd = new YAHOO.util.DD(element);
     dd.startDrag = function() {
-        this.origZ = this.getEl().style.zIndex;
         this.getEl().style.zIndex = 999;
-        dragging = this;
-    };
-    dd.endDrag = function() {
-        this.getEl().style.zIndex = this.origZ;
-        dragging = null;
-    };
+    }
     dd.onDrag = function(e) {
         check_drag(this, e, leftArea);
         check_drag(this, e, rightArea);
-    };
-});
+    }
+    dd.endDrag = function() {
+        check_drop(this, leftArea);
+        check_drop(this, rightArea);
+    }
+}
 
 function check_drag(dd, e, area) {
     if (is_over(e, area)) {
         if (area.oldHTML) return;
         area.oldHTML = area.innerHTML;
-        var img = dragging.getEl();
+        var img = dd.getEl();
         if (!img.movie) return;
         displaySide(img.movie, area);
     } else {
@@ -31,6 +32,19 @@ function check_drag(dd, e, area) {
         area.innerHTML = area.oldHTML;
         area.oldHTML = null;
     }
+}
+
+function check_drop(dd, area) {
+    if (!area.oldHTML) return;
+    var img = dd.getEl();
+    if (!img.movie) return;
+    area.oldHTML = null;
+    newhtml = '<img id="posterImage" src="images/noResult.jpg" alt="No result available" />';
+    parentNode = img.parentNode;
+    parentNode.innerHTML = newhtml;
+    img = parentNode.firstChild;
+    make_draggable(img);
+    return true;
 }
 
 function is_over(e, el) {
