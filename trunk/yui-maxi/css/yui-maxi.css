@@ -59,12 +59,13 @@ body
 
 #searchButton
 {
-    position: static;
+    /*position: static;*/
 }
 
 #searchContainer
 {
     text-align: left;
+    width: 350px;
 }
 
 #posterImageArea
@@ -104,18 +105,28 @@ img#posterImage
     display: block;
 }
 
+img#poster
+{
+    float:left;
+    padding-right: 4px;
+    padding-bottom: 4px;
+}
+
 #basicInfo1
 {
-
+    display: block;
+    min-height: 170px;
 }
 
 #tabbedCharts1
 {
+    display: block;
     padding-top: 10px;
 }
 
 #reviewsDataTable1
 {
+    display: block;
     padding-top: 10px;
 }
 
