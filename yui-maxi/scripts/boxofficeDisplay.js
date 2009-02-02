@@ -15,12 +15,12 @@ function create_box_office_chart(movie, div) {
 	myDataSource.responseSchema =
 	{
         resultsList: "results",
-        fields: ["day", "date", "gross", "theaters", "avg", "grosstd", "daynum"],
+        fields: ["day", "date", "gross", "theaters", "avg", "grosstd", "daynum"]
 	};
 
 	var seriesDef =
 	[
-		{ displayName: "Gross", yField: "gross" },
+		{ displayName: "Gross", yField: "gross" }
 	];
 
 	YAHOO.example.formatCurrencyAxisLabel = function( value )
