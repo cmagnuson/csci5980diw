@@ -7,7 +7,7 @@
             "<div id=\"reviewsDataTable1\">"+
             "</div>";
     document.getElementById("dragDropArea1").innerHTML = html;
-    createChartTabs("boxOfficeChart1","blogMentionsChart1","tabbedCharts1");
+    createChartTabs("boxOfficeChart1","blogMentionsChart1","tabbedCharts1", movie);
     showBlogChart(movie, "blogMentionsChart1");
     showBasicInfo(movie, "basicInfo1", 1);
     displayImage(movie, "poster1");
@@ -23,7 +23,7 @@
             "<div id=\"reviewsDataTable2\">"+
             "</div>";
     document.getElementById("dragDropArea2").innerHTML = html;
-    createChartTabs("boxOfficeChart2","blogMentionsChart2","tabbedCharts2");
+    createChartTabs("boxOfficeChart2","blogMentionsChart2","tabbedCharts2", movie);
     showBlogChart(movie, "blogMentionsChart2");
     showBasicInfo(movie, "basicInfo2", 2);
     displayImage(movie, "poster2");
@@ -31,19 +31,28 @@
     create_box_office_chart(movie, "boxOfficeChart2");
   }
   
-  function createChartTabs(boxOfficeDiv, blogDiv, displayDiv){
+  function createChartTabs(boxOfficeDiv, blogDiv, displayDiv, movie){
      var tabView = new YAHOO.widget.TabView(); 
-     tabView.addTab( new YAHOO.widget.Tab({ 
-	    label: 'Box Office vs. Time', 
-	    content:  "<div id=\""+boxOfficeDiv+"\"></div>", 
-	    active: true 
-	})); 
-	 
-	tabView.addTab( new YAHOO.widget.Tab({ 
-	    label: 'Blog Posts vs. Time', 
-	    content: "<div id=\""+blogDiv+"\"></div>" 
-	 
-	})); 	 
+     
+     if(movie.boxOfficeMojoData.totalIncome === undefined){
+     	 tabView.addTab( new YAHOO.widget.Tab({ 
+	    	label: 'Blog Posts vs. Time', 
+	    	content: "<div id=\""+blogDiv+"\"></div>", 
+	    	active: true
+		})); 	
+     }
+     else{
+   	  tabView.addTab( new YAHOO.widget.Tab({ 
+		    label: 'Box Office vs. Time', 
+		    content:  "<div id=\""+boxOfficeDiv+"\"></div>", 
+		    active: true 
+		})); 
+		
+	  tabView.addTab( new YAHOO.widget.Tab({ 
+	       label: 'Blog Posts vs. Time', 
+	       content: "<div id=\""+blogDiv+"\"></div>", 
+	   })); 	
+	} 	
 	
 	tabView.appendTo(displayDiv);
   }

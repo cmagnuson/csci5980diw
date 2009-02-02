@@ -5,6 +5,10 @@ function display_image(movie, div) {
 }
 
 function create_box_office_chart(movie, div) {
+	if(document.getElementById(div)===null){
+	 return;
+	}
+
 	YAHOO.widget.Chart.SWFURL = "http://yui.yahooapis.com/2.6.0/build//charts/assets/charts.swf";
 
 	var myDataSource = new YAHOO.util.DataSource(movie.boxOfficeMojoData);
