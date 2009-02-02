@@ -30,7 +30,7 @@
       var apiKey = '1c448f36f2564d9a126ae581078b818e';
       // The URL for the asynchronous request, make sure this points to
       // your own web proxy!
-      var sUrl = 'TechnoratiProxy.cgi?http://api.technorati.com/dailycounts?key=' +
+      var sUrl = './proxies/TechnoratiProxy.cgi?http://api.technorati.com/dailycounts?key=' +
                   apiKey + '&q=' + escape(title);
 
 
