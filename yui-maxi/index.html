@@ -31,10 +31,12 @@
     <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/dragdrop/dragdrop-min.js"></script> 
     <script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/datatable/datatable-min.js"></script> 
 	<script type="text/javascript" src="http://yui.yahooapis.com/2.6.0/build/tabview/tabview-debug.js"></script> 
+	<script type="text/javascript" src="http://yui.yahooapis.com/2.5.1/build/json/json-min.js"></script> 
 	 
     <!-- LL Urban Achiever JavaScript -->
     <script src="scripts/awsSearch.js"></script> 	 
     <script src="scripts/technoratiSearch.js"></script> 
+    <script src="scripts/movieLensSearch.js"></script> 
     <script src="scripts/boxofficeSearch.js"></script> 
     <script src="scripts/boxofficeDisplay.js"></script> 
     <script src="scripts/display.js"></script> 	 
@@ -66,14 +68,12 @@
         // make requests for data from our data sources
      	requestAwsData(searchMovie);
      	requestTechnoratiData(searchMovie);
+     	requestMovieLensData(searchMovie);
         get_trynt_data(searchMovie, function() {
             display_image(searchMovie, "posterImage");
             get_box_office_data(searchMovie, function() {
-                //create_box_office_chart(searchMovie, "boxoffice_chart");
             });
         });
-	   	//setTimeout("showBlogChart(searchMovie, \"dragDropArea1\")",6000);
-		//setTimeout("showBasicInfo(searchMovie, \"dragDropArea2\")",6000);
 	  }
 	  
 	  function sendMovieLeft(){
