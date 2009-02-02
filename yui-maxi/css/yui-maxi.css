@@ -40,7 +40,7 @@ body
     margin: 0;
     padding: 0;
     width: 600px;
-    padding-top: 50px;
+    padding-top: 10px;
     text-align: center;
     float: left;
     display: block;
@@ -70,7 +70,6 @@ body
 
 #posterImageArea
 {
-    width: 300px;
     margin: 0;
     padding: 0;
     padding-top: 10px;
@@ -83,7 +82,16 @@ img#posterImage
     border: 2px solid black;
     position: relative;
     top: 2px;
-    left: 20px;
+    left: 10px;
+}
+
+#sendButtons
+{
+    padding: 0;
+    padding-top: 60px;
+    padding-left: 15px;
+    float: left;
+    display: block;
 }
 
 #dragArea
