@@ -23,12 +23,16 @@ function make_draggable(element) {
 function check_drag(dd, e, area) {
     if (is_over(e, area)) {
         if (area.oldHTML) return;
-        area.oldHTML = area.innerHTML;
         var img = dd.getEl();
         if (!img.movie) return;
+        area.oldMovie = area.movie;
+        area.movie = img.movie;
+        area.oldHTML = area.innerHTML;
         displaySide(img.movie, area);
     } else {
         if (!area.oldHTML) return;
+        area.movie = area.oldMovie;
+        areaoldMovie = null;
         area.innerHTML = area.oldHTML;
         area.oldHTML = null;
     }
