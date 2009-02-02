@@ -102,6 +102,12 @@
           poster.alt = "No result available";
           searchField.value = "";
       }
+
+      function setACCoordinates()
+      {
+          var x = YAHOO.util.Dom.getX("searchMovieTitle");
+          YAHOO.util.Dom.setX("searchContainer", x);
+      }
 	  
     </script>
     <!-- END JS -->
@@ -109,7 +115,7 @@
     <title>Achievers @ the Movies</title>
 </head>
 
-<body class="yui-skin-sam">
+<body class="yui-skin-sam" onload="setACCoordinates();">
 <div id="mainContent">
     <div id="headerImage">
         <img src="images/achievers_header.jpg" width="950" height="269" alt="Achievers @ The Movies" />

@@ -81,9 +81,9 @@
    if(movie.awsData === undefined){
    }
    else{
-      var html = "<center><h1>"+movie.fullTitle+"</h1></center><br>";
-      html+= "<img id=\"poster\" src=\"images/no_result.jpg\" alt=\"Image of " + movie.fullTitle + "\" />";
-      html+= "<b>Actors:</b> ";
+      var html = "<img id=\"poster\" src=\"images/no_result.jpg\" alt=\"Image of " + movie.fullTitle + "\" />";
+      html += "<h1 style=\"text-align: center\">"+movie.fullTitle+"</h1>";
+      html += "<b>Actors:</b> ";
       var actors = movie.awsData.actors;
       for(var i=0; i<actors.length-1; i++) {
           html += actors[i]+", ";
