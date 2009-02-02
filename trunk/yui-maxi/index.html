@@ -135,12 +135,8 @@
             </form>
             <script type="text/javascript" src="scripts/search.js"></script>
             <!-- TEST BUTTONS -->
-            <form action="#" onsubmit="sendMovieLeft(); return false;">
-            <input id="sendLeft" type="submit" value="Send Left" />
-            </form>
-            <form action="#" onsubmit="sendMovieRight(); return false;">
-            <input id="sendRight" type="submit" value="Send Right" />
-            </form>
+            <input id="sendLeft" type="submit" value="Send Left" onclick="sendMovieLeft()" />
+            <input id="sendRight" type="submit" value="Send Right" onsubmit="sendMovieRight()" />
             <!-- -->
         </div>
         <div id="posterImageArea">
