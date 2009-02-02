@@ -86,7 +86,15 @@
   {
     if(movie.awsData === undefined)
     {
-    }
+        var image = YAHOO.util.Dom.get(div);
+        image.src = "images/noResult.jpg";
+        image.alt = "No Result";    
+     }
+    if(movie.awsData.imageURL === undefined){
+        var image = YAHOO.util.Dom.get(div);
+        image.src = "images/noResult.jpg";
+        image.alt = "No Result";
+      }
     else
     {
         var image = YAHOO.util.Dom.get(div);
