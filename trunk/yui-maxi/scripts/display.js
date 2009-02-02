@@ -75,6 +75,12 @@
 	}); 
       }				     
   }
+  
+  function displayLoadingImage(div){
+        var image = YAHOO.util.Dom.get(div);
+        image.src = "images/searchingResults.jpg";
+        image.alt = "Searching...";
+  }
 
   function displayImage(movie, div)
   {
