@@ -29,7 +29,7 @@ body
 #searchArea
 {
     width: 100%;
-    height: 250px;
+    height: 190px;
     background: #e8d48f;
     margin: 0;
     padding: 0;
@@ -71,7 +71,6 @@ body
 #posterImageArea
 {
     width: 300px;
-    height: 230px;
     margin: 0;
     padding: 0;
     padding-top: 10px;

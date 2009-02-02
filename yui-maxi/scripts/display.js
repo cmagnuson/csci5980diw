@@ -71,11 +71,13 @@
   {
     if(movie.awsData === undefined)
     {
+        alert("HELLO!");
     }
     else
     {
         var image = YAHOO.util.Dom.get(div);
         image.src = movie.awsData.imageURL;
+        image.alt = "Image of " + movie.awsData.title;
     }
   }
   
@@ -83,7 +85,7 @@
    if(movie.awsData === undefined){
    }
    else{
-      var html = "<img id=\"poster" + leftOrRight + "\" src=\"images/no_result.jpg\" alt=\"Image of " + movie.fullTitle + "\" />";
+      var html = "<img id=\"poster" + leftOrRight + "\" src=\"images/noResult.jpg\" />";
       html += "<h1 style=\"text-align: center\">"+movie.awsData.title+"</h1>";
       html += "<b>Actors:</b> ";
       var actors = movie.awsData.actors;

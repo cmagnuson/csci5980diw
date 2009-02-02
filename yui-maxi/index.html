@@ -70,7 +70,6 @@
      	requestTechnoratiData(searchMovie);
      	requestMovieLensData(searchMovie);
         get_trynt_data(searchMovie, function() {
-            display_image(searchMovie, "posterImage");
             get_box_office_data(searchMovie, function() {
             });
         });
@@ -93,7 +92,7 @@
           var poster = YAHOO.util.Dom.get("posterImage");
           var searchField = YAHOO.util.Dom.get("searchMovieTitle");
 
-          poster.src = "images/no_result.jpg";
+          poster.src = "images/noResult.jpg";
           poster.alt = "No result available";
           searchField.value = "";
       }
@@ -136,7 +135,7 @@
             <!-- -->
         </div>
         <div id="posterImageArea">
-            <img id="posterImage" src="images/no_result.jpg" alt="No result available" />
+            <img id="posterImage" src="images/noResult.jpg" alt="No result available" />
         </div>
     </div>
 

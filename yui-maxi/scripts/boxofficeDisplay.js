@@ -1,6 +1,6 @@
 function display_image(movie, div) {
     var image = YAHOO.util.Dom.get(div);
-    image.src = movie.tryntData.img; //movie.awsData.imageURL; 
+    image.src = movie.tryntData.img;  
     image.alt = "Image for " + movie.fullTitle;
 }
 
