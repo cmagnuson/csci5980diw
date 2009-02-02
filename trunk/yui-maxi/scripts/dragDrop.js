@@ -43,6 +43,7 @@ function check_drop(dd, area) {
     var img = dd.getEl();
     if (!img.movie) return;
     area.oldHTML = null;
+    area.oldMovie = null;
     newhtml = '<img id="posterImage" src="images/noResult.jpg" alt="No result available" />';
     parentNode = img.parentNode;
     parentNode.innerHTML = newhtml;
