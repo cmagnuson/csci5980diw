@@ -40,7 +40,6 @@ function requestAwsData(movie){
                  movie.awsData.reviews.push({"Review":content, "Rating":rating});
               }
           }
-          displayImage(movie, "posterImage");
       }
 
       function failureHandler(o) {

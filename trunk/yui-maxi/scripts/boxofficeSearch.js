@@ -16,6 +16,7 @@ function get_box_office_data(movie, callback) {
             data.totalIncome = data.results[data.results.length-1].grosstd;
         }
         movie.boxOfficeMojoData = data;
+        displayImage(movie, "posterImage");
         if (callback) callback(movie);
     }});
 }
