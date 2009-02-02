@@ -50,7 +50,7 @@
 		
 	  tabView.addTab( new YAHOO.widget.Tab({ 
 	       label: 'Blog Posts vs. Time', 
-	       content: "<div id=\""+blogDiv+"\"></div>", 
+	       content: "<div id=\""+blogDiv+"\"></div>"
 	   })); 	
 	} 	
 	
