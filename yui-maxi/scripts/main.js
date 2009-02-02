@@ -5,6 +5,7 @@
   	YAHOO.widget.Chart.SWFURL = "http://yui.yahooapis.com/2.6.0/build//charts/assets/charts.swf";
   	
   	function runSearch(termField) {
+        displayLoadingImage("posterImage");
   	    var tempMovie = {};
 	 	tempMovie.fullTitle = document.getElementById(termField).value;
         var tempTitle = tempMovie.fullTitle;
