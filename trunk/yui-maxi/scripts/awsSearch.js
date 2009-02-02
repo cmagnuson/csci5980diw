@@ -34,10 +34,10 @@ function requestAwsData(movie){
               }
               for(var j=0; j<reviews.length; j++){
                  var content = reviews[j].getElementsByTagName('Content')[0].firstChild.nodeValue;
-                 var date = reviews[j].getElementsByTagName('Date')[0].firstChild.nodeValue;
+                 //var date = reviews[j].getElementsByTagName('Date')[0].firstChild.nodeValue;
                  var rating = parseFloat(reviews[j].getElementsByTagName('Rating')[0].firstChild.nodeValue);
-                 var votes = parseFloat(reviews[j].getElementsByTagName('TotalVotes')[0].firstChild.nodeValue);
-                 movie.awsData.reviews.push({"Content":content, "Rating":rating});
+                 //var votes = parseFloat(reviews[j].getElementsByTagName('TotalVotes')[0].firstChild.nodeValue);
+                 movie.awsData.reviews.push({"Review":content, "Rating":rating});
               }
 
           }

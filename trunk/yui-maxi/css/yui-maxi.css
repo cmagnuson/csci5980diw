@@ -142,6 +142,23 @@ img#poster
     display: block;
 }
 
+#basicInfo2
+{
+    display: block;
+    min-height: 170px;
+}
+
+#tabbedCharts2
+{
+    display: block;
+    padding-top: 10px;
+}
+
+#reviewsDataTable2
+{
+    display: block;
+    padding-top: 10px;
+}
 #dragVersus
 {
     position: relative;
