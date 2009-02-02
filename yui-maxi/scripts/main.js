@@ -36,6 +36,8 @@
 	  function sendMovieLeft(){
 	    if(searchMovie.awsData === undefined){
 	    }
+	    if(searchMovie.boxOfficeMojoData === undefined){
+	    }
 	    else{
 	   	 	leftMovie = searchMovie;
         	resetSearch();
@@ -44,6 +46,8 @@
 	  }
 	  function sendMovieRight(){
 	    if(searchMovie.awsData === undefined){
+	    }
+	    if(searchMovie.boxOfficeMojoData === undefined){
 	    }
 	    else{
 	    	rightMovie = searchMovie;
