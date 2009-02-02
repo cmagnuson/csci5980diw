@@ -105,7 +105,7 @@ img#posterImage
     display: block;
 }
 
-img#poster
+img#poster1
 {
     float:left;
     padding-right: 4px;
@@ -140,6 +140,13 @@ img#poster
     border: 2px solid black;
     float: left;
     display: block;
+}
+
+img#poster2
+{
+    float:left;
+    padding-right: 4px;
+    padding-bottom: 4px;
 }
 
 #basicInfo2
