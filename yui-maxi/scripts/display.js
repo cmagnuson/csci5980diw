@@ -97,10 +97,19 @@
   	 html+="<br>";
   	 html+="<b>Release Date:</b> "+movie.awsData.releaseDate;
   	 html+="<br>";
-     html+="<b>Rating:</b> "+movie.awsData.reviewScore;
+     html+="<b>Amazon Rating:</b> "+movie.awsData.reviewScore;
 	 html+="<br>";
      html+="<b>Amazon Reviews:</b> "+movie.awsData.totalReviews;
      html+="<br>";
+     
+     if(movie.movieLensData === undefined){
+     }
+     else{
+      html+="<b>MovieLens Rating:</b> "+movie.movieLensData.rating;
+      html+="<br>";
+      html+="<b>MovieLens Popularity:</b> "+movie.movieLensData.popularity;
+      html+="<br>";
+     }
     
      document.getElementById(div).innerHTML = html;
    }
