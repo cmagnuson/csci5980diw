@@ -39,8 +39,8 @@ function requestAwsData(movie){
                  //var votes = parseFloat(reviews[j].getElementsByTagName('TotalVotes')[0].firstChild.nodeValue);
                  movie.awsData.reviews.push({"Review":content, "Rating":rating});
               }
-
           }
+          displayImage(movie, "posterImage");
       }
 
       function failureHandler(o) {
