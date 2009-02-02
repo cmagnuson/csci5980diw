@@ -51,7 +51,7 @@ function requestAwsData(movie){
       var awsID = '1EMG6J1BK77DK46SF3G2';
       // The URL for the asynchronous request, make sure this points to
       // your own web proxy!
-      var sUrl = 'TechnoratiProxy.cgi?http://ecs.amazonaws.com/onca/xml?Service=AWSECommerceService&'+
+      var sUrl = './proxies/TechnoratiProxy.cgi?http://ecs.amazonaws.com/onca/xml?Service=AWSECommerceService&'+
       'AWSAccessKeyId=1EMG6J1BK77DK46SF3G2&Operation=ItemSearch&SearchIndex=DVD'+
        '&ResponseGroup=Large&Count=1&Title=' + escape(title);
 

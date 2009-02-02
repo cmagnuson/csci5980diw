@@ -17,5 +17,5 @@ function requestMovieLensData(movie){
 	};
 	 
 	// Make the call to the server for JSON data 
-	YAHOO.util.Connect.asyncRequest('GET',"MovieLensProxy.cgi?limit=1&format=json&title="+escape(movie.title), callbacks); 
+	YAHOO.util.Connect.asyncRequest('GET',"./proxies/MovieLensProxy.cgi?limit=1&format=json&title="+escape(movie.title), callbacks); 
 }
