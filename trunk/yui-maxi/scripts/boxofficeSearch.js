@@ -1,10 +1,10 @@
-function get_trynt_data(movie, callback) {
+function get_trynt_data(movie, callback, callback2) {
 	var url = './proxies/trynt.cgi?' + movie.title;
     YAHOO.util.Connect.asyncRequest('GET', url, {success: function(o) {
         movie.tryntData = YAHOO.lang.JSON.parse(o.responseText).trynt['movie-boxoffice'];
         movie.tryntData.id = movie.tryntData['matched-id'];
         movie.tryntData.img = "http://www.boxofficemojo.com/images/" + movie.tryntData.id + "_poster.jpg";
-        if (callback) callback(movie);
+        if (callback) callback(movie, callback2);
     }})
 }
 
@@ -16,7 +16,6 @@ function get_box_office_data(movie, callback) {
             data.totalIncome = data.results[data.results.length-1].grosstd;
         }
         movie.boxOfficeMojoData = data;
-        displayImage(movie, "posterImage");
         if (callback) callback(movie);
     }});
 }

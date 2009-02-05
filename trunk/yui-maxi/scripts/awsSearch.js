@@ -1,4 +1,4 @@
-function requestAwsData(movie){
+function requestAwsData(movie, callback){
 
 	  var title = movie.title;
 
@@ -40,9 +40,14 @@ function requestAwsData(movie){
                  movie.awsData.reviews.push({"Review":content, "Rating":rating});
               }
           }
+       displayImage(movie, "posterImage");
+        if (callback) callback(movie);
       }
 
       function failureHandler(o) {
+        movie.awsData = {};
+        movie.awsData.error = true;
+        if (callback) callback(movie);
       }
 
       // A variable for the AWS account on which the requests will be made.

@@ -28,7 +28,7 @@ function check_drag(dd, e, area) {
         area.oldMovie = area.movie;
         area.movie = img.movie;
         area.oldHTML = area.innerHTML;
-        displaySide(img.movie, area);
+        sendMovie(img.movie, area);
     } else {
         if (!area.oldHTML) return;
         area.movie = area.oldMovie;

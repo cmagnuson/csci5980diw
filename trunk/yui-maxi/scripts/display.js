@@ -1,4 +1,20 @@
 
+  function draw(movie){
+   //alert("Draw called on: "+movie.title+" View: "+ ((movie.view===undefined) ? "undef" : movie.view));
+   if(movie.view === undefined){
+     return;
+   }
+   if(movie.view == "poster"){
+	//displayPoster(movie);
+   }
+   else if(movie.view == "left"){
+    displayLeftSide(movie);
+   }
+   else if(movie.view == "right"){
+    displayRightSide(movie);
+   }
+  }
+
   function displaySide(movie, element) {
     if (element.id == "dragDropArea1") return displayLeftSide(movie);
     if (element.id == "dragDropArea2") return displayRightSide(movie);
@@ -40,13 +56,17 @@
   function createChartTabs(boxOfficeDiv, blogDiv, displayDiv, movie){
      var tabView = new YAHOO.widget.TabView(); 
      
-     if(movie.boxOfficeMojoData.totalIncome === undefined){
-     	 tabView.addTab( new YAHOO.widget.Tab({ 
-	    	label: 'Blog Posts vs. Time', 
-	    	content: "<div id=\""+blogDiv+"\"></div>", 
-	    	active: true
-		})); 	
+     if(movie.boxOfficeMojoData === undefined && movie.technoratiData === undefined){
+       return;
      }
+   
+     if(movie.boxOfficeMojoData === undefined || movie.boxOfficeMojoData.totalIncome === undefined){
+    	 	 tabView.addTab( new YAHOO.widget.Tab({ 
+	   	 	 label: 'Blog Posts vs. Time', 
+	    	 content: "<div id=\""+blogDiv+"\"></div>", 
+	    	 active: true
+		 })); 	
+      }
      else{
    	  tabView.addTab( new YAHOO.widget.Tab({ 
 		    label: 'Box Office vs. Time', 
@@ -58,7 +78,7 @@
 	       label: 'Blog Posts vs. Time', 
 	       content: "<div id=\""+blogDiv+"\"></div>"
 	   })); 	
-	} 	
+	   } 	
 	
 	tabView.appendTo(displayDiv);
   }
@@ -88,19 +108,17 @@
         image.alt = "Searching...";
   }
 
-  function displayImage(movie, div)
-  {
-    if(movie.awsData === undefined)
-    {
+  function displayImage(movie, div) {
+    if(movie.awsData === undefined) {
         var image = YAHOO.util.Dom.get(div);
         image.src = "images/noResult.jpg";
         image.alt = "No Result";    
      }
-    if(movie.awsData.imageURL === undefined){
+    else if(movie.awsData.imageURL === undefined){
         var image = YAHOO.util.Dom.get(div);
         image.src = "images/noResult.jpg";
         image.alt = "No Result";
-      }
+    }
     else
     {
         var image = YAHOO.util.Dom.get(div);
@@ -142,7 +160,7 @@
       html+="<b>MovieLens Popularity:</b> "+movie.movieLensData.popularity;
       html+="<br>";
      }
-     if(movie.boxOfficeMojoData.totalIncome===undefined){
+     if(movie.boxOfficeMojoData == undefined || movie.boxOfficeMojoData.totalIncome===undefined){
      }
      else{
       html+="<b>Total Gross:</b> $"+movie.boxOfficeMojoData.totalIncome;
