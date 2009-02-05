@@ -7,6 +7,7 @@
   	function runSearch(termField) {
         displayLoadingImage("posterImage");
   	    var tempMovie = {};
+  	    tempMovie.view = "poster";
 	 	tempMovie.fullTitle = document.getElementById(termField).value;
         var tempTitle = tempMovie.fullTitle;
 
@@ -24,37 +25,32 @@
         tempMovie.title = tempTitle;
 
         // make requests for data from our data sources
-     	requestAwsData(tempMovie);
-     	requestTechnoratiData(tempMovie);
-     	requestMovieLensData(tempMovie);
+     	requestAwsData(tempMovie, draw);
+     	searchMovie = tempMovie;
+     	requestTechnoratiData(tempMovie, draw);
+     	requestMovieLensData(tempMovie, draw);
         get_trynt_data(tempMovie, function() {
-            get_box_office_data(tempMovie, function() {
-            });
+            get_box_office_data(tempMovie, draw);
         });
-        searchMovie = tempMovie;
 	  }
+
+	  function sendMovie(movie, element) {
+   		 if (element.id == "dragDropArea1") return sendMovieLeft();
+   		 if (element.id == "dragDropArea2") return sendMovieRight();
+  	 	 alert("Invalid Side: " + element.id);
+ 	 }
 	  
 	  function sendMovieLeft(){
-	    if(searchMovie.awsData === undefined || searchMovie.awsData.error){
-	    }
-	    else if(searchMovie.boxOfficeMojoData === undefined){
-	    }
-	    else{
-	   	 	leftMovie = searchMovie;
-        	resetSearch();
-	   	 	displayLeftSide(leftMovie);
-	    }
+	    searchMovie.view = "left";
+	   	leftMovie = searchMovie;
+        resetSearch();
+	 	displayLeftSide(leftMovie);
 	  }
 	  function sendMovieRight(){
-	    if(searchMovie.awsData === undefined || searchMovie.awsData.error){
-	    }
-	    else if(searchMovie.boxOfficeMojoData === undefined){
-	    }
-	    else{
-	    	rightMovie = searchMovie;
-        	resetSearch();
-	    	displayRightSide(rightMovie);
-	    }
+	    searchMovie.view = "right";
+	    rightMovie = searchMovie;
+        resetSearch();
+	    displayRightSide(rightMovie);
 	  }
 
       function resetSearch()

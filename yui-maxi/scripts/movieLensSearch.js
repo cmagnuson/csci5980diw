@@ -1,4 +1,4 @@
-function requestMovieLensData(movie){
+function requestMovieLensData(movie, callback){
     var callbacks = { 
 	    // Successful XHR response handler 
 	    success : function (o) { 
@@ -9,10 +9,11 @@ function requestMovieLensData(movie){
 		       movie.movieLensData = {};
 			   movie.movieLensData.rating = movieLensData.avgRating;
 			   movie.movieLensData.popularity = movieLensData.popularity;
+			   if (callback) callback(movie);
 	    }, 
 	 
 	  failure : function (o) {
-	  
+	     if (callback) callback(movie);
 	  }
 	};
 	 

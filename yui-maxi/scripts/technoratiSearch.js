@@ -1,4 +1,4 @@
-  function requestTechnoratiData(movie){
+  function requestTechnoratiData(movie, callback){
   
   	  var title = movie.title;
   	  
@@ -19,10 +19,11 @@
           }
 		
 		  movie.technoratiData.postsByDate = resultArray;
-		
+		  if (callback) callback(movie);
       }
 
       function failureHandler(o) {
+         if (callback) callback(movie);
       }
 
       // A variable for the AWS account on which the requests will be made.
