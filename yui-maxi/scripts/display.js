@@ -163,7 +163,13 @@
      if(movie.boxOfficeMojoData == undefined || movie.boxOfficeMojoData.totalIncome===undefined){
      }
      else{
-      html+="<b>Total Gross:</b> $"+movie.boxOfficeMojoData.totalIncome;
+	  var gross = YAHOO.util.Number.format( movie.boxOfficeMojoData.totalIncome,
+		{
+			prefix: "$",
+			thousandsSeparator: ",",
+			decimalPlaces: 0
+		});
+      html+="<b>Total Gross:</b> " + gross;
       html+="<br>";
      }
     
