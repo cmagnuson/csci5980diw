@@ -44,10 +44,14 @@ function create_box_office_chart(movie, div) {
 	currencyAxis.minimum = 0;
 	currencyAxis.labelFunction = YAHOO.example.formatCurrencyAxisLabel;
 
+	var daysAxis = new YAHOO.widget.NumericAxis();
+	daysAxis.minimum = 1;
+
 	var mychart = new YAHOO.widget.LineChart(div, myDataSource,
 	{
 		series: seriesDef,
 		xField: "daynum",
+        xAxis: daysAxis,
 		yAxis: currencyAxis,
 		dataTipFunction: YAHOO.example.getDataTipText,
 		//only needed for flash player express install
