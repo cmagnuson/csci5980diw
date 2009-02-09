@@ -1,59 +1,31 @@
 YAHOO.util.Event.onDOMReady(function() {
+    new YAHOO.util.DDTarget("dragDropArea1");
+    new YAHOO.util.DDTarget("dragDropArea2");
     make_draggable("posterImage");
 });
 
 function make_draggable(element) {
-    var leftArea = YAHOO.util.Dom.get("dragDropArea1");
-    var rightArea = YAHOO.util.Dom.get("dragDropArea2");
-
+    YAHOO.util.DDM.mode = YAHOO.util.DDM.INTERSECT;
     var dd = new YAHOO.util.DD(element);
-    dd.startDrag = function() {
-        this.getEl().style.zIndex = 999;
-    }
-    dd.onDrag = function(e) {
-        check_drag(this, e, leftArea);
-        check_drag(this, e, rightArea);
+    dd.orgPos = YAHOO.util.Dom.getXY(dd.getEl());
+    dd.getEl().style.zIndex = 999;
+    dd.reset = function() {
+        YAHOO.util.Dom.setXY(this.getEl(), this.orgPos);
     }
     dd.endDrag = function() {
-        check_drop(this, leftArea);
-        check_drop(this, rightArea);
+        this.reset();
     }
-}
-
-function check_drag(dd, e, area) {
-    if (is_over(e, area)) {
-        if (area.oldHTML) return;
-        var img = dd.getEl();
-        if (!img.movie) return;
-        area.oldMovie = area.movie;
-        area.movie = img.movie;
-        area.oldHTML = area.innerHTML;
-        sendMovie(img.movie, area);
-    } else {
-        if (!area.oldHTML) return;
-        area.movie = area.oldMovie;
-        areaoldMovie = null;
-        area.innerHTML = area.oldHTML;
-        area.oldHTML = null;
+    dd.onDragDrop = function(e, id) {
+        var oDD;
+        if ("string" == typeof id) {
+            oDD = YAHOO.util.DDM.getDDById(id);
+        } else {
+            oDD = YAHOO.util.DDM.getBestMatch(id);
+        }
+        if (this.getEl().movie) {
+          sendMovie(this.getEl().movie, oDD.getEl());
+          this.getEl().movie = null;
+        }
+        this.reset();
     }
-}
-
-function check_drop(dd, area) {
-    if (!area.oldHTML) return;
-    var img = dd.getEl();
-    if (!img.movie) return;
-    area.oldHTML = null;
-    area.oldMovie = null;
-    newhtml = '<img id="posterImage" src="images/noResult.jpg" alt="No result available" />';
-    parentNode = img.parentNode;
-    parentNode.innerHTML = newhtml;
-    img = parentNode.firstChild;
-    make_draggable(img);
-    return true;
-}
-
-function is_over(e, el) {
-    var region = YAHOO.util.Dom.getRegion(el);
-    return (region.top <= e.pageY && e.pageY < region.bottom
-         && region.left <= e.pageX && e.pageX < region.right);
 }
