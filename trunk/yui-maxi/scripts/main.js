@@ -69,20 +69,3 @@
           var x = YAHOO.util.Dom.getX("searchMovieTitle");
           YAHOO.util.Dom.setX("searchContainer", x);
       }
-	
-	//From: http://snipplr.com/view/132/detect-ie/  
-	function isIE()
-	{
-  		return /msie/i.test(navigator.userAgent) && !/opera/i.test(navigator.userAgent);
-	}
-
-
-  YAHOO.util.Event.onDOMReady(function() {
-	if(isIE()){
-	  document.getElementById("sendButtons").innerHTML =
-	  " <input id=\"sendLeft\" type=\"submit\" value=\"Send Left\" onclick=\"sendMovieLeft()\" />"+
-            "<br />"+
-        "<input id=\"sendRight\" type=\"submit\" value=\"Send Right\" onclick=\"sendMovieRight()\" />";
-		}
-	  });
-	           
