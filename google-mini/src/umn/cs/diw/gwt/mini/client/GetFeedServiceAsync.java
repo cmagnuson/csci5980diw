@@ -4,5 +4,7 @@ import umn.cs.diw.gwt.mini.client.datamodel.*;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface GetFeedServiceAsync {
-	void getFeedItems(String tag, AsyncCallback sync);
+	  void getFeedItems(String tag, AsyncCallback sync);
+
+
 }	
