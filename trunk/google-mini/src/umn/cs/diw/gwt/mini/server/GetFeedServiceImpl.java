@@ -23,8 +23,24 @@ public class GetFeedServiceImpl extends RemoteServiceServlet implements GetFeedS
 	
 	public FeedItemList getFeedItems(String tag) {
 	    FeedItemList list = new FeedItemList();
-	    list.addFeedItem("Google is a search engine", "htp://www.google.com",
-			     "Larry", "Google is a search engine");
+	    try{
+	    	  String feedURI = feedProviderUrl + tag;
+	    	  SyndFeedInput input = new SyndFeedInput();
+	    	  SyndFeed feed = input.build(new XmlReader(new URL(feedURI)));
+	    		    
+	    	  // Iterate through feed items
+	    	  Iterator entryIter = feed.getEntries().iterator();
+	    	  while (entryIter.hasNext()) {
+	    	    SyndEntry entry = (SyndEntry) entryIter.next();
+	    	    String title = entry.getTitle();
+	    	    String uri = entry.getUri();
+	    	    String author = entry.getAuthor();
+	    	    String desc = entry.getDescription().getValue();
+	    	    list.addFeedItem(title, uri, author, desc);
+	    	  }
+	    	} catch (Exception e) {
+	    	      	e.printStackTrace(); 
+	    	}	    
 	    return list;
 	}
 }

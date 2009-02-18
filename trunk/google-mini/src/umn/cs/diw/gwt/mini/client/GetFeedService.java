@@ -7,8 +7,11 @@ import umn.cs.diw.gwt.mini.client.datamodel.*;
 
 public interface GetFeedService extends RemoteService {
 
+	FeedItemList getFeedItems(String tag);
+	
 	public static class App {
 		private static GetFeedServiceAsync app = null;
+
 		
 		// get an instance of the feed service for client side use		
 		public static synchronized GetFeedServiceAsync getInstance() {
