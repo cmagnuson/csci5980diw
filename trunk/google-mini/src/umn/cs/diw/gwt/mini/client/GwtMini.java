@@ -10,12 +10,16 @@ import umn.cs.diw.gwt.mini.client.datamodel.*;
  */
 public class GwtMini implements EntryPoint {
 
+	private TextBox tb;
+	private VerticalPanel resultsPanel;
+	
   /**
    * This is the entry point method.
    */
   public void onModuleLoad() {
     Image img = new Image("http://code.google.com/webtoolkit/logo-185x175.png");
     Button button = new Button("Click me");
+    tb = new TextBox();
     
     // We can add style names
     button.addStyleName("pc-template-btn");
@@ -26,8 +30,13 @@ public class GwtMini implements EntryPoint {
     vPanel.setWidth("100%");
     vPanel.setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
     vPanel.add(img);
+    vPanel.add(tb);
     vPanel.add(button);
-
+    
+    resultsPanel = new VerticalPanel();
+    resultsPanel.setVisible(false);
+    vPanel.add(resultsPanel);
+    
     // Add image and button to the RootPanel
     RootPanel.get().add(vPanel);
 
@@ -52,7 +61,7 @@ public class GwtMini implements EntryPoint {
     
     button.addClickListener(new ClickListener() {
         public void onClick(Widget sender) {
-          GetFeedService.App.getInstance().getFeedItems("pizza", new AsyncCallback() {
+          GetFeedService.App.getInstance().getFeedItems(tb.getText(), new AsyncCallback() {
           	public void onFailure(Throwable caught) {        			
               dialogBox.setText("Something went wrong");
               dialogBox.center();
@@ -61,11 +70,17 @@ public class GwtMini implements EntryPoint {
             public void onSuccess(Object response) {
               FeedItemList results = (FeedItemList) response;     				
               FeedItem item;
+
+              resultsPanel.clear();
+              resultsPanel.setVisible(true);
+
               if(((FeedItemList)results).getSize() > 0) {
                 item = ((FeedItemList) results).getFeedItem(0);
-                dialogBox.setText(item.name);
-                dialogBox.center();
-                dialogBox.show(); 
+                for(int i=0; i<((FeedItemList)results).getSize(); i++){
+                	FeedItem fi = ((FeedItemList)results).getFeedItem(i);
+                	Anchor a = new Anchor(fi.name, fi.link);
+                	resultsPanel.add(a);
+                }
               }
             }});
         }});
