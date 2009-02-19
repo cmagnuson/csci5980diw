@@ -63,7 +63,7 @@ public class GwtMini implements EntryPoint {
         public void onClick(Widget sender) {
           GetFeedService.App.getInstance().getFeedItems(tb.getText(), new AsyncCallback() {
           	public void onFailure(Throwable caught) {        			
-              dialogBox.setText("Something went wrong");
+              dialogBox.setText("Something went wrong"+caught.getMessage());
               dialogBox.center();
               dialogBox.show();
             }
