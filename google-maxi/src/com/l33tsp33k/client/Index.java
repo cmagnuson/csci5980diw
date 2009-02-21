@@ -27,46 +27,78 @@ public class Index implements EntryPoint {
   public void onModuleLoad() {
     Image img = new Image("http://code.google.com/webtoolkit/logo-185x175.png");
     Button button = new Button("Click me");
+
+    // HEADER PANEL
+    SimplePanel headerPanel = new SimplePanel();
+    headerPanel.setWidth("100%");
     HTML title = new HTML("<h1>L33TSp33k.c0m</h1>");
+    headerPanel.add(title);
     
+    // LEFT-HAND NAVIGATION PANEL
+    VerticalPanel leftNavPanel = new VerticalPanel();
+    leftNavPanel.setWidth("20%");
     
-    FocusPanel fPanel1 = new FocusPanel();
-    fPanel1.setWidth("20%");
+    // Preset options links panel
+    SimplePanel presetOptionsPanel = new SimplePanel();
     HTML text = new HTML("Left-hand Navigation here");
+    presetOptionsPanel.add(text);
+    
+    // AutoComplete panel
+    SimplePanel autoCompletePanel = new SimplePanel();
     SuggestBox suggest = new SuggestBox( createSuggestionsOracle() );
-    //fPanel1.add(text);
-    fPanel1.add(suggest);
+    autoCompletePanel.add(suggest);
     
-    FocusPanel fPanel2 = new FocusPanel();
-    fPanel2.setWidth("40%");
+    leftNavPanel.add(presetOptionsPanel);
+    leftNavPanel.add(autoCompletePanel);
+    
+    // SCROLL CONTENT PANEL
+    SimplePanel scrollContentPanel = new SimplePanel();
+    scrollContentPanel.setWidth("40%");
     HTML text2 = new HTML("Scrolling list of items here");
-    fPanel2.add(text2);
+    scrollContentPanel.add(text2);
 
-    FocusPanel fPanel3 = new FocusPanel();
-    fPanel3.setWidth("40%");
-    HTML text3 = new HTML("Maps and favorites here");
-    fPanel3.add(text3);
+    // RIGHT-HAND UTILITIES PANEL
+    VerticalPanel rightUtilPanel = new VerticalPanel();
+    rightUtilPanel.setWidth("40%");
     
-    HorizontalPanel hPanel1 = new HorizontalPanel();
-    hPanel1.setWidth("100%");
-    hPanel1.add(fPanel1);
-    hPanel1.add(fPanel2);
-    hPanel1.add(fPanel3);
+    // Google Maps panel
+    SimplePanel mapsPanel = new SimplePanel();
+    mapsPanel.setWidth("100%");
+    HTML text3 = new HTML("Map here");
+    mapsPanel.add(text3);
     
-    // We can add style names
-    button.addStyleName("pc-template-btn");
-    // or we can set an id on a specific element for styling
-    img.getElement().setId("pc-template-img");
+    // Favorites Panel
+    SimplePanel favoritesPanel = new SimplePanel();
+    favoritesPanel.setWidth("100%");
+    HTML text4 = new HTML("Favorites here");
+    favoritesPanel.add(text4);
     
-    VerticalPanel vPanel = new VerticalPanel();
-    vPanel.setWidth("100%");
-    vPanel.setHorizontalAlignment(VerticalPanel.ALIGN_LEFT);
-    vPanel.add(title);
-    vPanel.add(hPanel1);
-
-    // Add image and button to the RootPanel
-    RootPanel.get().add(vPanel);
-
+    rightUtilPanel.add(mapsPanel);
+    rightUtilPanel.add(favoritesPanel);
+    
+    // MAIN CONTENT PANEL
+    HorizontalPanel mainContentPanel = new HorizontalPanel();
+    mainContentPanel.setWidth("100%");
+    mainContentPanel.add(leftNavPanel);
+    mainContentPanel.add(scrollContentPanel);
+    mainContentPanel.add(rightUtilPanel);
+    
+    // FOOTER PANEL
+    SimplePanel footerPanel = new SimplePanel();
+    footerPanel.setWidth("100%");
+    HTML text5 = new HTML("Footer here");
+    footerPanel.add(text5);
+    
+    // ALL PANEL
+    VerticalPanel allPanel = new VerticalPanel();
+    allPanel.setWidth("100%");
+    allPanel.setHorizontalAlignment(VerticalPanel.ALIGN_LEFT);
+    allPanel.add(headerPanel);
+    allPanel.add(mainContentPanel);
+    allPanel.add(footerPanel);
+    
+    // Add  RootPanel
+    RootPanel.get().add(allPanel);
   }
 
   private MultiWordSuggestOracle createSuggestionsOracle() {
@@ -74,6 +106,11 @@ public class Index implements EntryPoint {
 	oracle.add("omg");
 	oracle.add("wtf");
 	oracle.add("ftw");
+	oracle.add("imo");
+	oracle.add("imho");
+	oracle.add("imao");
+	oracle.add("sfw");
+	oracle.add("nsfw");
 	oracle.add("woot");
 	oracle.add("w00t");
 	oracle.add(":-)");
