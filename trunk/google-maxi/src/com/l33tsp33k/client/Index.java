@@ -31,8 +31,9 @@ public class Index implements EntryPoint {
     // HEADER PANEL
     SimplePanel headerPanel = new SimplePanel();
     headerPanel.setWidth("100%");
-    HTML title = new HTML("<h1>L33TSp33k.c0m</h1>");
-    headerPanel.add(title);
+    Image headerImage = new Image("images/l33tsp33k_header.png");
+    headerImage.setTitle("Welcome to L33tSp33k.c0m");
+    headerPanel.add(headerImage);
     
     // LEFT-HAND NAVIGATION PANEL
     VerticalPanel leftNavPanel = new VerticalPanel();
