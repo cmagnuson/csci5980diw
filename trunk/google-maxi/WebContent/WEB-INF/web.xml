@@ -9,7 +9,7 @@
 		GetFlickrData</display-name>
 		<servlet-name>GetFlickrData</servlet-name>
 		<servlet-class>
-		com.l3tsp33k.server.GetFlickrData</servlet-class>
+		com.l33tsp33k.server.GetFlickrData</servlet-class>
 	</servlet>
 	<servlet>
 		<description>

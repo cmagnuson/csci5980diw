@@ -82,6 +82,19 @@ public class Index implements EntryPoint {
 		HTML text5 = new HTML("Footer here");
 		footerPanel.add(text5);
 
+		
+		GetFlickrData.App.getInstance().getFlickrPhotos("LOL", new AsyncCallback() {
+			public void onFailure(Throwable caught) {        			
+				//TODO: implement error handling???
+			}
+			public void onSuccess(Object response) {
+				FlickrPhotoList results = (FlickrPhotoList) response;     				
+				HTML j = new HTML(results.toString());
+				rightUtilPanel.add(j);
+			}
+		}
+		);
+		
 		// ALL PANEL
 		VerticalPanel allPanel = new VerticalPanel();
 		allPanel.setWidth("100%");
@@ -92,6 +105,7 @@ public class Index implements EntryPoint {
 
 		// Add  RootPanel
 		RootPanel.get().add(allPanel);
+
 	}
 
 	private MultiWordSuggestOracle createSuggestionsOracle() {
