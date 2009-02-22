@@ -18,5 +18,9 @@
     
       <!-- Specify the application specific style sheet.              -->
       <stylesheet src='Index.css' />
-	
+      
+	  	<servlet path="/GetCachedSearches" 
+            class="com.l33tsp33k.server.GetCachedSearches">
+</servlet>
+
 </module>

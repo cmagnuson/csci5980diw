@@ -1,23 +1,18 @@
 package com.l33tsp33k.server;
 
 import com.l33tsp33k.client.datamodels.*;
+
 import java.sql.*;
 
 /**
  * Servlet implementation class for Servlet: GetCachedSearches
  *
  */
-public class GetCachedSearches extends com.google.gwt.user.server.rpc.RemoteServiceServlet implements javax.servlet.Servlet {
+public class GetCachedSearches extends com.google.gwt.user.server.rpc.RemoteServiceServlet implements javax.servlet.Servlet, com.l33tsp33k.client.GetCachedSearches {
 	static final long serialVersionUID = 1L;
 
-	/* (non-Java-doc)
-	 * @see javax.servlet.http.HttpServlet#HttpServlet()
-	 */
-	public GetCachedSearches() {
-		super();
-	}  
 
-	public CachedSearchList getCachedSearchs() {
+	public CachedSearchList getCachedSearches() {
 		CachedSearchList searches = new CachedSearchList();
 		Connection conn = InitalizeDB.connectToMySqlDatabase("championchipmn.com/google-maxi", "5980-group", "lebowski");
 		try{
@@ -26,11 +21,10 @@ public class GetCachedSearches extends com.google.gwt.user.server.rpc.RemoteServ
 			while(rs.next()){
 				searches.addSearchItem(rs.getString("search_term"));
 			}
+			return searches;
 		}
 		catch(SQLException sql){
 			sql.printStackTrace();
-		}
-		finally{
 			return searches;
 		}
 	}
