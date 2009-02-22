@@ -21,10 +21,18 @@ public class GetCachedSearches extends com.google.gwt.user.server.rpc.RemoteServ
 			while(rs.next()){
 				searches.addSearchItem(rs.getString("search_term"));
 			}
+			rs.close();
+			stmt.close();
+			conn.close();
 			return searches;
 		}
 		catch(SQLException sql){
 			sql.printStackTrace();
+			try{conn.close();}
+			catch(SQLException s){
+				s.printStackTrace();
+				conn = null;
+			}
 			return searches;
 		}
 	}

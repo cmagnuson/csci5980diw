@@ -22,5 +22,8 @@
 	  	<servlet path="/GetCachedSearches" 
             class="com.l33tsp33k.server.GetCachedSearches">
 </servlet>
+	  	<servlet path="/GetFlickrData" 
+            class="com.l33tsp33k.server.GetFlickrData">
+</servlet>
 
 </module>
