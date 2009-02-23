@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.*;
  */
 public class Index implements EntryPoint {
 
-	private SimplePanel scrollContentPanel;
+	private VerticalPanel scrollContentPanel;
 	private SimplePanel footerPanel;
 	private VerticalPanel rightUtilPanel;
 	private MultiWordSuggestOracle suggestOracle;
@@ -33,7 +33,7 @@ public class Index implements EntryPoint {
         leftNavPanel.add( getLeftNavigation() );
 
 		// SCROLL CONTENT PANEL
-		scrollContentPanel = new SimplePanel();
+		scrollContentPanel = new VerticalPanel();
 		scrollContentPanel.setWidth("40%");
 		HTML text2 = new HTML("Scrolling list of items here");
 		scrollContentPanel.add(text2);
@@ -154,38 +154,69 @@ public class Index implements EntryPoint {
 		return linksPanel;
 	}
 	
-	private ClickListener getTagListener(final String string) {
+	private ClickListener getTagListener(final String tag) {
 		// TODO Auto-generated method stub
 		// Sends requests on click
 		return new ClickListener() {
 			public void onClick( Widget sender ) {
+				// Clear previous content
+				scrollContentPanel.clear();
+				
 				// Get Twitter data
 				
 				// Get Technorati blog data
+				GetFeedService.App.getInstance().getFeedItems(tag, new AsyncCallback() {
+		          	public void onFailure(Throwable caught) {        			
+		              // TODO: error handling??
+		          		scrollContentPanel.add(new HTML("Error: Failed to get blogs. " + caught.getMessage() ));
+		            }
+		            public void onSuccess(Object response) {
+		              FeedItemList results = (FeedItemList) response;     				
+		              FeedItem item;
+
+		              if(((FeedItemList)results).getSize() > 0) {
+		                item = ((FeedItemList) results).getFeedItem(0);
+		                VerticalPanel blogsPanel = new VerticalPanel();
+		                for(int i=0; i<((FeedItemList)results).getSize(); i++){
+		                	FeedItem fi = ((FeedItemList)results).getFeedItem(i);
+		                	Anchor a = new Anchor(fi.name, fi.link);
+		                	blogsPanel.add(a);
+		                }
+		                scrollContentPanel.add(blogsPanel);
+		              }
+		              else
+		            	  scrollContentPanel.add(new HTML("No blog items to list."));
+		            }});
 				
 				// Get ???
 				
 				// Get Flickr photos data
-				GetFlickrData.App.getInstance().getFlickrPhotos( string,
+				GetFlickrData.App.getInstance().getFlickrPhotos( tag,
 						new AsyncCallback() {
 							public void onFailure(Throwable caught) {
 								// TODO: implement error handling???
+								scrollContentPanel.add(new HTML("Error: Failed to get photos. " + caught.getMessage() ));
 							}
 
 							public void onSuccess(Object response) {
 								FlickrPhotoList results = (FlickrPhotoList) response;
 								
-								VerticalPanel scroll = new VerticalPanel();
-								for(int i=0; i<10; i++)
+								if( results.getSize() > 0 )
 								{
-									FlickrPhoto photo = results.getPhoto(i);
-									Image img = new Image(photo.getUrl());
-									HTML title = new HTML(photo.getTitle() + "<br /><br />");
-									scroll.add(img);
-									scroll.add(title);
-								}
+									VerticalPanel photosPanel = new VerticalPanel();
+									for(int i=0; i<10; i++)
+									{
+										FlickrPhoto photo = results.getPhoto(i);
+										Image img = new Image(photo.getUrl());
+										HTML title = new HTML(photo.getTitle() + "<br /><br />");
+										photosPanel.add(img);
+										photosPanel.add(title);
+									}
 								
-								scrollContentPanel.setWidget(scroll);
+									scrollContentPanel.add(photosPanel);
+								}
+								else
+									scrollContentPanel.add(new HTML("No photos to list"));
 							}
 						});
 				}
