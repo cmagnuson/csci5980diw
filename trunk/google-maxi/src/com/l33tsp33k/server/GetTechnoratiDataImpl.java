@@ -3,7 +3,7 @@ package com.l33tsp33k.server;
 import java.net.URL;
 import java.util.Iterator;
 
-import com.l33tsp33k.client.GetFeedService;
+import com.l33tsp33k.client.GetTechnoratiData;
 import com.l33tsp33k.client.datamodels.*;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.sun.syndication.feed.synd.SyndEntry;
@@ -13,7 +13,7 @@ import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
 
 
-public class GetFeedServiceImpl extends RemoteServiceServlet implements GetFeedService {
+public class GetTechnoratiDataImpl extends RemoteServiceServlet implements GetTechnoratiData {
 	
 	// we'll use this url in a bit for our tag syndication service
 	private final String feedProviderUrl = "http://feeds.technorati.com/tag/";
@@ -21,8 +21,8 @@ public class GetFeedServiceImpl extends RemoteServiceServlet implements GetFeedS
 	// append this string to the end of a technorati query for better results	
 	private final String feedQuery = "?authority=a4&language=en";
 	
-	public FeedItemList getFeedItems(String tag) {
-	    FeedItemList list = new FeedItemList();
+	public TechnoratiItemList getFeedItems(String tag) {
+	    TechnoratiItemList list = new TechnoratiItemList();
 	    try{
 	    	  String feedURI = feedProviderUrl + tag;
 	    	  SyndFeedInput input = new SyndFeedInput();

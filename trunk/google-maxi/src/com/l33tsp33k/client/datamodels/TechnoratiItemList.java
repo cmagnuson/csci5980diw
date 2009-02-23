@@ -15,27 +15,27 @@ import java.util.Iterator;
  *
  */
 
-public class FeedItemList implements IsSerializable {
+public class TechnoratiItemList implements IsSerializable {
 	
-	private ArrayList<FeedItem> feedItemList;
+	private ArrayList<TechnoratiItem> feedItemList;
 
-	public FeedItemList(){
-	  feedItemList = new ArrayList<FeedItem>();
+	public TechnoratiItemList(){
+	  feedItemList = new ArrayList<TechnoratiItem>();
 	}
 
 	public void addFeedItem(String name, String link, String author, String value) {
-	  feedItemList.add(new FeedItem(name, link, author, value));
+	  feedItemList.add(new TechnoratiItem(name, link, author, value));
 	}
 
 	public int getSize(){
 	  return this.feedItemList.size();
 	}
 	
-	public Iterator<FeedItem> iterator() {
+	public Iterator<TechnoratiItem> iterator() {
 		return this.feedItemList.iterator();
 	}
 
-	public FeedItem getFeedItem(int index){
+	public TechnoratiItem getFeedItem(int index){
 	  return this.feedItemList.get(index); 
 	}
 
