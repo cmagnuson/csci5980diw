@@ -21,9 +21,12 @@
       
 	  	<servlet path="/GetCachedSearches" 
             class="com.l33tsp33k.server.GetCachedSearches">
-</servlet>
+		</servlet>
 	  	<servlet path="/GetFlickrData" 
             class="com.l33tsp33k.server.GetFlickrData">
-</servlet>
+		</servlet>
+		<servlet path="/FeedTempService" 
+            class="com.l33tsp33k.server.GetFeedServiceImpl">
+		</servlet>
 
 </module>
