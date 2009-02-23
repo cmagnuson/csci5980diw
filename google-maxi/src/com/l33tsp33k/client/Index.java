@@ -13,7 +13,7 @@ public class Index implements EntryPoint {
 	private SimplePanel footerPanel;
 	private VerticalPanel rightUtilPanel;
 	private MultiWordSuggestOracle suggestOracle;
-	
+
 	/**
 	 * This is the entry point method.
 	 */
@@ -32,9 +32,30 @@ public class Index implements EntryPoint {
 
 		// Preset options links panel
 		SimplePanel presetOptionsPanel = new SimplePanel();
-		HTML text = new HTML("Left-hand Navigation here");
-		presetOptionsPanel.add(text);
-
+		
+		VerticalPanel linksPanel = new VerticalPanel();
+		Anchor omg = new Anchor("OMG", true);
+		omg.addClickListener( getTagListener("omg") );
+		
+		Anchor wtf = new Anchor("WTF", true);
+		wtf.addClickListener( getTagListener("wtf") );
+		
+		Anchor imho = new Anchor("IMHO", true);
+		imho.addClickListener( getTagListener("imho") );
+		
+		Anchor smileyFace = new Anchor(":-)", true);
+		smileyFace.addClickListener( getTagListener(":-)") );
+		
+		Anchor sadFace = new Anchor(":-(", true);
+		smileyFace.addClickListener( getTagListener(":-(") );
+		
+		linksPanel.add(omg);
+		linksPanel.add(wtf);
+		linksPanel.add(imho);
+		linksPanel.add(smileyFace);
+		linksPanel.add(sadFace);
+		presetOptionsPanel.add(linksPanel);
+		
 		// AutoComplete panel
 		SimplePanel autoCompletePanel = new SimplePanel();
 		suggestOracle = createSuggestionsOracle();
@@ -79,22 +100,23 @@ public class Index implements EntryPoint {
 		// FOOTER PANEL
 		footerPanel = new SimplePanel();
 		footerPanel.setWidth("100%");
-		HTML text5 = new HTML("Footer here");
+		footerPanel.getElement().setId("footer");
+		HTML text5 = new HTML("<b>Copyright &copy; 2009 Little Lebowski Urban Achievers</b>");
 		footerPanel.add(text5);
 
-		
-		GetFlickrData.App.getInstance().getFlickrPhotos("LOL", new AsyncCallback() {
-			public void onFailure(Throwable caught) {        			
-				//TODO: implement error handling???
-			}
-			public void onSuccess(Object response) {
-				FlickrPhotoList results = (FlickrPhotoList) response;     				
-				HTML j = new HTML(results.toString());
-				rightUtilPanel.add(j);
-			}
-		}
-		);
-		
+		GetFlickrData.App.getInstance().getFlickrPhotos("LOL",
+				new AsyncCallback() {
+					public void onFailure(Throwable caught) {
+						// TODO: implement error handling???
+					}
+
+					public void onSuccess(Object response) {
+						FlickrPhotoList results = (FlickrPhotoList) response;
+						HTML j = new HTML(results.toString());
+						rightUtilPanel.add(j);
+					}
+				});
+
 		// ALL PANEL
 		VerticalPanel allPanel = new VerticalPanel();
 		allPanel.setWidth("100%");
@@ -103,9 +125,19 @@ public class Index implements EntryPoint {
 		allPanel.add(mainContentPanel);
 		allPanel.add(footerPanel);
 
-		// Add  RootPanel
+		// Add RootPanel
 		RootPanel.get().add(allPanel);
 
+	}
+
+	private ClickListener getTagListener(final String string) {
+		// TODO Auto-generated method stub
+		// Sends requests on click
+		return new ClickListener() {
+			public void onClick( Widget sender ) {
+				footerPanel.setWidget(new HTML("HI DUDES!! " + string));
+			}
+		};
 	}
 
 	private MultiWordSuggestOracle createSuggestionsOracle() {
@@ -121,20 +153,21 @@ public class Index implements EntryPoint {
 		oracle.add("woot");
 		oracle.add("w00t");
 		oracle.add(":-)");
-		
-		GetCachedSearches.App.getInstance().getCachedSearches(new AsyncCallback() {
-			public void onFailure(Throwable caught) {        			
-				//TODO: implement error handling???
-			}
-			public void onSuccess(Object response) {
-				CachedSearchList results = (CachedSearchList) response;     				
-				for(int i=0; i<results.getSize(); i++){
-					suggestOracle.add(results.getSearchItem(i));
-				}
-			}
-		}
-		);
-		
-		return oracle; 
+
+		GetCachedSearches.App.getInstance().getCachedSearches(
+				new AsyncCallback() {
+					public void onFailure(Throwable caught) {
+						// TODO: implement error handling???
+					}
+
+					public void onSuccess(Object response) {
+						CachedSearchList results = (CachedSearchList) response;
+						for (int i = 0; i < results.getSize(); i++) {
+							suggestOracle.add(results.getSearchItem(i));
+						}
+					}
+				});
+
+		return oracle;
 	}
 }
