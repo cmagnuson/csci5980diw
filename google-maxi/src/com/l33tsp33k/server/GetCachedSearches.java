@@ -37,5 +37,26 @@ public class GetCachedSearches extends com.google.gwt.user.server.rpc.RemoteServ
 		}
 	}
 
+	public void addCachedSearch(String tag) {
+		Connection conn = InitalizeDB.connectToMySqlDatabase("championchipmn.com/google-maxi", "5980-group", "lebowski");
+		try{
+			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO cached_searches (search_term) VALUES (?) " +
+					"ON DUPLICATE KEY UPDATE search_time=NOW()");
+			pstmt.setString(1, tag);
+			pstmt.executeUpdate();
+			conn.close();
+			return;
+		}
+		catch(SQLException sql){
+			sql.printStackTrace();
+			try{conn.close();}
+			catch(SQLException s){
+				s.printStackTrace();
+				conn = null;
+			}
+			return;
+		}
+	}
+
 
 }
