@@ -94,10 +94,57 @@ public class Index implements EntryPoint {
 		
 		// AutoComplete panel
 		HTML search = new HTML("<br /><br />Search:");
-		SimplePanel autoCompletePanel = new SimplePanel();
+		HorizontalPanel autoCompletePanel = new HorizontalPanel();
 		suggestOracle = createSuggestionsOracle();
-		SuggestBox suggest = new SuggestBox(suggestOracle);
+		final SuggestBox suggest = new SuggestBox(suggestOracle);
+		suggest.addKeyboardListener( new KeyboardListener() {
+			public void onKeyDown(Widget sender, char keycode, int modifiers)
+			{
+				if( keycode == KeyboardListener.KEY_ENTER )
+					getDataFromSources( suggest.getText() );
+				else if( keycode == KeyboardListener.KEY_ESCAPE )
+					suggest.setText("");
+			}
+
+			public void onKeyPress(Widget sender, char keyCode, int modifiers) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onKeyUp(Widget sender, char keyCode, int modifiers) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		Button searchButton = new Button("Go");
+		searchButton.addClickListener( new ClickListener() {
+			public void onClick(Widget sender) {
+				getDataFromSources( suggest.getText() );
+			}
+		});
+		searchButton.addKeyboardListener( new KeyboardListener() {
+			public void onKeyDown(Widget sender, char keycode, int modifiers) 
+			{
+				if( keycode == KeyboardListener.KEY_ENTER )
+					getDataFromSources( suggest.getText() );				
+				else if( keycode == KeyboardListener.KEY_ESCAPE )
+					suggest.setText("");
+			}
+
+			public void onKeyPress(Widget sender, char keyCode, int modifiers) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onKeyUp(Widget sender, char keyCode, int modifiers) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
 		autoCompletePanel.add(suggest);
+		autoCompletePanel.add(searchButton);
 		
 		VerticalPanel leftNavPanel = new VerticalPanel();
 		leftNavPanel.add(presetOptionsPanel);
@@ -159,68 +206,75 @@ public class Index implements EntryPoint {
 		// Sends requests on click
 		return new ClickListener() {
 			public void onClick( Widget sender ) {
-				// Clear previous content
-				scrollContentPanel.clear();
-				
-				// Get Twitter data
-				
-				// Get Technorati blog data
-				GetFeedService.App.getInstance().getFeedItems(tag, new AsyncCallback() {
-		          	public void onFailure(Throwable caught) {        			
-		              // TODO: error handling??
-		          		scrollContentPanel.add(new HTML("Error: Failed to get blogs. " + caught.getMessage() ));
-		            }
-		            public void onSuccess(Object response) {
-		              FeedItemList results = (FeedItemList) response;     				
-		              FeedItem item;
-
-		              if(((FeedItemList)results).getSize() > 0) {
-		                item = ((FeedItemList) results).getFeedItem(0);
-		                VerticalPanel blogsPanel = new VerticalPanel();
-		                for(int i=0; i<((FeedItemList)results).getSize(); i++){
-		                	FeedItem fi = ((FeedItemList)results).getFeedItem(i);
-		                	Anchor a = new Anchor(fi.name, fi.link);
-		                	blogsPanel.add(a);
-		                }
-		                scrollContentPanel.add(blogsPanel);
-		              }
-		              else
-		            	  scrollContentPanel.add(new HTML("No blog items to list."));
-		            }});
-				
-				// Get ???
-				
-				// Get Flickr photos data
-				GetFlickrData.App.getInstance().getFlickrPhotos( tag,
-						new AsyncCallback() {
-							public void onFailure(Throwable caught) {
-								// TODO: implement error handling???
-								scrollContentPanel.add(new HTML("Error: Failed to get photos. " + caught.getMessage() ));
-							}
-
-							public void onSuccess(Object response) {
-								FlickrPhotoList results = (FlickrPhotoList) response;
-								
-								if( results.getSize() > 0 )
-								{
-									VerticalPanel photosPanel = new VerticalPanel();
-									for(int i=0; i<10; i++)
-									{
-										FlickrPhoto photo = results.getPhoto(i);
-										Image img = new Image(photo.getUrl());
-										HTML title = new HTML(photo.getTitle() + "<br /><br />");
-										photosPanel.add(img);
-										photosPanel.add(title);
-									}
-								
-									scrollContentPanel.add(photosPanel);
-								}
-								else
-									scrollContentPanel.add(new HTML("No photos to list"));
-							}
-						});
-				}
+				getDataFromSources( tag );
+			}
 		};
+	}
+
+	private void getDataFromSources( String tag )
+	{
+		// Clear previous content
+		scrollContentPanel.clear();
+		
+		// Get Twitter data
+		
+		// Get Technorati blog data
+		GetFeedService.App.getInstance().getFeedItems(tag, new AsyncCallback() {
+          	public void onFailure(Throwable caught) {        			
+              // TODO: error handling??
+          		// Shows an error message - for testing purposes only
+          		scrollContentPanel.add(new HTML("Error: Failed to get blogs. " + caught.getMessage() ));
+            }
+            public void onSuccess(Object response) {
+              FeedItemList results = (FeedItemList) response;     				
+              FeedItem item;
+
+              if(((FeedItemList)results).getSize() > 0) {
+                item = ((FeedItemList) results).getFeedItem(0);
+                VerticalPanel blogsPanel = new VerticalPanel();
+                for(int i=0; i<((FeedItemList)results).getSize(); i++){
+                	FeedItem fi = ((FeedItemList)results).getFeedItem(i);
+                	Anchor a = new Anchor(fi.name, fi.link);
+                	blogsPanel.add(a);
+                }
+                scrollContentPanel.add(blogsPanel);
+              }
+              else
+            	  scrollContentPanel.add(new HTML("No blog items to list."));
+            }});
+		
+		// Get ???
+		
+		// Get Flickr photos data
+		GetFlickrData.App.getInstance().getFlickrPhotos( tag,
+				new AsyncCallback() {
+					public void onFailure(Throwable caught) {
+						// TODO: implement error handling???
+						// shows an error message - for testing purposes only
+						scrollContentPanel.add(new HTML("Error: Failed to get photos. " + caught.getMessage() ));
+					}
+
+					public void onSuccess(Object response) {
+						FlickrPhotoList results = (FlickrPhotoList) response;
+						
+						if( results.getSize() > 0 )
+						{
+							VerticalPanel photosPanel = new VerticalPanel();
+							for(int i=0; i<10; i++)
+							{
+								FlickrPhoto photo = results.getPhoto(i);
+								Image img = new Image(photo.getUrl());
+								HTML title = new HTML(photo.getTitle() + "<br /><br />");
+								photosPanel.add(img);
+								photosPanel.add(title);
+							}
+						
+							scrollContentPanel.add(photosPanel);
+						}
+						else
+							scrollContentPanel.add(new HTML("No photos to list"));
+					}
+		});
 	}
 
 	private MultiWordSuggestOracle createSuggestionsOracle() {
