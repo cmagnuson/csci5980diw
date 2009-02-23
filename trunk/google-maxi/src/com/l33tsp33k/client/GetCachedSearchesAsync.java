@@ -6,5 +6,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public interface GetCachedSearchesAsync {
 
 	void getCachedSearches(AsyncCallback<CachedSearchList> callback);
+	
+	void addCachedSearch(String tag, AsyncCallback<?> callback);
 
 }

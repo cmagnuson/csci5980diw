@@ -8,6 +8,8 @@ import com.l33tsp33k.client.datamodels.*;
 public interface GetCachedSearches extends RemoteService {
 
 	CachedSearchList getCachedSearches();
+	
+	void addCachedSearch(String tag);
 		
 	public static class App {
 		private static GetCachedSearchesAsync app = null;

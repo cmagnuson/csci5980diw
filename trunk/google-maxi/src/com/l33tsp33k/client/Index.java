@@ -275,6 +275,17 @@ public class Index implements EntryPoint {
 							scrollContentPanel.add(new HTML("No photos to list"));
 					}
 		});
+		
+		//Add search tag to list of saved tags
+		GetCachedSearches.App.getInstance().addCachedSearch(tag,
+				new AsyncCallback() {
+					public void onFailure(Throwable caught) {
+					}
+
+					public void onSuccess(Object response) {
+					}
+				});
+
 	}
 
 	private MultiWordSuggestOracle createSuggestionsOracle() {
