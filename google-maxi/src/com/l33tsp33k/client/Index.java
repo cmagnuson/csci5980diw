@@ -32,29 +32,7 @@ public class Index implements EntryPoint {
 
 		// Preset options links panel
 		SimplePanel presetOptionsPanel = new SimplePanel();
-		
-		VerticalPanel linksPanel = new VerticalPanel();
-		Anchor omg = new Anchor("OMG", true);
-		omg.addClickListener( getTagListener("omg") );
-		
-		Anchor wtf = new Anchor("WTF", true);
-		wtf.addClickListener( getTagListener("wtf") );
-		
-		Anchor imho = new Anchor("IMHO", true);
-		imho.addClickListener( getTagListener("imho") );
-		
-		Anchor smileyFace = new Anchor(":-)", true);
-		smileyFace.addClickListener( getTagListener(":-)") );
-		
-		Anchor sadFace = new Anchor(":-(", true);
-		smileyFace.addClickListener( getTagListener(":-(") );
-		
-		linksPanel.add(omg);
-		linksPanel.add(wtf);
-		linksPanel.add(imho);
-		linksPanel.add(smileyFace);
-		linksPanel.add(sadFace);
-		presetOptionsPanel.add(linksPanel);
+		presetOptionsPanel.add( getPresetLinks() );
 		
 		// AutoComplete panel
 		SimplePanel autoCompletePanel = new SimplePanel();
@@ -130,6 +108,33 @@ public class Index implements EntryPoint {
 
 	}
 
+	private VerticalPanel getPresetLinks()
+	{
+		Anchor omg = new Anchor("OMG", true);
+		omg.addClickListener( getTagListener("omg") );
+		
+		Anchor wtf = new Anchor("WTF", true);
+		wtf.addClickListener( getTagListener("wtf") );
+		
+		Anchor imho = new Anchor("IMHO", true);
+		imho.addClickListener( getTagListener("imho") );
+		
+		Anchor smileyFace = new Anchor(":-)", true);
+		smileyFace.addClickListener( getTagListener(":-)") );
+		
+		Anchor sadFace = new Anchor(":-(", true);
+		smileyFace.addClickListener( getTagListener(":-(") );
+
+		VerticalPanel linksPanel = new VerticalPanel();
+		linksPanel.add(omg);
+		linksPanel.add(wtf);
+		linksPanel.add(imho);
+		linksPanel.add(smileyFace);
+		linksPanel.add(sadFace);
+		
+		return linksPanel;
+	}
+	
 	private ClickListener getTagListener(final String string) {
 		// TODO Auto-generated method stub
 		// Sends requests on click
