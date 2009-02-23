@@ -10,16 +10,16 @@ import com.google.gwt.user.client.rpc.*;
  *
  */
 
-public class FeedItem implements IsSerializable {
+public class TechnoratiItem implements IsSerializable {
 
 	public String name = "";
 	public String link = "";
 	public String author = "";
 	public String descr = "";
 
-	public FeedItem() {}
+	public TechnoratiItem() {}
 
-	public FeedItem(String name, String link, String author, String descr) {
+	public TechnoratiItem(String name, String link, String author, String descr) {
 		this.name = name;
 		this.link = link;
 		this.author = author;

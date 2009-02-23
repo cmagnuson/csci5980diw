@@ -26,7 +26,7 @@
             class="com.l33tsp33k.server.GetFlickrData">
 		</servlet>
 		<servlet path="/FeedTempService" 
-            class="com.l33tsp33k.server.GetFeedServiceImpl">
+            class="com.l33tsp33k.server.GetTechnoratiDataImpl">
 		</servlet>
 
 </module>
