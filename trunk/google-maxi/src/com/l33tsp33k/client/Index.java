@@ -10,6 +10,7 @@ import com.google.gwt.user.client.ui.*;
  */
 public class Index implements EntryPoint {
 
+	private SimplePanel scrollContentPanel;
 	private SimplePanel footerPanel;
 	private VerticalPanel rightUtilPanel;
 	private MultiWordSuggestOracle suggestOracle;
@@ -27,24 +28,12 @@ public class Index implements EntryPoint {
 		headerPanel.add(headerImage);
 
 		// LEFT-HAND NAVIGATION PANEL
-		VerticalPanel leftNavPanel = new VerticalPanel();
+		SimplePanel leftNavPanel = new SimplePanel();
 		leftNavPanel.setWidth("20%");
-
-		// Preset options links panel
-		SimplePanel presetOptionsPanel = new SimplePanel();
-		presetOptionsPanel.add( getPresetLinks() );
-		
-		// AutoComplete panel
-		SimplePanel autoCompletePanel = new SimplePanel();
-		suggestOracle = createSuggestionsOracle();
-		SuggestBox suggest = new SuggestBox(suggestOracle);
-		autoCompletePanel.add(suggest);
-
-		leftNavPanel.add(presetOptionsPanel);
-		leftNavPanel.add(autoCompletePanel);
+        leftNavPanel.add( getLeftNavigation() );
 
 		// SCROLL CONTENT PANEL
-		SimplePanel scrollContentPanel = new SimplePanel();
+		scrollContentPanel = new SimplePanel();
 		scrollContentPanel.setWidth("40%");
 		HTML text2 = new HTML("Scrolling list of items here");
 		scrollContentPanel.add(text2);
@@ -82,18 +71,7 @@ public class Index implements EntryPoint {
 		HTML text5 = new HTML("<b>Copyright &copy; 2009 Little Lebowski Urban Achievers</b>");
 		footerPanel.add(text5);
 
-		GetFlickrData.App.getInstance().getFlickrPhotos("LOL",
-				new AsyncCallback() {
-					public void onFailure(Throwable caught) {
-						// TODO: implement error handling???
-					}
 
-					public void onSuccess(Object response) {
-						FlickrPhotoList results = (FlickrPhotoList) response;
-						HTML j = new HTML(results.toString());
-						rightUtilPanel.add(j);
-					}
-				});
 
 		// ALL PANEL
 		VerticalPanel allPanel = new VerticalPanel();
@@ -108,6 +86,27 @@ public class Index implements EntryPoint {
 
 	}
 
+	private VerticalPanel getLeftNavigation()
+	{
+		// Preset options links panel
+		SimplePanel presetOptionsPanel = new SimplePanel();
+		presetOptionsPanel.add( getPresetLinks() );
+		
+		// AutoComplete panel
+		HTML search = new HTML("<br /><br />Search:");
+		SimplePanel autoCompletePanel = new SimplePanel();
+		suggestOracle = createSuggestionsOracle();
+		SuggestBox suggest = new SuggestBox(suggestOracle);
+		autoCompletePanel.add(suggest);
+		
+		VerticalPanel leftNavPanel = new VerticalPanel();
+		leftNavPanel.add(presetOptionsPanel);
+		leftNavPanel.add(search);
+		leftNavPanel.add(autoCompletePanel);
+
+		return leftNavPanel;
+	}
+	
 	private VerticalPanel getPresetLinks()
 	{
 		Anchor omg = new Anchor("OMG", true);
@@ -116,8 +115,23 @@ public class Index implements EntryPoint {
 		Anchor wtf = new Anchor("WTF", true);
 		wtf.addClickListener( getTagListener("wtf") );
 		
+		Anchor lol = new Anchor("LOL", true);
+		lol.addClickListener( getTagListener("lol") );
+		
+		Anchor ftw = new Anchor("FTW", true);
+		ftw.addClickListener( getTagListener("ftw") );
+		
 		Anchor imho = new Anchor("IMHO", true);
 		imho.addClickListener( getTagListener("imho") );
+
+		Anchor fail = new Anchor("FAIL", true);
+		fail.addClickListener( getTagListener("fail") );
+		
+		Anchor pwned = new Anchor("pwned", true);
+		pwned.addClickListener( getTagListener("pwned") );
+		
+		Anchor jk = new Anchor("JK", true);
+		jk.addClickListener( getTagListener("jk") );
 		
 		Anchor smileyFace = new Anchor(":-)", true);
 		smileyFace.addClickListener( getTagListener(":-)") );
@@ -128,7 +142,12 @@ public class Index implements EntryPoint {
 		VerticalPanel linksPanel = new VerticalPanel();
 		linksPanel.add(omg);
 		linksPanel.add(wtf);
+		linksPanel.add(lol);
+		linksPanel.add(ftw);
 		linksPanel.add(imho);
+		linksPanel.add(fail);
+		linksPanel.add(pwned);
+		linksPanel.add(jk);
 		linksPanel.add(smileyFace);
 		linksPanel.add(sadFace);
 		
@@ -140,8 +159,36 @@ public class Index implements EntryPoint {
 		// Sends requests on click
 		return new ClickListener() {
 			public void onClick( Widget sender ) {
-				footerPanel.setWidget(new HTML("HI DUDES!! " + string));
-			}
+				// Get Twitter data
+				
+				// Get Technorati blog data
+				
+				// Get ???
+				
+				// Get Flickr photos data
+				GetFlickrData.App.getInstance().getFlickrPhotos( string,
+						new AsyncCallback() {
+							public void onFailure(Throwable caught) {
+								// TODO: implement error handling???
+							}
+
+							public void onSuccess(Object response) {
+								FlickrPhotoList results = (FlickrPhotoList) response;
+								
+								VerticalPanel scroll = new VerticalPanel();
+								for(int i=0; i<10; i++)
+								{
+									FlickrPhoto photo = results.getPhoto(i);
+									Image img = new Image(photo.getUrl());
+									HTML title = new HTML(photo.getTitle() + "<br /><br />");
+									scroll.add(img);
+									scroll.add(title);
+								}
+								
+								scrollContentPanel.setWidget(scroll);
+							}
+						});
+				}
 		};
 	}
 
