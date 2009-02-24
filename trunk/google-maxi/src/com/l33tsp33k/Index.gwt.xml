@@ -5,7 +5,7 @@
    	  
    	  <!-- Google Maps, added - Carl -->
     <inherits name="com.google.gwt.maps.GoogleMaps"/>  
-    <script src="http://maps.google.com/maps?gwt=1&amp;amp;file=api&amp;amp;v=2" /> 
+    <script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;v=2&amp;key=ABQIAAAAiuPVg850W_6nz_Xq0YZbBhTb-vLQlFZmc2N8bgWI8YDPp5FEVBRqFfzJzdvlJch8Ungv5ohIWeqXXQ" /> 
 	
       <!-- Inherit the default GWT style sheet.  You can change       -->
       <!-- the theme of your GWT application by uncommenting          -->

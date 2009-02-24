@@ -26,6 +26,7 @@ public class GetFlickrData extends com.google.gwt.user.server.rpc.RemoteServiceS
 				Photo p = (Photo) o;
 				FlickrPhoto fp = new FlickrPhoto();
 				fp.setUrl(p.getSmallUrl());
+				fp.setThumbnailUrl(p.getThumbnailUrl());
 				fp.setTitle(p.getTitle());
 				if(p.getGeoData()!=null){
 					fp.setCoordinates(p.getGeoData().getLongitude(), p.getGeoData().getLatitude());

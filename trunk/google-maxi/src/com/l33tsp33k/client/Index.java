@@ -8,7 +8,8 @@ import com.google.gwt.maps.client.*;
 import com.google.gwt.maps.client.control.MapTypeControl;  
 import com.google.gwt.maps.client.control.SmallMapControl;  
 import com.google.gwt.maps.client.event.MapClickHandler;  
-import com.google.gwt.maps.client.geom.LatLng;  
+import com.google.gwt.maps.client.geom.LatLngBounds;
+import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.maps.client.overlay.Marker;  
 import com.google.gwt.maps.client.overlay.Overlay;
 
@@ -38,7 +39,7 @@ public class Index implements EntryPoint {
 		// LEFT-HAND NAVIGATION PANEL
 		SimplePanel leftNavPanel = new SimplePanel();
 		leftNavPanel.setWidth("20%");
-        leftNavPanel.add( getLeftNavigation() );
+		leftNavPanel.add( getLeftNavigation() );
 
 		// SCROLL CONTENT PANEL
 		scrollContentPanel = new VerticalPanel();
@@ -99,7 +100,7 @@ public class Index implements EntryPoint {
 		// Preset options links panel
 		SimplePanel presetOptionsPanel = new SimplePanel();
 		presetOptionsPanel.add( getPresetLinks() );
-		
+
 		// AutoComplete panel
 		HTML search = new HTML("<br /><br />Search:");
 		HorizontalPanel autoCompletePanel = new HorizontalPanel();
@@ -116,12 +117,12 @@ public class Index implements EntryPoint {
 
 			public void onKeyPress(Widget sender, char keyCode, int modifiers) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void onKeyUp(Widget sender, char keyCode, int modifiers) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 		Button searchButton = new Button("Go");
@@ -141,19 +142,19 @@ public class Index implements EntryPoint {
 
 			public void onKeyPress(Widget sender, char keyCode, int modifiers) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void onKeyUp(Widget sender, char keyCode, int modifiers) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 		});
-		
+
 		autoCompletePanel.add(suggest);
 		autoCompletePanel.add(searchButton);
-		
+
 		VerticalPanel leftNavPanel = new VerticalPanel();
 		leftNavPanel.add(presetOptionsPanel);
 		leftNavPanel.add(search);
@@ -161,7 +162,7 @@ public class Index implements EntryPoint {
 
 		return leftNavPanel;
 	}
-	
+
 	private VerticalPanel getPresetLinks()
 	{
 		final Image omg = new Image("images/omg.png");
@@ -169,7 +170,7 @@ public class Index implements EntryPoint {
 		omg.addMouseListener( new MouseListener() {
 			public void onMouseDown(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void onMouseEnter(Widget sender) {
@@ -182,21 +183,21 @@ public class Index implements EntryPoint {
 
 			public void onMouseMove(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void onMouseUp(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}			
 		});
-		
+
 		final Image wtf = new Image("images/wtf.png");
 		wtf.addClickListener( getTagListener("wtf") );
 		wtf.addMouseListener( new MouseListener() {
 			public void onMouseDown(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void onMouseEnter(Widget sender) {
@@ -209,21 +210,21 @@ public class Index implements EntryPoint {
 
 			public void onMouseMove(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void onMouseUp(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}			
 		});
-		
+
 		final Image lol = new Image("images/lol.png");
 		lol.addClickListener( getTagListener("lol") );
 		lol.addMouseListener( new MouseListener() {
 			public void onMouseDown(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void onMouseEnter(Widget sender) {
@@ -236,21 +237,21 @@ public class Index implements EntryPoint {
 
 			public void onMouseMove(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void onMouseUp(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
-		
+
 		final Image ftw = new Image("images/ftw.png");
 		ftw.addClickListener( getTagListener("ftw") );
 		ftw.addMouseListener( new MouseListener() {
 			public void onMouseDown(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void onMouseEnter(Widget sender) {
@@ -263,22 +264,22 @@ public class Index implements EntryPoint {
 
 			public void onMouseMove(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void onMouseUp(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 		});
-		
+
 		final Image imho = new Image("images/imho.png");
 		imho.addClickListener( getTagListener("imho") );
 		imho.addMouseListener( new MouseListener() {
 			public void onMouseDown(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void onMouseEnter(Widget sender) {
@@ -291,14 +292,14 @@ public class Index implements EntryPoint {
 
 			public void onMouseMove(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void onMouseUp(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 		});
 
 		final Image fail = new Image("images/fail.png");
@@ -306,7 +307,7 @@ public class Index implements EntryPoint {
 		fail.addMouseListener( new MouseListener() {
 			public void onMouseDown(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void onMouseEnter(Widget sender) {
@@ -319,22 +320,22 @@ public class Index implements EntryPoint {
 
 			public void onMouseMove(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void onMouseUp(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 		});
-		
+
 		final Image pwned = new Image("images/pwned.png");
 		pwned.addClickListener( getTagListener("pwned") );
 		pwned.addMouseListener( new MouseListener() {
 			public void onMouseDown(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void onMouseEnter(Widget sender) {
@@ -347,22 +348,22 @@ public class Index implements EntryPoint {
 
 			public void onMouseMove(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void onMouseUp(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 		});
-		
+
 		final Image jk = new Image("images/jk.png");
 		jk.addClickListener( getTagListener("jk") );
 		jk.addMouseListener( new MouseListener() {
 			public void onMouseDown(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void onMouseEnter(Widget sender) {
@@ -375,22 +376,22 @@ public class Index implements EntryPoint {
 
 			public void onMouseMove(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void onMouseUp(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 		});
-		
+
 		final Image smileyFace = new Image("images/smiley.png");
 		smileyFace.addClickListener( getTagListener(":-)") );
 		smileyFace.addMouseListener( new MouseListener() {
 			public void onMouseDown(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void onMouseEnter(Widget sender) {
@@ -403,22 +404,22 @@ public class Index implements EntryPoint {
 
 			public void onMouseMove(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void onMouseUp(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 		});
-		
+
 		final Image sadFace = new Image("images/sad.png");
 		sadFace.addClickListener( getTagListener(":-(") );
 		sadFace.addMouseListener( new MouseListener() {
 			public void onMouseDown(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void onMouseEnter(Widget sender) {
@@ -431,14 +432,14 @@ public class Index implements EntryPoint {
 
 			public void onMouseMove(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void onMouseUp(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 		});
 
 		VerticalPanel linksPanel = new VerticalPanel();
@@ -454,10 +455,10 @@ public class Index implements EntryPoint {
 		linksPanel.add(jk);
 		linksPanel.add(smileyFace);
 		linksPanel.add(sadFace);
-		
+
 		return linksPanel;
 	}
-	
+
 	private ClickListener getTagListener(final String tag) {
 		// TODO Auto-generated method stub
 		// Sends requests on click
@@ -472,94 +473,97 @@ public class Index implements EntryPoint {
 	{
 		// Clear previous content
 		scrollContentPanel.clear();
-		
+
 		// Get Twitter data
-		
+
 		// Get Technorati blog data
 		GetTechnoratiData.App.getInstance().getFeedItems(tag, new AsyncCallback<TechnoratiItemList>() {
-          	public void onFailure(Throwable caught) {        			
-              // TODO: error handling??
-          		// Shows an error message - for testing purposes only
-          		scrollContentPanel.add(new HTML("Error: Failed to get blogs. " + caught.getMessage() ));
-            }
-            public void onSuccess(TechnoratiItemList results) {   				
-              TechnoratiItem item;
+			public void onFailure(Throwable caught) {        			
+				// TODO: error handling??
+				// Shows an error message - for testing purposes only
+				scrollContentPanel.add(new HTML("Error: Failed to get blogs. " + caught.getMessage() ));
+			}
+			public void onSuccess(TechnoratiItemList results) {   				
+				TechnoratiItem item;
 
-              if(((TechnoratiItemList)results).getSize() > 0) {
-                item = ((TechnoratiItemList) results).getFeedItem(0);
-                VerticalPanel blogsPanel = new VerticalPanel();
-                for(int i=0; i<((TechnoratiItemList)results).getSize(); i++){
-                	TechnoratiItem fi = ((TechnoratiItemList)results).getFeedItem(i);
-                	Anchor a = new Anchor(fi.name, fi.link);
-                	blogsPanel.add(a);
-                }
-                scrollContentPanel.add(blogsPanel);
-              }
-              else
-            	  scrollContentPanel.add(new HTML("No blog items to list."));
-            }});
-		
+				if(((TechnoratiItemList)results).getSize() > 0) {
+					item = ((TechnoratiItemList) results).getFeedItem(0);
+					VerticalPanel blogsPanel = new VerticalPanel();
+					for(int i=0; i<((TechnoratiItemList)results).getSize(); i++){
+						TechnoratiItem fi = ((TechnoratiItemList)results).getFeedItem(i);
+						Anchor a = new Anchor(fi.name, fi.link);
+						blogsPanel.add(a);
+					}
+					scrollContentPanel.add(blogsPanel);
+				}
+				else
+					scrollContentPanel.add(new HTML("No blog items to list."));
+			}});
+
 		// Get ???
-		
+
 		// Get Flickr photos data
 		GetFlickrData.App.getInstance().getFlickrPhotos( tag,
 				new AsyncCallback<FlickrPhotoList>() {
-					public void onFailure(Throwable caught) {
-						// TODO: implement error handling???
-						// shows an error message - for testing purposes only
-						scrollContentPanel.add(new HTML("Error: Failed to get photos. " + caught.getMessage() ));
+			public void onFailure(Throwable caught) {
+				// TODO: implement error handling???
+				// shows an error message - for testing purposes only
+				scrollContentPanel.add(new HTML("Error: Failed to get photos. " + caught.getMessage() ));
+			}
+
+			public void onSuccess(FlickrPhotoList results) {
+
+				if( results.getSize() > 0 )
+				{
+					VerticalPanel photosPanel = new VerticalPanel();
+					for(int i=0; i<10; i++)
+					{
+						FlickrPhoto photo = results.getPhoto(i);
+						Image img = new Image(photo.getUrl());
+						HTML title = new HTML(photo.getTitle() + "<br /><br />");
+						photosPanel.add(img);
+						photosPanel.add(title);
 					}
 
-					public void onSuccess(FlickrPhotoList results) {
-						
-						if( results.getSize() > 0 )
-						{
-							VerticalPanel photosPanel = new VerticalPanel();
-							for(int i=0; i<10; i++)
-							{
-								FlickrPhoto photo = results.getPhoto(i);
-								Image img = new Image(photo.getUrl());
-								HTML title = new HTML(photo.getTitle() + "<br /><br />");
-								photosPanel.add(img);
-								photosPanel.add(title);
-							}
-						
-							scrollContentPanel.add(photosPanel);
-							showMap(results);
-						}
-						else
-							scrollContentPanel.add(new HTML("No photos to list"));
-					}
+					scrollContentPanel.add(photosPanel);
+					showMap(results);
+				}
+				else
+					scrollContentPanel.add(new HTML("No photos to list"));
+			}
 		});
-		
+
 		//Add search tag to list of saved tags
 		GetCachedSearches.App.getInstance().addCachedSearch(tag,
 				new AsyncCallback<Object>() {
-					public void onFailure(Throwable caught) {
-					}
+			public void onFailure(Throwable caught) {
+			}
 
-					public void onSuccess(Object response) {
-					}
-				});
+			public void onSuccess(Object response) {
+			}
+		});
 
 	}
-	
+
 	private void showMap(FlickrPhotoList photos){
 		MapWidget mapWiget = new MapWidget(LatLng.newInstance(38.548165,-95.361328), 3);  
-        mapWiget.setSize("350px", "350px");  
-  
-        mapWiget.addControl(new SmallMapControl());  
-        mapWiget.addControl(new MapTypeControl()); 
-        
-        for(int i=0; i<photos.getSize(); i++){
-          FlickrPhoto p = photos.getPhoto(i);
-          if(p.hasCoordinates()){
-        	  mapWiget.addOverlay(new com.google.gwt.maps.client.overlay.Marker(LatLng.newInstance(p.getLat(), p.getLong())));
-          }
-        }
-        
-        mapsPanel.clear();
-        mapsPanel.add(mapWiget);
+		mapWiget.setSize("350px", "350px");  
+
+		mapWiget.addControl(new SmallMapControl());  
+		mapWiget.addControl(new MapTypeControl()); 
+
+		for(int i=0; i<photos.getSize(); i++){
+			FlickrPhoto p = photos.getPhoto(i);
+			if(p.hasCoordinates()){
+				LatLng l = LatLng.newInstance(p.getLat(), p.getLong());
+				Marker m = new Marker(l);
+				mapWiget.addOverlay(m);
+				m.setImage(p.getThumbnailUrl());
+			}
+		}
+
+		mapsPanel.clear();
+		mapsPanel.add(mapWiget);
 	}
 
 	private MultiWordSuggestOracle createSuggestionsOracle() {
