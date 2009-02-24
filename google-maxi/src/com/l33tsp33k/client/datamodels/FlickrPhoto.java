@@ -7,6 +7,7 @@ public class FlickrPhoto implements IsSerializable, GeoReferencedData {
 	private float lon, lat;
 	private String title;
 	private String url;
+	private String thumbnailUrl;
 	private boolean geoReferenced = false;
 	
 	public String toString(){
@@ -51,4 +52,13 @@ public class FlickrPhoto implements IsSerializable, GeoReferencedData {
 	public double getLong(){
 		return lon;
 	}
+
+	public String getThumbnailUrl() {
+		return thumbnailUrl;
+	}
+
+	public void setThumbnailUrl(String thumbnailUrl) {
+		this.thumbnailUrl = thumbnailUrl;
+	}
+	
 }
