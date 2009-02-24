@@ -1,7 +1,5 @@
 package com.l33tsp33k.server;
 
-import javax.xml.parsers.ParserConfigurationException;
-
 import com.l33tsp33k.client.datamodels.*;
 import com.aetrion.flickr.*;
 import com.aetrion.flickr.photos.*;
