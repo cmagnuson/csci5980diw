@@ -4,6 +4,13 @@ import com.l33tsp33k.client.datamodels.*;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
+import com.google.gwt.maps.client.*;
+import com.google.gwt.maps.client.control.MapTypeControl;  
+import com.google.gwt.maps.client.control.SmallMapControl;  
+import com.google.gwt.maps.client.event.MapClickHandler;  
+import com.google.gwt.maps.client.geom.LatLng;  
+import com.google.gwt.maps.client.overlay.Marker;  
+import com.google.gwt.maps.client.overlay.Overlay;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -13,6 +20,7 @@ public class Index implements EntryPoint {
 	private VerticalPanel scrollContentPanel;
 	private SimplePanel footerPanel;
 	private VerticalPanel rightUtilPanel;
+	private SimplePanel mapsPanel;
 	private MultiWordSuggestOracle suggestOracle;
 
 	/**
@@ -43,7 +51,7 @@ public class Index implements EntryPoint {
 		rightUtilPanel.setWidth("40%");
 
 		// Google Maps panel
-		SimplePanel mapsPanel = new SimplePanel();
+		mapsPanel = new SimplePanel();
 		mapsPanel.setWidth("100%");
 		HTML text3 = new HTML("Map here");
 		mapsPanel.add(text3);
@@ -517,6 +525,7 @@ public class Index implements EntryPoint {
 							}
 						
 							scrollContentPanel.add(photosPanel);
+							showMap(results);
 						}
 						else
 							scrollContentPanel.add(new HTML("No photos to list"));
@@ -533,6 +542,24 @@ public class Index implements EntryPoint {
 					}
 				});
 
+	}
+	
+	private void showMap(FlickrPhotoList photos){
+		MapWidget mapWiget = new MapWidget(LatLng.newInstance(38.548165,-95.361328), 3);  
+        mapWiget.setSize("350px", "350px");  
+  
+        mapWiget.addControl(new SmallMapControl());  
+        mapWiget.addControl(new MapTypeControl()); 
+        
+        for(int i=0; i<photos.getSize(); i++){
+          FlickrPhoto p = photos.getPhoto(i);
+          if(p.hasCoordinates()){
+        	  mapWiget.addOverlay(new com.google.gwt.maps.client.overlay.Marker(LatLng.newInstance(p.getLat(), p.getLong())));
+          }
+        }
+        
+        mapsPanel.clear();
+        mapsPanel.add(mapWiget);
 	}
 
 	private MultiWordSuggestOracle createSuggestionsOracle() {

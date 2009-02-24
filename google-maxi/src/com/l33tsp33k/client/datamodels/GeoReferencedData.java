@@ -5,4 +5,7 @@ public interface GeoReferencedData {
 	public String getLocation();
 	public boolean hasLocation();
 	
+	public boolean hasCoordinates();
+	public double getLat();
+	public double getLong();
 }
