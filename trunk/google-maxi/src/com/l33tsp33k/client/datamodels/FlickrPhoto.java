@@ -34,6 +34,9 @@ public class FlickrPhoto implements IsSerializable, GeoReferencedData {
 	public boolean hasLocation(){
 		return geoReferenced;
 	}
+	public boolean hasCoordinates(){
+		return geoReferenced;
+	}
 	public String getLocation(){
 		if(!geoReferenced){
 			return "";
@@ -41,5 +44,11 @@ public class FlickrPhoto implements IsSerializable, GeoReferencedData {
 		else{
 			return ""+lon+","+lat;
 		}
+	}
+	public double getLat(){
+		return lat;
+	}
+	public double getLong(){
+		return lon;
 	}
 }

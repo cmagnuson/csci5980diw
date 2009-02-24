@@ -20,6 +20,7 @@ public class GetFlickrData extends com.google.gwt.user.server.rpc.RemoteServiceS
 			PhotosInterface pi = f.getPhotosInterface();
 			SearchParameters sp = new SearchParameters();
 			sp.setTags(new String[] {tag});
+			sp.setExtrasGeo(true);
 			PhotoList pl = pi.search(sp, 500, 1);
 			for(Object o: pl){
 				Photo p = (Photo) o;
