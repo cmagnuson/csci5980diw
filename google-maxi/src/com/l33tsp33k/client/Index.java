@@ -219,14 +219,13 @@ public class Index implements EntryPoint {
 		// Get Twitter data
 		
 		// Get Technorati blog data
-		GetTechnoratiData.App.getInstance().getFeedItems(tag, new AsyncCallback() {
+		GetTechnoratiData.App.getInstance().getFeedItems(tag, new AsyncCallback<TechnoratiItemList>() {
           	public void onFailure(Throwable caught) {        			
               // TODO: error handling??
           		// Shows an error message - for testing purposes only
           		scrollContentPanel.add(new HTML("Error: Failed to get blogs. " + caught.getMessage() ));
             }
-            public void onSuccess(Object response) {
-              TechnoratiItemList results = (TechnoratiItemList) response;     				
+            public void onSuccess(TechnoratiItemList results) {   				
               TechnoratiItem item;
 
               if(((TechnoratiItemList)results).getSize() > 0) {
@@ -247,15 +246,14 @@ public class Index implements EntryPoint {
 		
 		// Get Flickr photos data
 		GetFlickrData.App.getInstance().getFlickrPhotos( tag,
-				new AsyncCallback() {
+				new AsyncCallback<FlickrPhotoList>() {
 					public void onFailure(Throwable caught) {
 						// TODO: implement error handling???
 						// shows an error message - for testing purposes only
 						scrollContentPanel.add(new HTML("Error: Failed to get photos. " + caught.getMessage() ));
 					}
 
-					public void onSuccess(Object response) {
-						FlickrPhotoList results = (FlickrPhotoList) response;
+					public void onSuccess(FlickrPhotoList results) {
 						
 						if( results.getSize() > 0 )
 						{
@@ -278,7 +276,7 @@ public class Index implements EntryPoint {
 		
 		//Add search tag to list of saved tags
 		GetCachedSearches.App.getInstance().addCachedSearch(tag,
-				new AsyncCallback() {
+				new AsyncCallback<Object>() {
 					public void onFailure(Throwable caught) {
 					}
 
@@ -303,13 +301,12 @@ public class Index implements EntryPoint {
 		oracle.add(":-)");
 
 		GetCachedSearches.App.getInstance().getCachedSearches(
-				new AsyncCallback() {
+				new AsyncCallback<CachedSearchList>() {
 					public void onFailure(Throwable caught) {
 						// TODO: implement error handling???
 					}
 
-					public void onSuccess(Object response) {
-						CachedSearchList results = (CachedSearchList) response;
+					public void onSuccess(CachedSearchList results) {
 						for (int i = 0; i < results.getSize(); i++) {
 							suggestOracle.add(results.getSearchItem(i));
 						}
