@@ -156,37 +156,286 @@ public class Index implements EntryPoint {
 	
 	private VerticalPanel getPresetLinks()
 	{
-		Anchor omg = new Anchor("OMG", true);
+		final Image omg = new Image("images/omg.png");
 		omg.addClickListener( getTagListener("omg") );
-		
-		Anchor wtf = new Anchor("WTF", true);
-		wtf.addClickListener( getTagListener("wtf") );
-		
-		Anchor lol = new Anchor("LOL", true);
-		lol.addClickListener( getTagListener("lol") );
-		
-		Anchor ftw = new Anchor("FTW", true);
-		ftw.addClickListener( getTagListener("ftw") );
-		
-		Anchor imho = new Anchor("IMHO", true);
-		imho.addClickListener( getTagListener("imho") );
+		omg.addMouseListener( new MouseListener() {
+			public void onMouseDown(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
 
-		Anchor fail = new Anchor("FAIL", true);
+			public void onMouseEnter(Widget sender) {
+				omg.setUrl("images/omg_highlighted.png");
+			}
+
+			public void onMouseLeave(Widget sender) {
+				omg.setUrl("images/omg.png");
+			}
+
+			public void onMouseMove(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onMouseUp(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}			
+		});
+		
+		final Image wtf = new Image("images/wtf.png");
+		wtf.addClickListener( getTagListener("wtf") );
+		wtf.addMouseListener( new MouseListener() {
+			public void onMouseDown(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onMouseEnter(Widget sender) {
+				wtf.setUrl("images/wtf_highlighted.png");
+			}
+
+			public void onMouseLeave(Widget sender) {
+				wtf.setUrl("images/wtf.png");
+			}
+
+			public void onMouseMove(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onMouseUp(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}			
+		});
+		
+		final Image lol = new Image("images/lol.png");
+		lol.addClickListener( getTagListener("lol") );
+		lol.addMouseListener( new MouseListener() {
+			public void onMouseDown(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onMouseEnter(Widget sender) {
+				lol.setUrl("images/lol_highlighted.png");
+			}
+
+			public void onMouseLeave(Widget sender) {
+				lol.setUrl("images/lol.png");
+			}
+
+			public void onMouseMove(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onMouseUp(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		final Image ftw = new Image("images/ftw.png");
+		ftw.addClickListener( getTagListener("ftw") );
+		ftw.addMouseListener( new MouseListener() {
+			public void onMouseDown(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onMouseEnter(Widget sender) {
+				ftw.setUrl("images/ftw_highlighted.png");
+			}
+
+			public void onMouseLeave(Widget sender) {
+				ftw.setUrl("images/ftw.png");
+			}
+
+			public void onMouseMove(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onMouseUp(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
+		final Image imho = new Image("images/imho.png");
+		imho.addClickListener( getTagListener("imho") );
+		imho.addMouseListener( new MouseListener() {
+			public void onMouseDown(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onMouseEnter(Widget sender) {
+				imho.setUrl("images/imho_highlighted.png");
+			}
+
+			public void onMouseLeave(Widget sender) {
+				imho.setUrl("images/imho.png");
+			}
+
+			public void onMouseMove(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onMouseUp(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+
+		final Image fail = new Image("images/fail.png");
 		fail.addClickListener( getTagListener("fail") );
+		fail.addMouseListener( new MouseListener() {
+			public void onMouseDown(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onMouseEnter(Widget sender) {
+				fail.setUrl("images/fail_highlighted.png");
+			}
+
+			public void onMouseLeave(Widget sender) {
+				fail.setUrl("images/fail.png");
+			}
+
+			public void onMouseMove(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onMouseUp(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 		
-		Anchor pwned = new Anchor("pwned", true);
+		final Image pwned = new Image("images/pwned.png");
 		pwned.addClickListener( getTagListener("pwned") );
+		pwned.addMouseListener( new MouseListener() {
+			public void onMouseDown(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onMouseEnter(Widget sender) {
+				pwned.setUrl("images/pwned_highlighted.png");
+			}
+
+			public void onMouseLeave(Widget sender) {
+				pwned.setUrl("images/pwned.png");
+			}
+
+			public void onMouseMove(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onMouseUp(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 		
-		Anchor jk = new Anchor("JK", true);
+		final Image jk = new Image("images/jk.png");
 		jk.addClickListener( getTagListener("jk") );
+		jk.addMouseListener( new MouseListener() {
+			public void onMouseDown(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onMouseEnter(Widget sender) {
+				jk.setUrl("images/jk_highlighted.png");
+			}
+
+			public void onMouseLeave(Widget sender) {
+				jk.setUrl("images/jk.png");
+			}
+
+			public void onMouseMove(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onMouseUp(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 		
-		Anchor smileyFace = new Anchor(":-)", true);
+		final Image smileyFace = new Image("images/smiley.png");
 		smileyFace.addClickListener( getTagListener(":-)") );
+		smileyFace.addMouseListener( new MouseListener() {
+			public void onMouseDown(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onMouseEnter(Widget sender) {
+				smileyFace.setUrl("images/smiley_highlighted.png");
+			}
+
+			public void onMouseLeave(Widget sender) {
+				smileyFace.setUrl("images/smiley.png");
+			}
+
+			public void onMouseMove(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onMouseUp(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 		
-		Anchor sadFace = new Anchor(":-(", true);
-		smileyFace.addClickListener( getTagListener(":-(") );
+		final Image sadFace = new Image("images/sad.png");
+		sadFace.addClickListener( getTagListener(":-(") );
+		sadFace.addMouseListener( new MouseListener() {
+			public void onMouseDown(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onMouseEnter(Widget sender) {
+				sadFace.setUrl("images/sad_highlighted.png");
+			}
+
+			public void onMouseLeave(Widget sender) {
+				sadFace.setUrl("images/sad.png");
+			}
+
+			public void onMouseMove(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onMouseUp(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 
 		VerticalPanel linksPanel = new VerticalPanel();
+		linksPanel.setWidth("100%");
+		linksPanel.setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
 		linksPanel.add(omg);
 		linksPanel.add(wtf);
 		linksPanel.add(lol);
