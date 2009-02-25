@@ -655,6 +655,8 @@ public class Index implements EntryPoint {
 		oracle.add("woot");
 		oracle.add("w00t");
 		oracle.add(":-)");
+		oracle.add(":-(");
+		oracle.add("l33t");
 
 		GetCachedSearches.App.getInstance().getCachedSearches(
 				new AsyncCallback<CachedSearchList>() {
