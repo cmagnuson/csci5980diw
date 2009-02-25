@@ -38,19 +38,16 @@ public class Index implements EntryPoint {
 
 		// LEFT-HAND NAVIGATION PANEL
 		SimplePanel leftNavPanel = new SimplePanel();
-		leftNavPanel.setWidth("20%");
 		leftNavPanel.add( getLeftNavigation() );
 
 		// SCROLL CONTENT PANEL
 		scrollContentPanel = new VerticalPanel();
-		scrollContentPanel.setWidth("40%");
 		scrollContentPanel.setSpacing(10);
 		HTML text2 = new HTML("Scrolling list of items here");
 		scrollContentPanel.add(text2);
 
 		// RIGHT-HAND UTILITIES PANEL
 		rightUtilPanel = new VerticalPanel();
-		rightUtilPanel.setWidth("40%");
 
 		// Google Maps panel
 		mapsPanel = new SimplePanel();
@@ -247,6 +244,7 @@ public class Index implements EntryPoint {
 			}
 		});
 
+		/*
 		final Image ftw = new Image("images/ftw.png");
 		ftw.addClickListener( getTagListener("ftw") );
 		ftw.addMouseListener( new MouseListener() {
@@ -274,7 +272,8 @@ public class Index implements EntryPoint {
 			}
 
 		});
-
+		*/
+		
 		final Image imho = new Image("images/imho.png");
 		imho.addClickListener( getTagListener("imho") );
 		imho.addMouseListener( new MouseListener() {
@@ -387,6 +386,7 @@ public class Index implements EntryPoint {
 
 		});
 
+		/*
 		final Image smileyFace = new Image("images/smiley.png");
 		smileyFace.addClickListener( getTagListener(":-)") );
 		smileyFace.addMouseListener( new MouseListener() {
@@ -442,6 +442,7 @@ public class Index implements EntryPoint {
 			}
 
 		});
+		*/
 
 		VerticalPanel linksPanel = new VerticalPanel();
 		linksPanel.setWidth("100%");
@@ -449,13 +450,13 @@ public class Index implements EntryPoint {
 		linksPanel.add(omg);
 		linksPanel.add(wtf);
 		linksPanel.add(lol);
-		linksPanel.add(ftw);
+		//linksPanel.add(ftw);
 		linksPanel.add(imho);
 		linksPanel.add(fail);
 		linksPanel.add(pwned);
 		linksPanel.add(jk);
-		linksPanel.add(smileyFace);
-		linksPanel.add(sadFace);
+		//linksPanel.add(smileyFace);
+		//linksPanel.add(sadFace);
 
 		return linksPanel;
 	}
@@ -522,10 +523,14 @@ public class Index implements EntryPoint {
 						TechnoratiItem fi = ((TechnoratiItemList)results).getFeedItem(i);
 						Anchor a = new Anchor(fi.name, fi.link);
 						
+						SimplePanel sp = new SimplePanel();
+						sp.setWidth("300px");
+						sp.add(a);
+						
 						HorizontalPanel blogPanel = new HorizontalPanel();
 						blogPanel.setSpacing(10);
 						blogPanel.add(blog);
-						blogPanel.add(a);
+						blogPanel.add(sp);
 						blogPanel.add(star);
 						
 						scrollContentPanel.add(blogPanel);
@@ -584,6 +589,7 @@ public class Index implements EntryPoint {
 						HTML title = new HTML(photo.getTitle() + "<br /><br />");
 						
 						VerticalPanel vp = new VerticalPanel();
+						vp.setWidth("300px");
 						vp.add(img);
 						vp.add(title);
 						
