@@ -17,17 +17,18 @@ public class GetTechnoratiDataImpl extends RemoteServiceServlet implements GetTe
 	private static final long serialVersionUID = 1L;
 
 	// we'll use this url in a bit for our tag syndication service
-	private final String feedProviderUrl = "http://feeds.technorati.com/tag/";
+	private final String apiKey = "1c448f36f2564d9a126ae581078b818e";
+	private final String feedProviderUrl = "http://api.technorati.com/search";
 
 	// append this string to the end of a technorati query for better results	
 	@SuppressWarnings("unused")
-	private final String feedQuery = "?authority=a4&language=en";
+	private final String feedQuery = "?key=" + apiKey + "&format=rss&authority=a4&language=en&limit=100&query=";
 
 	@SuppressWarnings("unchecked")
 	public TechnoratiItemList getFeedItems(String tag) {
 		TechnoratiItemList list = new TechnoratiItemList();
 		try{
-			String feedURI = feedProviderUrl + tag;
+			String feedURI = feedProviderUrl + feedQuery + tag;
 			SyndFeedInput input = new SyndFeedInput();
 			SyndFeed feed = input.build(new XmlReader(new URL(feedURI)));
 
