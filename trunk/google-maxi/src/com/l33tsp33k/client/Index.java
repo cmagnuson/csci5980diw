@@ -486,15 +486,48 @@ public class Index implements EntryPoint {
 			public void onSuccess(TechnoratiItemList results) {   				
 				TechnoratiItem item;
 
-				if(((TechnoratiItemList)results).getSize() > 0) {
+				if(((TechnoratiItemList)results).getSize() > 0) 
+				{
 					item = ((TechnoratiItemList) results).getFeedItem(0);
-					VerticalPanel blogsPanel = new VerticalPanel();
-					for(int i=0; i<((TechnoratiItemList)results).getSize(); i++){
+					for(int i=0; i<((TechnoratiItemList)results).getSize(); i++)
+					{
+						Image blog = new Image("images/blog.png");
+						final Image star = new Image("images/whitestar.gif");
+						star.addMouseListener(new MouseListener() {
+							public void onMouseDown(Widget sender, int x, int y) {
+								// TODO Auto-generated method stub
+								
+							}
+
+							public void onMouseEnter(Widget sender) {
+								star.setUrl("images/yellowstar.gif");
+							}
+
+							public void onMouseLeave(Widget sender) {
+								star.setUrl("images/whitestar.gif");
+							}
+
+							public void onMouseMove(Widget sender, int x, int y) {
+								// TODO Auto-generated method stub
+								
+							}
+
+							public void onMouseUp(Widget sender, int x, int y) {
+								// TODO Auto-generated method stub
+								
+							}
+						});
+						
 						TechnoratiItem fi = ((TechnoratiItemList)results).getFeedItem(i);
 						Anchor a = new Anchor(fi.name, fi.link);
-						blogsPanel.add(a);
+						
+						HorizontalPanel blogPanel = new HorizontalPanel();
+						blogPanel.add(blog);
+						blogPanel.add(a);
+						blogPanel.add(star);
+						
+						scrollContentPanel.add(blogPanel);
 					}
-					scrollContentPanel.add(blogsPanel);
 				}
 				else
 					scrollContentPanel.add(new HTML("No blog items to list."));
@@ -515,17 +548,51 @@ public class Index implements EntryPoint {
 
 				if( results.getSize() > 0 )
 				{
-					VerticalPanel photosPanel = new VerticalPanel();
 					for(int i=0; i<10; i++)
 					{
+						Image flickr = new Image("images/flickr.png");
+						final Image star = new Image("images/whitestar.gif");
+						star.addMouseListener(new MouseListener() {
+							public void onMouseDown(Widget sender, int x, int y) {
+								// TODO Auto-generated method stub
+								
+							}
+
+							public void onMouseEnter(Widget sender) {
+								star.setUrl("images/yellowstar.gif");
+							}
+
+							public void onMouseLeave(Widget sender) {
+								star.setUrl("images/whitestar.gif");
+							}
+
+							public void onMouseMove(Widget sender, int x, int y) {
+								// TODO Auto-generated method stub
+								
+							}
+
+							public void onMouseUp(Widget sender, int x, int y) {
+								// TODO Auto-generated method stub
+								
+							}	
+						});
+						
 						FlickrPhoto photo = results.getPhoto(i);
 						Image img = new Image(photo.getUrl());
 						HTML title = new HTML(photo.getTitle() + "<br /><br />");
-						photosPanel.add(img);
-						photosPanel.add(title);
+						
+						VerticalPanel vp = new VerticalPanel();
+						vp.add(img);
+						vp.add(title);
+						
+						HorizontalPanel photoPanel = new HorizontalPanel();
+						photoPanel.add(flickr);
+						photoPanel.add(vp);
+						photoPanel.add(star);
+						
+						scrollContentPanel.add(photoPanel);
 					}
 
-					scrollContentPanel.add(photosPanel);
 					showMap(results);
 				}
 				else
