@@ -44,6 +44,7 @@ public class Index implements EntryPoint {
 		// SCROLL CONTENT PANEL
 		scrollContentPanel = new VerticalPanel();
 		scrollContentPanel.setWidth("40%");
+		scrollContentPanel.setSpacing(10);
 		HTML text2 = new HTML("Scrolling list of items here");
 		scrollContentPanel.add(text2);
 
@@ -522,6 +523,7 @@ public class Index implements EntryPoint {
 						Anchor a = new Anchor(fi.name, fi.link);
 						
 						HorizontalPanel blogPanel = new HorizontalPanel();
+						blogPanel.setSpacing(10);
 						blogPanel.add(blog);
 						blogPanel.add(a);
 						blogPanel.add(star);
@@ -586,6 +588,7 @@ public class Index implements EntryPoint {
 						vp.add(title);
 						
 						HorizontalPanel photoPanel = new HorizontalPanel();
+						photoPanel.setSpacing(10);
 						photoPanel.add(flickr);
 						photoPanel.add(vp);
 						photoPanel.add(star);
