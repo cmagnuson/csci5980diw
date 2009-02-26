@@ -8,11 +8,9 @@ import com.google.gwt.user.client.ui.*;
 import com.google.gwt.maps.client.*;
 import com.google.gwt.maps.client.control.MapTypeControl;  
 import com.google.gwt.maps.client.control.SmallMapControl;  
-import com.google.gwt.maps.client.event.MapClickHandler;  
-import com.google.gwt.maps.client.geom.LatLngBounds;
-import com.google.gwt.maps.client.geom.LatLng;
-import com.google.gwt.maps.client.overlay.Marker;  
-import com.google.gwt.maps.client.overlay.Overlay;
+import com.google.gwt.maps.client.geom.*;
+import com.google.gwt.maps.client.overlay.*;  
+import com.google.gwt.maps.client.event.MarkerClickHandler;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -20,6 +18,7 @@ import com.google.gwt.maps.client.overlay.Overlay;
 public class Index implements EntryPoint {
 
 	private static final String COOKIE = "l33tsp33k";
+	private MapWidget mapWidget;
 	private VerticalPanel scrollContentPanel;
 	private SimplePanel footerPanel;
 	private VerticalPanel rightUtilPanel;
@@ -33,13 +32,13 @@ public class Index implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-		
+
 		//Retrieve or set new cookie
 		cookie = Cookies.getCookie(COOKIE);
 		if(cookie==null){
 			cookie = ""+System.currentTimeMillis();
 		}
-		
+
 		// HEADER PANEL
 		SimplePanel headerPanel = new SimplePanel();
 		headerPanel.setWidth("100%");
@@ -55,7 +54,7 @@ public class Index implements EntryPoint {
 		scrollContentPanel = new VerticalPanel();
 		scrollContentPanel.setWidth("441px");
 		scrollContentPanel.setSpacing(10);
-		
+
 		// RIGHT-HAND UTILITIES PANEL
 		rightUtilPanel = new VerticalPanel();
 
@@ -66,14 +65,14 @@ public class Index implements EntryPoint {
 
 		// Scroll Items Panel
 		scrollItemsPanel = new VerticalPanel();
-		
+
 		// Scroll Favorites Panel
 		scrollFavoritesPanel = new ScrollPanel();
 		scrollFavoritesPanel.setSize("348px","350px");
 		scrollFavoritesPanel.setAlwaysShowScrollBars(true);
 		scrollFavoritesPanel.getElement().setId("scrollFavorites");
 		scrollFavoritesPanel.add(scrollItemsPanel);
-		
+
 		// Favorites Panel
 		VerticalPanel favoritesPanel = new VerticalPanel();
 		favoritesPanel.setWidth("100%");
@@ -289,8 +288,8 @@ public class Index implements EntryPoint {
 			}
 
 		});
-		*/
-		
+		 */
+
 		final Image imho = new Image("images/imho.png");
 		imho.addClickListener( getTagListener("imho") );
 		imho.addMouseListener( new MouseListener() {
@@ -459,7 +458,7 @@ public class Index implements EntryPoint {
 			}
 
 		});
-		*/
+		 */
 
 		VerticalPanel linksPanel = new VerticalPanel();
 		linksPanel.setWidth("100%");
@@ -523,7 +522,7 @@ public class Index implements EntryPoint {
 						star.addMouseListener(new MouseListener() {
 							public void onMouseDown(Widget sender, int x, int y) {
 								// TODO Auto-generated method stub
-								
+
 							}
 
 							public void onMouseEnter(Widget sender) {
@@ -536,28 +535,28 @@ public class Index implements EntryPoint {
 
 							public void onMouseMove(Widget sender, int x, int y) {
 								// TODO Auto-generated method stub
-								
+
 							}
 
 							public void onMouseUp(Widget sender, int x, int y) {
 								// TODO Auto-generated method stub
-								
+
 							}
 						});
-						
+
 						TechnoratiItem fi = ((TechnoratiItemList)results).getFeedItem(i);
 						Anchor a = new Anchor(fi.name, fi.link);
-						
+
 						SimplePanel sp = new SimplePanel();
 						sp.setWidth("300px");
 						sp.add(a);
-						
+
 						HorizontalPanel blogPanel = new HorizontalPanel();
 						blogPanel.setSpacing(10);
 						blogPanel.add(blog);
 						blogPanel.add(sp);
 						blogPanel.add(star);
-						
+
 						scrollContentPanel.add(blogPanel);
 					}
 				}
@@ -593,7 +592,7 @@ public class Index implements EntryPoint {
 						star.addMouseListener(new MouseListener() {
 							public void onMouseDown(Widget sender, int x, int y) {
 								// TODO Auto-generated method stub
-								
+
 							}
 
 							public void onMouseEnter(Widget sender) {
@@ -606,30 +605,30 @@ public class Index implements EntryPoint {
 
 							public void onMouseMove(Widget sender, int x, int y) {
 								// TODO Auto-generated method stub
-								
+
 							}
 
 							public void onMouseUp(Widget sender, int x, int y) {
 								// TODO Auto-generated method stub
-								
+
 							}	
 						});
-						
+
 						FlickrPhoto photo = results.getPhoto(i);
 						Image img = new Image(photo.getUrl());
 						HTML title = new HTML(photo.getTitle() + "<br /><br />");
-						
+
 						VerticalPanel vp = new VerticalPanel();
 						vp.setWidth("300px");
 						vp.add(img);
 						vp.add(title);
-						
+
 						HorizontalPanel photoPanel = new HorizontalPanel();
 						photoPanel.setSpacing(10);
 						photoPanel.add(flickr);
 						photoPanel.add(vp);
 						photoPanel.add(star);
-						
+
 						scrollContentPanel.add(photoPanel);
 					}
 
@@ -655,31 +654,40 @@ public class Index implements EntryPoint {
 	private void showMap(FlickrPhotoList photos){
 		//TODO: add twitter geocoding
 		//TODO: favorites to/from DB
-		
-		MapWidget mapWidget = getMap();
-			
+
+		//MapWidget mapWidget = getMap();
+
 		for(int i=0; i<photos.getSize(); i++){
 			FlickrPhoto p = photos.getPhoto(i);
 			if(p.hasCoordinates()){
 				LatLng l = LatLng.newInstance(p.getLat(), p.getLong());
-				Marker m = new Marker(l);
+				PhotoMarker m = new PhotoMarker(l,p);
 				mapWidget.addOverlay(m);
 				m.setImage("images/f.png");
+				m.addMarkerClickHandler(new MarkerClickHandler() {
+					public void	onClick(MarkerClickHandler.MarkerClickEvent event){
+						//event.getSender().showMapBlowup(new InfoWindowContent("test"));
+						PhotoMarker pm = (PhotoMarker)event.getSender();
+						InfoWindow iw = mapWidget.getInfoWindow();
+						iw.open(pm, new InfoWindowContent("<div><img src=\""+pm.getPhoto().getThumbnailUrl()+"\"><br>"+pm.getPhoto().getTitle()+"</div>"));
+					}
+				});
 			}
 		}
 
 		mapsPanel.clear();
 		mapsPanel.add(mapWidget);
 	}
-	
+
 	private MapWidget getMap()
 	{
-		MapWidget mapWidget = new MapWidget(LatLng.newInstance(38.548165,-95.361328), 3);  
+		mapWidget = new MapWidget(LatLng.newInstance(38.548165,-95.361328), 3);  
 		mapWidget.setSize("350px", "350px");  
 
 		mapWidget.addControl(new SmallMapControl());  
 		mapWidget.addControl(new MapTypeControl()); 
-		
+
+		this.mapWidget = mapWidget;
 		return mapWidget;
 	}
 
