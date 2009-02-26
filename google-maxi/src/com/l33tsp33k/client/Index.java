@@ -22,6 +22,7 @@ public class Index implements EntryPoint {
 	private SimplePanel footerPanel;
 	private VerticalPanel rightUtilPanel;
 	private SimplePanel mapsPanel;
+	private ScrollPanel scrollFavoritesPanel;
 	private MultiWordSuggestOracle suggestOracle;
 
 	/**
@@ -44,9 +45,7 @@ public class Index implements EntryPoint {
 		scrollContentPanel = new VerticalPanel();
 		scrollContentPanel.setWidth("441px");
 		scrollContentPanel.setSpacing(10);
-		HTML text2 = new HTML("Scrolling list of items here");
-		scrollContentPanel.add(text2);
-
+		
 		// RIGHT-HAND UTILITIES PANEL
 		rightUtilPanel = new VerticalPanel();
 
@@ -55,13 +54,16 @@ public class Index implements EntryPoint {
 		mapsPanel.setWidth("100%");
 		mapsPanel.add( getMap() );
 
+		// Scroll Favorites Panel
+		scrollFavoritesPanel = new ScrollPanel();
+		scrollFavoritesPanel.setSize("348px","350px");
+		scrollFavoritesPanel.setAlwaysShowScrollBars(true);
+		scrollFavoritesPanel.getElement().setId("scrollFavorites");
+		
 		// Favorites Panel
 		VerticalPanel favoritesPanel = new VerticalPanel();
 		favoritesPanel.setWidth("100%");
-		HTML text4 = new HTML("Favorites");
-		ScrollPanel scrollFavoritesPanel = new ScrollPanel();
-		scrollFavoritesPanel.setWidth("350px");
-		favoritesPanel.add(text4);
+		favoritesPanel.add(new HTML("<h2>Favorites:</h2>"));
 		favoritesPanel.add(scrollFavoritesPanel);
 
 		rightUtilPanel.add(mapsPanel);
