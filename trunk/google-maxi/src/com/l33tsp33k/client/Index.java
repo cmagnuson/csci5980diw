@@ -23,6 +23,7 @@ public class Index implements EntryPoint {
 	private VerticalPanel rightUtilPanel;
 	private SimplePanel mapsPanel;
 	private ScrollPanel scrollFavoritesPanel;
+	private VerticalPanel scrollItemsPanel;
 	private MultiWordSuggestOracle suggestOracle;
 
 	/**
@@ -54,11 +55,15 @@ public class Index implements EntryPoint {
 		mapsPanel.setWidth("100%");
 		mapsPanel.add( getMap() );
 
+		// Scroll Items Panel
+		scrollItemsPanel = new VerticalPanel();
+		
 		// Scroll Favorites Panel
 		scrollFavoritesPanel = new ScrollPanel();
 		scrollFavoritesPanel.setSize("348px","350px");
 		scrollFavoritesPanel.setAlwaysShowScrollBars(true);
 		scrollFavoritesPanel.getElement().setId("scrollFavorites");
+		scrollFavoritesPanel.add(scrollItemsPanel);
 		
 		// Favorites Panel
 		VerticalPanel favoritesPanel = new VerticalPanel();
@@ -500,6 +505,12 @@ public class Index implements EntryPoint {
 					{
 						Image blog = new Image("images/blog.png");
 						final Image star = new Image("images/whitestar.gif");
+						star.addClickListener(new ClickListener() {
+							public void onClick(Widget sender) {
+								// TODO Add an item to scrollItemsPanel
+								// Save to DB
+							}
+						});
 						star.addMouseListener(new MouseListener() {
 							public void onMouseDown(Widget sender, int x, int y) {
 								// TODO Auto-generated method stub
@@ -564,6 +575,12 @@ public class Index implements EntryPoint {
 					{
 						Image flickr = new Image("images/flickr.png");
 						final Image star = new Image("images/whitestar.gif");
+						star.addClickListener(new ClickListener() {
+							public void onClick(Widget sender) {
+								// TODO Add an item to scrollItemsPanel
+								// Save to DB
+							}
+						});
 						star.addMouseListener(new MouseListener() {
 							public void onMouseDown(Widget sender, int x, int y) {
 								// TODO Auto-generated method stub
