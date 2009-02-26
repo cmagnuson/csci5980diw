@@ -42,6 +42,7 @@ public class Index implements EntryPoint {
 
 		// SCROLL CONTENT PANEL
 		scrollContentPanel = new VerticalPanel();
+		scrollContentPanel.setWidth("441px");
 		scrollContentPanel.setSpacing(10);
 		HTML text2 = new HTML("Scrolling list of items here");
 		scrollContentPanel.add(text2);
@@ -52,14 +53,16 @@ public class Index implements EntryPoint {
 		// Google Maps panel
 		mapsPanel = new SimplePanel();
 		mapsPanel.setWidth("100%");
-		HTML text3 = new HTML("Map here");
-		mapsPanel.add(text3);
+		mapsPanel.add( getMap() );
 
 		// Favorites Panel
-		SimplePanel favoritesPanel = new SimplePanel();
+		VerticalPanel favoritesPanel = new VerticalPanel();
 		favoritesPanel.setWidth("100%");
-		HTML text4 = new HTML("Favorites here");
+		HTML text4 = new HTML("Favorites");
+		ScrollPanel scrollFavoritesPanel = new ScrollPanel();
+		scrollFavoritesPanel.setWidth("350px");
 		favoritesPanel.add(text4);
+		favoritesPanel.add(scrollFavoritesPanel);
 
 		rightUtilPanel.add(mapsPanel);
 		rightUtilPanel.add(favoritesPanel);
@@ -75,10 +78,8 @@ public class Index implements EntryPoint {
 		footerPanel = new SimplePanel();
 		footerPanel.setWidth("100%");
 		footerPanel.getElement().setId("footer");
-		HTML text5 = new HTML("<b>Copyright &copy; 2009 Little Lebowski Urban Achievers</b>");
-		footerPanel.add(text5);
-
-
+		HTML footerText = new HTML("<b>Copyright &copy; 2009 Little Lebowski Urban Achievers</b>");
+		footerPanel.add(footerText);
 
 		// ALL PANEL
 		VerticalPanel allPanel = new VerticalPanel();
@@ -475,6 +476,8 @@ public class Index implements EntryPoint {
 	{
 		// Clear previous content
 		scrollContentPanel.clear();
+		mapsPanel.clear();
+		mapsPanel.add( getMap() );
 
 		// Get Twitter data
 
@@ -622,24 +625,31 @@ public class Index implements EntryPoint {
 	}
 
 	private void showMap(FlickrPhotoList photos){
-		MapWidget mapWiget = new MapWidget(LatLng.newInstance(38.548165,-95.361328), 3);  
-		mapWiget.setSize("350px", "350px");  
-
-		mapWiget.addControl(new SmallMapControl());  
-		mapWiget.addControl(new MapTypeControl()); 
-
+		MapWidget mapWidget = getMap();
+			
 		for(int i=0; i<photos.getSize(); i++){
 			FlickrPhoto p = photos.getPhoto(i);
 			if(p.hasCoordinates()){
 				LatLng l = LatLng.newInstance(p.getLat(), p.getLong());
 				Marker m = new Marker(l);
-				mapWiget.addOverlay(m);
-				m.setImage(p.getThumbnailUrl());
+				mapWidget.addOverlay(m);
+				m.setImage("images/f.png");
 			}
 		}
 
 		mapsPanel.clear();
-		mapsPanel.add(mapWiget);
+		mapsPanel.add(mapWidget);
+	}
+	
+	private MapWidget getMap()
+	{
+		MapWidget mapWidget = new MapWidget(LatLng.newInstance(38.548165,-95.361328), 3);  
+		mapWidget.setSize("350px", "350px");  
+
+		mapWidget.addControl(new SmallMapControl());  
+		mapWidget.addControl(new MapTypeControl()); 
+		
+		return mapWidget;
 	}
 
 	private MultiWordSuggestOracle createSuggestionsOracle() {
