@@ -1,7 +1,8 @@
 package com.l33tsp33k.client;
 
 import com.l33tsp33k.client.datamodels.*;
-import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.*;
+import com.google.gwt.user.client.*;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 import com.google.gwt.maps.client.*;
@@ -18,6 +19,7 @@ import com.google.gwt.maps.client.overlay.Overlay;
  */
 public class Index implements EntryPoint {
 
+	private static final String COOKIE = "l33tsp33k";
 	private VerticalPanel scrollContentPanel;
 	private SimplePanel footerPanel;
 	private VerticalPanel rightUtilPanel;
@@ -25,12 +27,19 @@ public class Index implements EntryPoint {
 	private ScrollPanel scrollFavoritesPanel;
 	private VerticalPanel scrollItemsPanel;
 	private MultiWordSuggestOracle suggestOracle;
+	private String cookie = null;
 
 	/**
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-
+		
+		//Retrieve or set new cookie
+		cookie = Cookies.getCookie(COOKIE);
+		if(cookie==null){
+			cookie = ""+System.currentTimeMillis();
+		}
+		
 		// HEADER PANEL
 		SimplePanel headerPanel = new SimplePanel();
 		headerPanel.setWidth("100%");
@@ -644,6 +653,9 @@ public class Index implements EntryPoint {
 	}
 
 	private void showMap(FlickrPhotoList photos){
+		//TODO: add twitter geocoding
+		//TODO: favorites to/from DB
+		
 		MapWidget mapWidget = getMap();
 			
 		for(int i=0; i<photos.getSize(); i++){
