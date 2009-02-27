@@ -20,6 +20,19 @@
 		<servlet-class>
 		com.l33tsp33k.server.GetCachedSearches</servlet-class>
 	</servlet>
+		<servlet>
+		<description>
+		</description>
+		<display-name>
+		GetTechnoratiData</display-name>
+		<servlet-name>GetTechnoratiData</servlet-name>
+		<servlet-class>
+		com.l33tsp33k.server.GetTechnoratiDataImpl</servlet-class>
+	</servlet>
+		<servlet-mapping>
+		<servlet-name>GetTechnoratiData</servlet-name>
+		<url-pattern>/GetTechnoratiData</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>GetFlickrData</servlet-name>
 		<url-pattern>/GetFlickrData</url-pattern>
@@ -29,11 +42,6 @@
 		<url-pattern>/GetCachedSearches</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
+		<welcome-file>Index.html</welcome-file>
 	</welcome-file-list>
 </web-app>

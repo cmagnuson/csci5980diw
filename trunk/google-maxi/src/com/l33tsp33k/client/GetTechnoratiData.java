@@ -21,7 +21,7 @@ public interface GetTechnoratiData extends RemoteService {
 				// the FeedTempService service we've defined in GwtMini.gwt.xml 
 				
 				app = (GetTechnoratiDataAsync) GWT.create(GetTechnoratiData.class);
-				((ServiceDefTarget) app).setServiceEntryPoint(GWT.getModuleBaseURL() + "/FeedTempService");
+				((ServiceDefTarget) app).setServiceEntryPoint(GWT.getModuleBaseURL() + "/GetTechnoratiData");
 			}
 			return app;
 		}
