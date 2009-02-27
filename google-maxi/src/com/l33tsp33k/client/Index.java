@@ -515,13 +515,43 @@ public class Index implements EntryPoint {
 					for(int i=0; i<((TechnoratiItemList)results).getSize(); i++)
 					{
 						Image blog = new Image("images/blog.png");
+
+						final TechnoratiItem fi = ((TechnoratiItemList)results).getFeedItem(i);
+						Anchor a = new Anchor(fi.name, fi.link);
+
+						SimplePanel sp = new SimplePanel();
+						sp.setWidth("300px");
+						sp.add(a);
+						
 						final Image star = new Image("images/whitestar.gif");
-						star.addClickListener(new ClickListener() {
+						ClickListener starClick = new ClickListener() 
+						{
 							public void onClick(Widget sender) {
-								// TODO Add an item to scrollItemsPanel
+								// Add an item to scrollItemsPanel
+								Image blog_small = new Image("images/blog_small.png");
+								
+								Anchor an = new Anchor(fi.name, fi.link);
+								
+								SimplePanel s = new SimplePanel();
+								s.setWidth("250px");
+								s.add(an);
+								
+								HorizontalPanel favPanel = new HorizontalPanel();
+								favPanel.setSpacing(10);
+								favPanel.add(blog_small);
+								favPanel.add(s);
+								
+								scrollItemsPanel.add(favPanel);
+								
+								// Remove the click listener to avoid repeats
+								star.removeClickListener(this);
+								
 								// Save to DB
 							}
-						});
+						};
+						star.addClickListener( starClick );						
+						
+						
 						star.addMouseListener(new MouseListener() {
 							public void onMouseDown(Widget sender, int x, int y) {
 								// TODO Auto-generated method stub
@@ -547,13 +577,7 @@ public class Index implements EntryPoint {
 							}
 						});
 
-						TechnoratiItem fi = ((TechnoratiItemList)results).getFeedItem(i);
-						Anchor a = new Anchor(fi.name, fi.link);
-
-						SimplePanel sp = new SimplePanel();
-						sp.setWidth("300px");
-						sp.add(a);
-
+						
 						HorizontalPanel blogPanel = new HorizontalPanel();
 						blogPanel.setSpacing(10);
 						blogPanel.add(blog);
@@ -585,13 +609,46 @@ public class Index implements EntryPoint {
 					for(int i=0; i<10; i++)
 					{
 						Image flickr = new Image("images/flickr.png");
+
+						final FlickrPhoto photo = results.getPhoto(i);
+						Image img = new Image(photo.getUrl());
+						HTML title = new HTML(photo.getTitle() + "<br /><br />");
+
+						VerticalPanel vp = new VerticalPanel();
+						vp.setWidth("300px");
+						vp.add(img);
+						vp.add(title);
+						
 						final Image star = new Image("images/whitestar.gif");
-						star.addClickListener(new ClickListener() {
+						ClickListener starClick = new ClickListener() 
+						{
 							public void onClick(Widget sender) {
-								// TODO Add an item to scrollItemsPanel
+								// Add an item to scrollItemsPanel
+								Image flickr_small = new Image("images/flickr_small.png");
+								
+								Image i = new Image(photo.getUrl());
+								HTML t = new HTML(photo.getTitle() + "<br /><br />");
+
+								VerticalPanel v = new VerticalPanel();
+								v.setWidth("250px");
+								v.add(i);
+								v.add(t);
+								
+								HorizontalPanel favPanel = new HorizontalPanel();
+								favPanel.setSpacing(10);
+								favPanel.add(flickr_small);
+								favPanel.add(v);
+								
+								scrollItemsPanel.add(favPanel);
+								
+								// Remove the click listener to avoid repeats
+								star.removeClickListener(this);
+								
 								// Save to DB
 							}
-						});
+						};
+						star.addClickListener( starClick );						
+						
 						star.addMouseListener(new MouseListener() {
 							public void onMouseDown(Widget sender, int x, int y) {
 								// TODO Auto-generated method stub
@@ -617,14 +674,6 @@ public class Index implements EntryPoint {
 							}	
 						});
 
-						FlickrPhoto photo = results.getPhoto(i);
-						Image img = new Image(photo.getUrl());
-						HTML title = new HTML(photo.getTitle() + "<br /><br />");
-
-						VerticalPanel vp = new VerticalPanel();
-						vp.setWidth("300px");
-						vp.add(img);
-						vp.add(title);
 
 						HorizontalPanel photoPanel = new HorizontalPanel();
 						photoPanel.setSpacing(10);
