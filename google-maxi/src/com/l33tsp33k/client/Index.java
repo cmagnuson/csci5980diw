@@ -32,7 +32,7 @@ public class Index implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-
+		
 		//Retrieve or set new cookie
 		cookie = Cookies.getCookie(COOKIE);
 		if(cookie==null){
@@ -494,6 +494,9 @@ public class Index implements EntryPoint {
 		mapsPanel.clear();
 		mapsPanel.add( getMap() );
 
+		//Add tag to oracle
+		suggestOracle.add(tag);
+		
 		// Get Twitter data
 
 		// Get Technorati blog data
