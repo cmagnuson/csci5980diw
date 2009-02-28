@@ -623,22 +623,22 @@ public class Index implements EntryPoint {
 
 		// Get Flickr photos data
 		GetFlickrData.App.getInstance().getFlickrPhotos( tag,
-				new AsyncCallback<FlickrPhotoList>() {
+				new AsyncCallback<ArrayList<FlickrPhoto>>() {
 			public void onFailure(Throwable caught) {
 				// TODO: implement error handling???
 				// shows an error message - for testing purposes only
 				scrollContentPanel.add(new HTML("Error: Failed to get photos. " + caught.getMessage() ));
 			}
 
-			public void onSuccess(FlickrPhotoList results) {
+			public void onSuccess(ArrayList<FlickrPhoto> results) {
 
-				if( results.getSize() > 0 )
+				if( results.size() > 0 )
 				{
 					for(int i=0; i<10; i++)
 					{
 						Image flickr = new Image("images/flickr.png");
 
-						final FlickrPhoto photo = results.getPhoto(i);
+						final FlickrPhoto photo = results.get(i);
 						Image img = new Image(photo.getUrl());
 						HTML title = new HTML(photo.getTitle() + "<br /><br />");
 
@@ -727,14 +727,14 @@ public class Index implements EntryPoint {
 
 	}
 
-	private void showMap(FlickrPhotoList photos){
+	private void showMap(ArrayList<FlickrPhoto> photos){
 		//TODO: add twitter geocoding
 		//TODO: favorites to/from DB
 
 		//MapWidget mapWidget = getMap();
 
-		for(int i=0; i<photos.getSize(); i++){
-			FlickrPhoto p = photos.getPhoto(i);
+		for(int i=0; i<photos.size(); i++){
+			FlickrPhoto p = photos.get(i);
 			if(p.hasCoordinates()){
 				LatLng l = LatLng.newInstance(p.getLat(), p.getLong());
 				PhotoMarker m = new PhotoMarker(l,p);
