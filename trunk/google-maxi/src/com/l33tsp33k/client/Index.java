@@ -11,6 +11,7 @@ import com.google.gwt.maps.client.control.SmallMapControl;
 import com.google.gwt.maps.client.geom.*;
 import com.google.gwt.maps.client.overlay.*;  
 import com.google.gwt.maps.client.event.MarkerClickHandler;
+import java.util.*;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -32,11 +33,12 @@ public class Index implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-		
+
 		//Retrieve or set new cookie
 		cookie = Cookies.getCookie(COOKIE);
 		if(cookie==null){
 			cookie = ""+System.currentTimeMillis();
+			Cookies.setCookie(COOKIE, cookie);
 		}
 
 		// HEADER PANEL
@@ -107,6 +109,26 @@ public class Index implements EntryPoint {
 		// Add RootPanel
 		RootPanel.get().add(allPanel);
 
+
+		//scrollFavoritesPanel.
+		//Add saved favorites
+//		GetFavorites.Util.getInstance().getFavorites(cookie,
+//				new AsyncCallback<HashMap<Object, String>>() {
+//			public void onFailure(Throwable caught) {
+//				// TODO: implement error handling???
+//			}
+//
+//			public void onSuccess(HashMap<Object, String> favs) {
+//				for(Object o: favs.keySet()){
+//					if(o instanceof FlickrPhoto){
+//						addToFavorites((FlickrPhoto)o);
+//					}
+//					if(o instanceof TechnoratiItem){
+//						addToFavorites((TechnoratiItem)o);
+//					}
+//				}
+//			}
+//		});					
 	}
 
 	private VerticalPanel getLeftNavigation()
@@ -496,7 +518,7 @@ public class Index implements EntryPoint {
 
 		//Add tag to oracle
 		suggestOracle.add(tag);
-		
+
 		// Get Twitter data
 
 		// Get Technorati blog data
@@ -522,36 +544,12 @@ public class Index implements EntryPoint {
 						SimplePanel sp = new SimplePanel();
 						sp.setWidth("300px");
 						sp.add(a);
-						
+
 						final Image star = new Image("images/whitestar.gif");
-						ClickListener starClick = new ClickListener() 
-						{
-							public void onClick(Widget sender) {
-								// Add an item to scrollItemsPanel
-								Image blog_small = new Image("images/blog_small.png");
-								
-								Anchor an = new Anchor(fi.name, fi.link);
-								
-								SimplePanel s = new SimplePanel();
-								s.setWidth("250px");
-								s.add(an);
-								
-								HorizontalPanel favPanel = new HorizontalPanel();
-								favPanel.setSpacing(10);
-								favPanel.add(blog_small);
-								favPanel.add(s);
-								
-								scrollItemsPanel.add(favPanel);
-								
-								// Remove the click listener to avoid repeats
-								star.removeClickListener(this);
-								
-								// Save to DB
-							}
-						};
+						ClickListener starClick = createClickListener(fi, star);
 						star.addClickListener( starClick );						
-						
-						
+
+
 						star.addMouseListener(new MouseListener() {
 							public void onMouseDown(Widget sender, int x, int y) {
 								// TODO Auto-generated method stub
@@ -577,7 +575,7 @@ public class Index implements EntryPoint {
 							}
 						});
 
-						
+
 						HorizontalPanel blogPanel = new HorizontalPanel();
 						blogPanel.setSpacing(10);
 						blogPanel.add(blog);
@@ -589,6 +587,36 @@ public class Index implements EntryPoint {
 				}
 				else
 					scrollContentPanel.add(new HTML("No blog items to list."));
+			}
+			private ClickListener createClickListener(final TechnoratiItem fi,
+					final Image star) {
+				ClickListener starClick = new ClickListener() 
+				{
+					public void onClick(Widget sender) {
+						addToFavorites(fi);
+
+						// Remove the click listener to avoid repeats
+						star.removeClickListener(this);
+
+						// Save to DB
+						GetFavorites.Util.getInstance().addTechnoratiItem(fi, cookie,
+								new AsyncCallback<CachedSearchList>() {
+							public void onFailure(Throwable caught) {
+								// TODO: implement error handling???
+							}
+
+							public void onSuccess(CachedSearchList results) {
+								for (int i = 0; i < results.getSize(); i++) {
+									suggestOracle.add(results.getSearchItem(i));
+								}
+							}
+						});
+
+
+					}
+
+				};
+				return starClick;
 			}});
 
 		// Get ???
@@ -618,37 +646,33 @@ public class Index implements EntryPoint {
 						vp.setWidth("300px");
 						vp.add(img);
 						vp.add(title);
-						
+
 						final Image star = new Image("images/whitestar.gif");
 						ClickListener starClick = new ClickListener() 
 						{
 							public void onClick(Widget sender) {
-								// Add an item to scrollItemsPanel
-								Image flickr_small = new Image("images/flickr_small.png");
-								
-								Image i = new Image(photo.getUrl());
-								HTML t = new HTML(photo.getTitle() + "<br /><br />");
+								addToFavorites(photo);
 
-								VerticalPanel v = new VerticalPanel();
-								v.setWidth("250px");
-								v.add(i);
-								v.add(t);
-								
-								HorizontalPanel favPanel = new HorizontalPanel();
-								favPanel.setSpacing(10);
-								favPanel.add(flickr_small);
-								favPanel.add(v);
-								
-								scrollItemsPanel.add(favPanel);
-								
 								// Remove the click listener to avoid repeats
 								star.removeClickListener(this);
-								
+
 								// Save to DB
-							}
+								GetFavorites.Util.getInstance().addFlickrItem(photo, cookie,
+										new AsyncCallback<CachedSearchList>() {
+									public void onFailure(Throwable caught) {
+										// TODO: implement error handling???
+									}
+
+									public void onSuccess(CachedSearchList results) {
+										for (int i = 0; i < results.getSize(); i++) {
+											suggestOracle.add(results.getSearchItem(i));
+										}
+									}
+								});							}
+
 						};
 						star.addClickListener( starClick );						
-						
+
 						star.addMouseListener(new MouseListener() {
 							public void onMouseDown(Widget sender, int x, int y) {
 								// TODO Auto-generated method stub
@@ -773,5 +797,42 @@ public class Index implements EntryPoint {
 				});
 
 		return oracle;
+	}
+	
+	private void addToFavorites(final FlickrPhoto photo) {
+		// Add an item to scrollItemsPanel
+		Image flickr_small = new Image("images/flickr_small.png");
+
+		Image i = new Image(photo.getUrl());
+		HTML t = new HTML(photo.getTitle() + "<br /><br />");
+
+		VerticalPanel v = new VerticalPanel();
+		v.setWidth("250px");
+		v.add(i);
+		v.add(t);
+
+		HorizontalPanel favPanel = new HorizontalPanel();
+		favPanel.setSpacing(10);
+		favPanel.add(flickr_small);
+		favPanel.add(v);
+
+		scrollItemsPanel.add(favPanel);
+	}
+	private void addToFavorites(final TechnoratiItem fi) {
+		// Add an item to scrollItemsPanel
+		Image blog_small = new Image("images/blog_small.png");
+
+		Anchor an = new Anchor(fi.name, fi.link);
+
+		SimplePanel s = new SimplePanel();
+		s.setWidth("250px");
+		s.add(an);
+
+		HorizontalPanel favPanel = new HorizontalPanel();
+		favPanel.setSpacing(10);
+		favPanel.add(blog_small);
+		favPanel.add(s);
+
+		scrollItemsPanel.add(favPanel);
 	}
 }
