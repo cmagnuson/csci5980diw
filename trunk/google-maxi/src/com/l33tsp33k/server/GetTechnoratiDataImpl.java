@@ -1,6 +1,7 @@
 package com.l33tsp33k.server;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.l33tsp33k.client.GetTechnoratiData;
@@ -25,8 +26,8 @@ public class GetTechnoratiDataImpl extends RemoteServiceServlet implements GetTe
 	private final String feedQuery = "?key=" + apiKey + "&format=rss&authority=a4&language=en&limit=100&query=";
 
 	@SuppressWarnings("unchecked")
-	public TechnoratiItemList getFeedItems(String tag) {
-		TechnoratiItemList list = new TechnoratiItemList();
+	public ArrayList<TechnoratiItem> getFeedItems(String tag) {
+		ArrayList<TechnoratiItem> list = new ArrayList<TechnoratiItem>();
 		try{
 			String feedURI = feedProviderUrl + feedQuery + tag;
 			SyndFeedInput input = new SyndFeedInput();
@@ -44,7 +45,7 @@ public class GetTechnoratiDataImpl extends RemoteServiceServlet implements GetTe
 				if(entry.getDescription()!=null){
 					entry.getDescription().getValue();
 				}
-				list.addFeedItem(title, uri, author, desc);
+				list.add(new TechnoratiItem(title, uri, author, desc));
 			}
 		} catch (Exception e) {
 			e.printStackTrace(); 

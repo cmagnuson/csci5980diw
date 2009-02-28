@@ -522,23 +522,23 @@ public class Index implements EntryPoint {
 		// Get Twitter data
 
 		// Get Technorati blog data
-		GetTechnoratiData.App.getInstance().getFeedItems(tag, new AsyncCallback<TechnoratiItemList>() {
+		GetTechnoratiData.App.getInstance().getFeedItems(tag, new AsyncCallback<ArrayList<TechnoratiItem>>() {
 			public void onFailure(Throwable caught) {        			
 				// TODO: error handling??
 				// Shows an error message - for testing purposes only
 				scrollContentPanel.add(new HTML("Error: Failed to get blogs. " + caught.getMessage() ));
 			}
-			public void onSuccess(TechnoratiItemList results) {   				
+			public void onSuccess(ArrayList<TechnoratiItem> results) {   				
 				TechnoratiItem item;
 
-				if(((TechnoratiItemList)results).getSize() > 0) 
+				if(((ArrayList<TechnoratiItem>)results).size() > 0) 
 				{
-					item = ((TechnoratiItemList) results).getFeedItem(0);
-					for(int i=0; i<((TechnoratiItemList)results).getSize(); i++)
+					item = ((ArrayList<TechnoratiItem>) results).get(0);
+					for(int i=0; i<((ArrayList<TechnoratiItem>)results).size(); i++)
 					{
 						Image blog = new Image("images/blog.png");
 
-						final TechnoratiItem fi = ((TechnoratiItemList)results).getFeedItem(i);
+						final TechnoratiItem fi = ((ArrayList<TechnoratiItem>)results).get(i);
 						Anchor a = new Anchor(fi.name, fi.link);
 
 						SimplePanel sp = new SimplePanel();
