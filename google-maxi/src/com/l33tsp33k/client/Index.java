@@ -531,14 +531,14 @@ public class Index implements EntryPoint {
 			public void onSuccess(ArrayList<TechnoratiItem> results) {   				
 				TechnoratiItem item;
 
-				if(((ArrayList<TechnoratiItem>)results).size() > 0) 
+				if(results.size() > 0) 
 				{
-					item = ((ArrayList<TechnoratiItem>) results).get(0);
-					for(int i=0; i<((ArrayList<TechnoratiItem>)results).size(); i++)
+					item = results.get(0);
+					for(int i=0; i<results.size(); i++)
 					{
 						Image blog = new Image("images/blog.png");
 
-						final TechnoratiItem fi = ((ArrayList<TechnoratiItem>)results).get(i);
+						final TechnoratiItem fi = results.get(i);
 						Anchor a = new Anchor(fi.name, fi.link);
 
 						SimplePanel sp = new SimplePanel();
