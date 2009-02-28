@@ -1,5 +1,7 @@
 package com.l33tsp33k.server;
 
+import java.util.ArrayList;
+
 import com.l33tsp33k.client.datamodels.*;
 import com.aetrion.flickr.*;
 import com.aetrion.flickr.photos.*;
@@ -13,8 +15,8 @@ public class GetFlickrData extends com.google.gwt.user.server.rpc.RemoteServiceS
 	static final String API_KEY = "6799581c2e4e36d34ec4056711f5a644";
 	static final String SECRET = "60e44a7c30dbfaef";
 
-	public FlickrPhotoList getFlickrPhotos(String tag){
-		FlickrPhotoList fpl = new FlickrPhotoList();
+	public ArrayList<FlickrPhoto> getFlickrPhotos(String tag){
+		ArrayList<FlickrPhoto> fpl = new ArrayList<FlickrPhoto>();
 		try{
 			Flickr f = new Flickr(API_KEY, SECRET, new REST());
 			PhotosInterface pi = f.getPhotosInterface();
@@ -31,7 +33,7 @@ public class GetFlickrData extends com.google.gwt.user.server.rpc.RemoteServiceS
 				if(p.getGeoData()!=null){
 					fp.setCoordinates(p.getGeoData().getLongitude(), p.getGeoData().getLatitude());
 				}
-				fpl.addPhoto(fp);
+				fpl.add(fp);
 			}
 			return fpl;
 		}

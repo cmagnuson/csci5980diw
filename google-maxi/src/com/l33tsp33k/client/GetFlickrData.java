@@ -1,5 +1,7 @@
 package com.l33tsp33k.client;
 
+import java.util.ArrayList;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -7,7 +9,7 @@ import com.l33tsp33k.client.datamodels.*;
 
 public interface GetFlickrData extends RemoteService {
 
-	FlickrPhotoList getFlickrPhotos(String tag);
+	ArrayList<FlickrPhoto> getFlickrPhotos(String tag);
 		
 	public static class App {
 		private static GetFlickrDataAsync app = null;
