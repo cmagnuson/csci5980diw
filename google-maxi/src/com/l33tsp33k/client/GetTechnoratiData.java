@@ -1,5 +1,7 @@
 package com.l33tsp33k.client;
 
+import java.util.ArrayList;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -7,7 +9,7 @@ import com.l33tsp33k.client.datamodels.*;
 
 public interface GetTechnoratiData extends RemoteService {
 
-	TechnoratiItemList getFeedItems(String tag);
+	ArrayList<TechnoratiItem> getFeedItems(String tag);
 	
 	public static class App {
 		private static GetTechnoratiDataAsync app = null;
