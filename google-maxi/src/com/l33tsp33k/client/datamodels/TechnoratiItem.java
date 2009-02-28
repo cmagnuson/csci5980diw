@@ -10,7 +10,7 @@ import com.google.gwt.user.client.rpc.*;
  *
  */
 
-public class TechnoratiItem implements IsSerializable {
+public class TechnoratiItem implements IsSerializable, java.io.Serializable {
 
 	public String name = "";
 	public String link = "";

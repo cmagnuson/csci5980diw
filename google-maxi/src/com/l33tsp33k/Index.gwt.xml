@@ -1,16 +1,16 @@
-<module>
+<?xml version="1.0" encoding="UTF-8"?><module>
 
       <!-- Inherit the core Web Toolkit stuff.                        -->
-      <inherits name='com.google.gwt.user.User'/>
+      <inherits name="com.google.gwt.user.User"/>
    	  
    	  <!-- Google Maps, added - Carl -->
     <inherits name="com.google.gwt.maps.GoogleMaps"/>  
-    <script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;v=2&amp;key=ABQIAAAAiuPVg850W_6nz_Xq0YZbBhTb-vLQlFZmc2N8bgWI8YDPp5FEVBRqFfzJzdvlJch8Ungv5ohIWeqXXQ" /> 
+    <script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;v=2&amp;key=ABQIAAAAiuPVg850W_6nz_Xq0YZbBhTb-vLQlFZmc2N8bgWI8YDPp5FEVBRqFfzJzdvlJch8Ungv5ohIWeqXXQ"/> 
 	
       <!-- Inherit the default GWT style sheet.  You can change       -->
       <!-- the theme of your GWT application by uncommenting          -->
       <!-- any one of the following lines.                            -->
-      <inherits name='com.google.gwt.user.theme.standard.Standard'/>
+      <inherits name="com.google.gwt.user.theme.standard.Standard"/>
       <!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
       <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
 
@@ -18,19 +18,16 @@
 
 
       <!-- Specify the app entry point class.                         -->
-      <entry-point class='com.l33tsp33k.client.Index'/>
+      <entry-point class="com.l33tsp33k.client.Index"/>
     
       <!-- Specify the application specific style sheet.              -->
-      <stylesheet src='Index.css' />
+      <stylesheet src="Index.css"/>
       
-	  	<servlet path="/GetCachedSearches" 
-            class="com.l33tsp33k.server.GetCachedSearches">
+	  	<servlet class="com.l33tsp33k.server.GetCachedSearches" path="/GetCachedSearches">
 		</servlet>
-	  	<servlet path="/GetFlickrData" 
-            class="com.l33tsp33k.server.GetFlickrData">
+	  	<servlet class="com.l33tsp33k.server.GetFlickrData" path="/GetFlickrData">
 		</servlet>
-		<servlet path="/FeedTempService" 
-            class="com.l33tsp33k.server.GetTechnoratiDataImpl">
+		<servlet class="com.l33tsp33k.server.GetTechnoratiDataImpl" path="/GetTechnoratiData">
 		</servlet>
 
-</module>
+<servlet class="com.l33tsp33k.server.GetFavoritesImpl" path="/GetFavorites"/></module>

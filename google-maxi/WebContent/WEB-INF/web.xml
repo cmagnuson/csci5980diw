@@ -29,6 +29,11 @@
 		<servlet-class>
 		com.l33tsp33k.server.GetTechnoratiDataImpl</servlet-class>
 	</servlet>
+		<servlet>
+			<servlet-name>GetFavorites</servlet-name>
+			<servlet-class>
+			com.l33tsp33k.server.GetFavoritesImpl</servlet-class>
+		</servlet>
 		<servlet-mapping>
 		<servlet-name>GetTechnoratiData</servlet-name>
 		<url-pattern>/GetTechnoratiData</url-pattern>
@@ -40,6 +45,10 @@
 	<servlet-mapping>
 		<servlet-name>GetCachedSearches</servlet-name>
 		<url-pattern>/GetCachedSearches</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>GetFavorites</servlet-name>
+		<url-pattern>/GetFavorites</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>Index.html</welcome-file>

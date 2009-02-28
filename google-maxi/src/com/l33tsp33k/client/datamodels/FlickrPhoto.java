@@ -2,7 +2,7 @@ package com.l33tsp33k.client.datamodels;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
-public class FlickrPhoto implements IsSerializable, GeoReferencedData {
+public class FlickrPhoto implements IsSerializable, GeoReferencedData, java.io.Serializable {
 
 	private float lon, lat;
 	private String title;
