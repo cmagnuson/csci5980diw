@@ -123,23 +123,19 @@ public class Index implements EntryPoint {
 
 		//scrollFavoritesPanel.
 		//Add saved favorites
-//		GetFavorites.Util.getInstance().getFavorites(cookie,
-//				new AsyncCallback<HashMap<Object, String>>() {
-//			public void onFailure(Throwable caught) {
-//				// TODO: implement error handling???
-//			}
-//
-//			public void onSuccess(HashMap<Object, String> favs) {
-//				for(Object o: favs.keySet()){
-//					if(o instanceof FlickrPhoto){
-//						addToFavorites((FlickrPhoto)o);
-//					}
-//					if(o instanceof TechnoratiItem){
-//						addToFavorites((TechnoratiItem)o);
-//					}
-//				}
-//			}
-//		});					
+		GetFavorites.Util.getInstance().getFavoritePhotos(cookie,
+				new AsyncCallback<FlickrPhoto[]>() {
+			public void onFailure(Throwable caught) {
+				// TODO: implement error handling???
+			}
+
+			public void onSuccess(FlickrPhoto[] favs) {
+				for(FlickrPhoto o: favs){
+					Window.alert("Added "+o.getUrl());
+					addToFavorites(o);
+				}
+			}
+		});					
 
 		queue = new ArrayList<ItemPanel>();
 		Timer scrollTimer = new Timer() {

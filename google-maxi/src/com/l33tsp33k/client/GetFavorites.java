@@ -15,7 +15,8 @@ public interface GetFavorites extends RemoteService {
 	void addTwitterItem(TwitterItem ti, String cookie);
 	void addTechnoratiItem(TechnoratiItem ti, String cookie);
 	void addFlickrItem(FlickrPhoto p, String cookie);
-	HashMap<Object, String> getFavorites(String cookie);
+	FlickrPhoto[] getFavoritePhotos(String cookie);
+	TechnoratiItem[] getFavoriteFeeds(String cookie);
 	
 	public static class Util {
 
