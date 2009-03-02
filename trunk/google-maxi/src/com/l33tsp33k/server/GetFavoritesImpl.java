@@ -21,25 +21,48 @@ public class GetFavoritesImpl extends RemoteServiceServlet implements GetFavorit
 	public void addTechnoratiItem(TechnoratiItem ti, String cookie){
 		addItem(ti, "technorati", cookie);
 	}
-
+	
+	public FlickrPhoto[] getFavoritePhotos(String cookie){
+		LinkedList<FlickrPhoto> photos = new LinkedList<FlickrPhoto>();
+		Object[] os = getFavorites(cookie, "flickr");
+		for(Object o: os){
+			photos.add((FlickrPhoto)o);
+			System.err.println("Photo requested");
+		}
+		return photos.toArray(new FlickrPhoto[]{});
+	}
+	
+	public TechnoratiItem[] getFavoriteFeeds(String cookie){
+		LinkedList<TechnoratiItem> photos = new LinkedList<TechnoratiItem>();
+		Object[] os = getFavorites(cookie, "technorati");
+		for(Object o: os){
+			photos.add((TechnoratiItem)o);
+		}
+		return photos.toArray(new TechnoratiItem[]{});
+	}
+	
 	public void addTwitterItem(TwitterItem ti, String cookie){
 		addItem(ti, "twitter", cookie);
 	}
-
-	public HashMap<Object,String> getFavorites(String cookie){
-		HashMap<Object,String> favs = new HashMap<Object,String>();
+	
+	private Object[] getFavorites(String cookie, String type){
+		System.err.println("Get favs called: "+type+"  "+cookie);
+		LinkedList<Object> favs = new LinkedList<Object>();
 		Connection conn = InitalizeDB.connectToMySqlDatabase("championchipmn.com/google-maxi", "5980-group", "lebowski");
 		try{
-			PreparedStatement pstmt = conn.prepareStatement("SELECT object, object_type FROM user_favorites " +
-			"WHERE cookie=?");
+			PreparedStatement pstmt = conn.prepareStatement("SELECT object FROM user_favorites " +
+			"WHERE cookie=? AND object_type=?");
 			pstmt.setString(1, cookie);
+			pstmt.setString(2, type);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()){
-				favs.put(rs.getObject("object"), rs.getString("object_type"));
+				System.err.println("res gound");
+				favs.add(rs.getObject("object"));
 			}
 			rs.close();
 			conn.close();
-			return favs;
+			System.out.println("returning from get favcs");
+			return favs.toArray();
 		}
 		catch(SQLException sql){
 			sql.printStackTrace();
@@ -48,7 +71,7 @@ public class GetFavoritesImpl extends RemoteServiceServlet implements GetFavorit
 				s.printStackTrace();
 				conn = null;
 			}
-			return favs;
+			return favs.toArray();
 		}
 	}
 
