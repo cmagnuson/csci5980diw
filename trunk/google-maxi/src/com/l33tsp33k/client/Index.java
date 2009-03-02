@@ -520,6 +520,102 @@ public class Index implements EntryPoint {
 		suggestOracle.add(tag);
 
 		// Get Twitter data
+		GetTwitterData.App.getInstance().getFeedItems(tag, new AsyncCallback<ArrayList<TwitterItem>>() {
+			public void onFailure(Throwable caught) {        			
+				// TODO: error handling??
+				// Shows an error message - for testing purposes only
+				scrollContentPanel.add(new HTML("Error: Failed to get blogs. " + caught.getMessage() ));
+			}
+			public void onSuccess(ArrayList<TwitterItem> results) {   				
+				TwitterItem item;
+
+				if(results.size() > 0) 
+				{
+					item = results.get(0);
+					for(int i=0; i<results.size(); i++)
+					{
+						Image tweet = new Image("images/tweet.png");
+
+						final TwitterItem fi = results.get(i);
+						Anchor a = new Anchor(fi.name, fi.link);
+
+						SimplePanel sp = new SimplePanel();
+						sp.setWidth("300px");
+						sp.add(a);
+
+						final Image star = new Image("images/whitestar.gif");
+						ClickListener starClick = createClickListener(fi, star);
+						star.addClickListener( starClick );						
+
+
+						star.addMouseListener(new MouseListener() {
+							public void onMouseDown(Widget sender, int x, int y) {
+								// TODO Auto-generated method stub
+
+							}
+
+							public void onMouseEnter(Widget sender) {
+								star.setUrl("images/yellowstar.gif");
+							}
+
+							public void onMouseLeave(Widget sender) {
+								star.setUrl("images/whitestar.gif");
+							}
+
+							public void onMouseMove(Widget sender, int x, int y) {
+								// TODO Auto-generated method stub
+
+							}
+
+							public void onMouseUp(Widget sender, int x, int y) {
+								// TODO Auto-generated method stub
+
+							}
+						});
+
+
+						HorizontalPanel blogPanel = new HorizontalPanel();
+						blogPanel.setSpacing(10);
+						blogPanel.add(tweet);
+						blogPanel.add(sp);
+						blogPanel.add(star);
+
+						scrollContentPanel.add(blogPanel);
+					}
+				}
+				else
+					scrollContentPanel.add(new HTML("No blog items to list."));
+			}
+			private ClickListener createClickListener(final TwitterItem fi,
+					final Image star) {
+				ClickListener starClick = new ClickListener() 
+				{
+					public void onClick(Widget sender) {
+						addToFavorites(fi);
+
+						// Remove the click listener to avoid repeats
+						star.removeClickListener(this);
+
+						// Save to DB
+						GetFavorites.Util.getInstance().addTwitterItem(fi, cookie,
+								new AsyncCallback<CachedSearchList>() {
+							public void onFailure(Throwable caught) {
+								// TODO: implement error handling???
+							}
+
+							public void onSuccess(CachedSearchList results) {
+								for (int i = 0; i < results.getSize(); i++) {
+									suggestOracle.add(results.getSearchItem(i));
+								}
+							}
+						});
+
+
+					}
+
+				};
+				return starClick;
+			}});
 
 		// Get Technorati blog data
 		GetTechnoratiData.App.getInstance().getFeedItems(tag, new AsyncCallback<ArrayList<TechnoratiItem>>() {
@@ -831,6 +927,23 @@ public class Index implements EntryPoint {
 		HorizontalPanel favPanel = new HorizontalPanel();
 		favPanel.setSpacing(10);
 		favPanel.add(blog_small);
+		favPanel.add(s);
+
+		scrollItemsPanel.add(favPanel);
+	}
+	private void addToFavorites(final TwitterItem fi) {
+		// Add an item to scrollItemsPanel
+		Image tweet_small = new Image("images/tweet_small.png");
+
+		Anchor an = new Anchor(fi.name, fi.link);
+
+		SimplePanel s = new SimplePanel();
+		s.setWidth("250px");
+		s.add(an);
+
+		HorizontalPanel favPanel = new HorizontalPanel();
+		favPanel.setSpacing(10);
+		favPanel.add(tweet_small);
 		favPanel.add(s);
 
 		scrollItemsPanel.add(favPanel);

@@ -29,5 +29,7 @@
 		</servlet>
 		<servlet class="com.l33tsp33k.server.GetTechnoratiDataImpl" path="/GetTechnoratiData">
 		</servlet>
+		<servlet class="com.l33tsp33k.server.GetTwitterDataImpl" path="/GetTwitterData">
+		</servlet>
 
 <servlet class="com.l33tsp33k.server.GetFavoritesImpl" path="/GetFavorites"/></module>

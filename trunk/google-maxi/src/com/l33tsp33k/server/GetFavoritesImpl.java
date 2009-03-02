@@ -17,6 +17,10 @@ public class GetFavoritesImpl extends RemoteServiceServlet implements GetFavorit
 		addItem(ti, "technorati", cookie);
 	}
 
+	public void addTwitterItem(TwitterItem ti, String cookie){
+		addItem(ti, "twitter", cookie);
+	}
+
 	public HashMap<Object,String> getFavorites(String cookie){
 		HashMap<Object,String> favs = new HashMap<Object,String>();
 		Connection conn = InitalizeDB.connectToMySqlDatabase("championchipmn.com/google-maxi", "5980-group", "lebowski");
