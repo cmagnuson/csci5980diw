@@ -72,7 +72,7 @@ public class Index implements EntryPoint {
 
 		// Scroll Favorites Panel
 		scrollFavoritesPanel = new ScrollPanel();
-		scrollFavoritesPanel.setSize("348px","350px");
+		scrollFavoritesPanel.setSize("398px","350px");
 		scrollFavoritesPanel.setAlwaysShowScrollBars(true);
 		scrollFavoritesPanel.getElement().setId("scrollFavorites");
 		scrollFavoritesPanel.add(scrollItemsPanel);
@@ -224,7 +224,7 @@ public class Index implements EntryPoint {
 			"imho",
 			"fail",
 			"pwned",
-			"fail",
+			"jk",
 			};
 	private VerticalPanel getPresetLinks()
 	{
@@ -443,7 +443,7 @@ public class Index implements EntryPoint {
 	private MapWidget getMap()
 	{
 		mapWidget = new MapWidget(LatLng.newInstance(38.548165,-95.361328), 3);  
-		mapWidget.setSize("350px", "350px");  
+		mapWidget.setSize("400px", "350px");  
 
 		mapWidget.addControl(new SmallMapControl());  
 		mapWidget.addControl(new MapTypeControl()); 
@@ -489,18 +489,58 @@ public class Index implements EntryPoint {
 
 		Image i = new Image(photo.getUrl());
 		HTML t = new HTML(photo.getTitle() + "<br /><br />");
+		
+		final Image no = new Image("images/white_no.png");
+		no.addMouseListener(new MouseListener() {
+
+			public void onMouseDown(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onMouseEnter(Widget sender) {
+				no.setUrl("images/red_no.png");
+				
+			}
+
+			public void onMouseLeave(Widget sender) {
+				no.setUrl("images/white_no.png");
+				
+			}
+
+			public void onMouseMove(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onMouseUp(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 
 		VerticalPanel v = new VerticalPanel();
-		v.setWidth("250px");
+		v.setWidth("265px");
 		v.add(i);
 		v.add(t);
 
-		HorizontalPanel favPanel = new HorizontalPanel();
+		final HorizontalPanel favPanel = new HorizontalPanel();
 		favPanel.setSpacing(10);
 		favPanel.add(flickr_small);
 		favPanel.add(v);
+		favPanel.add(no);
 
 		scrollItemsPanel.add(favPanel);
+		
+		no.addClickListener(new ClickListener() {
+
+			public void onClick(Widget sender) {
+				scrollItemsPanel.remove(favPanel);
+				
+			}
+			
+		});
 	}
 	private void addToFavorites(final TechnoratiItem fi) {
 		// Add an item to scrollItemsPanel
@@ -509,15 +549,55 @@ public class Index implements EntryPoint {
 		Anchor an = new Anchor(fi.name, fi.link);
 
 		SimplePanel s = new SimplePanel();
-		s.setWidth("250px");
+		s.setWidth("265px");
 		s.add(an);
+		
+		final Image no = new Image("images/white_no.png");
+		no.addMouseListener(new MouseListener() {
 
-		HorizontalPanel favPanel = new HorizontalPanel();
+			public void onMouseDown(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onMouseEnter(Widget sender) {
+				no.setUrl("images/red_no.png");
+				
+			}
+
+			public void onMouseLeave(Widget sender) {
+				no.setUrl("images/white_no.png");
+				
+			}
+
+			public void onMouseMove(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onMouseUp(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+
+		final HorizontalPanel favPanel = new HorizontalPanel();
 		favPanel.setSpacing(10);
 		favPanel.add(blog_small);
 		favPanel.add(s);
+		favPanel.add(no);
 
 		scrollItemsPanel.add(favPanel);
+		
+		no.addClickListener(new ClickListener() {
+
+			public void onClick(Widget sender) {
+				scrollItemsPanel.remove(favPanel);
+				
+			}
+			
+		});
 	}
 	private void addToFavorites(final TwitterItem fi) {
 		// Add an item to scrollItemsPanel
@@ -526,14 +606,54 @@ public class Index implements EntryPoint {
 		Anchor an = new Anchor(fi.name, fi.link);
 
 		SimplePanel s = new SimplePanel();
-		s.setWidth("250px");
+		s.setWidth("265px");
 		s.add(an);
 
-		HorizontalPanel favPanel = new HorizontalPanel();
+		final Image no = new Image("images/white_no.png");
+		no.addMouseListener(new MouseListener() {
+
+			public void onMouseDown(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onMouseEnter(Widget sender) {
+				no.setUrl("images/red_no.png");
+				
+			}
+
+			public void onMouseLeave(Widget sender) {
+				no.setUrl("images/white_no.png");
+				
+			}
+
+			public void onMouseMove(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onMouseUp(Widget sender, int x, int y) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
+		final HorizontalPanel favPanel = new HorizontalPanel();
 		favPanel.setSpacing(10);
 		favPanel.add(tweet_small);
 		favPanel.add(s);
+		favPanel.add(no);
 
 		scrollItemsPanel.add(favPanel);
+		
+		no.addClickListener(new ClickListener() {
+
+			public void onClick(Widget sender) {
+				scrollItemsPanel.remove(favPanel);
+				
+			}
+			
+		});
 	}
 }
