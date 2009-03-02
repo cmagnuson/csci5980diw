@@ -266,93 +266,39 @@ public class Index implements EntryPoint {
 				scrollContentPanel.add(new HTML("Error: Failed to get blogs. " + caught.getMessage() ));
 			}
 			public void onSuccess(ArrayList<TwitterItem> results) {   				
-
-				if(results.size() > 0) 
-				{
-					for(int i=0; i<results.size(); i++)
-					{
-						Image tweet = new Image("images/tweet.png");
-
-						final TwitterItem fi = results.get(i);
-						Anchor a = new Anchor(fi.name, fi.link);
-
-						SimplePanel sp = new SimplePanel();
-						sp.setWidth("300px");
-						sp.add(a);
-
-						final Image star = new Image("images/whitestar.gif");
-						ClickListener starClick = createClickListener(fi, star);
-						star.addClickListener( starClick );						
-
-
-						star.addMouseListener(new MouseListener() {
-							public void onMouseDown(Widget sender, int x, int y) {
-								// TODO Auto-generated method stub
-
-							}
-
-							public void onMouseEnter(Widget sender) {
-								star.setUrl("images/yellowstar.gif");
-							}
-
-							public void onMouseLeave(Widget sender) {
-								star.setUrl("images/whitestar.gif");
-							}
-
-							public void onMouseMove(Widget sender, int x, int y) {
-								// TODO Auto-generated method stub
-
-							}
-
-							public void onMouseUp(Widget sender, int x, int y) {
-								// TODO Auto-generated method stub
-
-							}
-						});
-
-
-						HorizontalPanel blogPanel = new HorizontalPanel();
-						blogPanel.setSpacing(10);
-						blogPanel.add(tweet);
-						blogPanel.add(sp);
-						blogPanel.add(star);
-
-						scrollContentPanel.add(blogPanel);
-					}
-				}
-				else
+				if(results.size() < 1) {
 					scrollContentPanel.add(new HTML("No blog items to list."));
-			}
-			private ClickListener createClickListener(final TwitterItem fi,
-					final Image star) {
-				ClickListener starClick = new ClickListener() 
+					return;
+				}
+				for(int i=0; i<results.size(); i++)
 				{
-					public void onClick(Widget sender) {
-						addToFavorites(fi);
+					final TwitterItem fi = results.get(i);
+					Anchor a = new Anchor(fi.name, fi.link);
+					SimplePanel sp = new SimplePanel();
+					sp.setWidth("300px");
+					sp.add(a);
 
-						// Remove the click listener to avoid repeats
-						star.removeClickListener(this);
-
-						// Save to DB
-						GetFavorites.Util.getInstance().addTwitterItem(fi, cookie,
-								new AsyncCallback<CachedSearchList>() {
-							public void onFailure(Throwable caught) {
-								// TODO: implement error handling???
-							}
-
-							public void onSuccess(CachedSearchList results) {
-								for (int i = 0; i < results.getSize(); i++) {
-									suggestOracle.add(results.getSearchItem(i));
+					ItemPanel tweetPanel = new ItemPanel("images/tweet.png", sp) {
+						public void onStarClick() {
+							addToFavorites(fi);
+							// Save to DB
+							GetFavorites.Util.getInstance().addTwitterItem(fi, cookie,
+									new AsyncCallback<CachedSearchList>() {
+								public void onFailure(Throwable caught) {
+									// TODO: implement error handling???
 								}
-							}
-						});
-
-
-					}
-
-				};
-				return starClick;
-			}});
+								public void onSuccess(CachedSearchList results) {
+									for (int i = 0; i < results.getSize(); i++) {
+										suggestOracle.add(results.getSearchItem(i));
+									}
+								}
+							});
+						}
+					};
+					scrollContentPanel.add(tweetPanel);
+				}
+			}
+		});
 
 		// Get Technorati blog data
 		GetTechnoratiData.App.getInstance().getFeedItems(tag, new AsyncCallback<ArrayList<TechnoratiItem>>() {
@@ -362,96 +308,40 @@ public class Index implements EntryPoint {
 				scrollContentPanel.add(new HTML("Error: Failed to get blogs. " + caught.getMessage() ));
 			}
 			public void onSuccess(ArrayList<TechnoratiItem> results) {   				
-				if(results.size() > 0) 
-				{
-					for(int i=0; i<results.size(); i++)
-					{
-						Image blog = new Image("images/blog.png");
-
-						final TechnoratiItem fi = results.get(i);
-						Anchor a = new Anchor(fi.name, fi.link);
-
-						SimplePanel sp = new SimplePanel();
-						sp.setWidth("300px");
-						sp.add(a);
-
-						final Image star = new Image("images/whitestar.gif");
-						ClickListener starClick = createClickListener(fi, star);
-						star.addClickListener( starClick );						
-
-
-						star.addMouseListener(new MouseListener() {
-							public void onMouseDown(Widget sender, int x, int y) {
-								// TODO Auto-generated method stub
-
-							}
-
-							public void onMouseEnter(Widget sender) {
-								star.setUrl("images/yellowstar.gif");
-							}
-
-							public void onMouseLeave(Widget sender) {
-								star.setUrl("images/whitestar.gif");
-							}
-
-							public void onMouseMove(Widget sender, int x, int y) {
-								// TODO Auto-generated method stub
-
-							}
-
-							public void onMouseUp(Widget sender, int x, int y) {
-								// TODO Auto-generated method stub
-
-							}
-						});
-
-
-						HorizontalPanel blogPanel = new HorizontalPanel();
-						blogPanel.setSpacing(10);
-						blogPanel.add(blog);
-						blogPanel.add(sp);
-						blogPanel.add(star);
-
-						scrollContentPanel.add(blogPanel);
-					}
-				}
-				else
+				if(results.size() < 1) {
 					scrollContentPanel.add(new HTML("No blog items to list."));
-			}
-			private ClickListener createClickListener(final TechnoratiItem fi,
-					final Image star) {
-				ClickListener starClick = new ClickListener() 
-				{
-					public void onClick(Widget sender) {
-						addToFavorites(fi);
+					return;
+				}
+				for(int i=0; i<results.size(); i++) {
+					final TechnoratiItem fi = results.get(i);
+					Anchor a = new Anchor(fi.name, fi.link);
+					SimplePanel sp = new SimplePanel();
+					sp.setWidth("300px");
+					sp.add(a);
 
-						// Remove the click listener to avoid repeats
-						star.removeClickListener(this);
-
-						// Save to DB
-						GetFavorites.Util.getInstance().addTechnoratiItem(fi, cookie,
-								new AsyncCallback<CachedSearchList>() {
-							public void onFailure(Throwable caught) {
-								// TODO: implement error handling???
-							}
-
-							public void onSuccess(CachedSearchList results) {
-								for (int i = 0; i < results.getSize(); i++) {
-									suggestOracle.add(results.getSearchItem(i));
+					ItemPanel blogPanel = new ItemPanel("images/blog.png", sp) {
+						public void onStarClick() {
+							addToFavorites(fi);
+							// Save to DB
+							GetFavorites.Util.getInstance().addTechnoratiItem(fi, cookie,
+									new AsyncCallback<CachedSearchList>() {
+								public void onFailure(Throwable caught) {
+									// TODO: implement error handling???
 								}
-							}
-						});
+								public void onSuccess(CachedSearchList results) {
+									for (int i = 0; i < results.getSize(); i++) {
+										suggestOracle.add(results.getSearchItem(i));
+									}
+								}
+							});
+						}
+					};
+					scrollContentPanel.add(blogPanel);
+				}
+			}
+		});
 
-
-					}
-
-				};
-				return starClick;
-			}});
-
-		// Get ???
-
-		// Get Flickr photos data
+		//Get Flickr photos data
 		GetFlickrData.App.getInstance().getFlickrPhotos( tag,
 				new AsyncCallback<ArrayList<FlickrPhoto>>() {
 			public void onFailure(Throwable caught) {
@@ -461,87 +351,40 @@ public class Index implements EntryPoint {
 			}
 
 			public void onSuccess(ArrayList<FlickrPhoto> results) {
-
-				if( results.size() > 0 )
-				{
-					for(int i=0; i<10; i++)
-					{
-						Image flickr = new Image("images/flickr.png");
-
-						final FlickrPhoto photo = results.get(i);
-						Image img = new Image(photo.getUrl());
-						HTML title = new HTML(photo.getTitle() + "<br /><br />");
-
-						VerticalPanel vp = new VerticalPanel();
-						vp.setWidth("300px");
-						vp.add(img);
-						vp.add(title);
-
-						final Image star = new Image("images/whitestar.gif");
-						ClickListener starClick = new ClickListener() 
-						{
-							public void onClick(Widget sender) {
-								addToFavorites(photo);
-
-								// Remove the click listener to avoid repeats
-								star.removeClickListener(this);
-
-								// Save to DB
-								GetFavorites.Util.getInstance().addFlickrItem(photo, cookie,
-										new AsyncCallback<CachedSearchList>() {
-									public void onFailure(Throwable caught) {
-										// TODO: implement error handling???
-									}
-
-									public void onSuccess(CachedSearchList results) {
-										for (int i = 0; i < results.getSize(); i++) {
-											suggestOracle.add(results.getSearchItem(i));
-										}
-									}
-								});							}
-
-						};
-						star.addClickListener( starClick );						
-
-						star.addMouseListener(new MouseListener() {
-							public void onMouseDown(Widget sender, int x, int y) {
-								// TODO Auto-generated method stub
-
-							}
-
-							public void onMouseEnter(Widget sender) {
-								star.setUrl("images/yellowstar.gif");
-							}
-
-							public void onMouseLeave(Widget sender) {
-								star.setUrl("images/whitestar.gif");
-							}
-
-							public void onMouseMove(Widget sender, int x, int y) {
-								// TODO Auto-generated method stub
-
-							}
-
-							public void onMouseUp(Widget sender, int x, int y) {
-								// TODO Auto-generated method stub
-
-							}	
-						});
-
-
-						HorizontalPanel photoPanel = new HorizontalPanel();
-						photoPanel.setSpacing(10);
-						photoPanel.add(flickr);
-						photoPanel.add(vp);
-						photoPanel.add(star);
-
-						scrollContentPanel.add(photoPanel);
-					}
-
-					showMap(results);
-				}
-				else
+				if( results.size() < 1 ) {
 					scrollContentPanel.add(new HTML("No photos to list"));
+					return;
+				}
+				for(int i=0; i<10; i++)	{
+					final FlickrPhoto photo = results.get(i);
+					Image img = new Image(photo.getUrl());
+					HTML title = new HTML(photo.getTitle() + "<br /><br />");
+
+					VerticalPanel vp = new VerticalPanel();
+					vp.setWidth("300px");
+					vp.add(img);
+					vp.add(title);
+
+					ItemPanel photoPanel = new ItemPanel("images/flickr.png", vp) {
+						public void onStarClick() {
+							addToFavorites(photo);
+							// Save to DB
+							GetFavorites.Util.getInstance().addFlickrItem(photo, cookie,
+									new AsyncCallback<CachedSearchList>() {
+								public void onFailure(Throwable caught) {
+									// TODO: implement error handling???
+								}
+								public void onSuccess(CachedSearchList results) {
+									for (int i = 0; i < results.getSize(); i++) {
+										suggestOracle.add(results.getSearchItem(i));
+									}
+								}
+							});
+						}
+					};
+					scrollContentPanel.add(photoPanel);
+				}
+				showMap(results);
 			}
 		});
 
