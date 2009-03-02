@@ -3,6 +3,8 @@ package com.l33tsp33k.client;
 import com.l33tsp33k.client.datamodels.*;
 import com.google.gwt.core.client.*;
 import com.google.gwt.user.client.*;
+import com.google.gwt.user.client.Random;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 import com.google.gwt.maps.client.*;
@@ -27,6 +29,7 @@ public class Index implements EntryPoint {
 	private VerticalPanel scrollItemsPanel;
 	private MultiWordSuggestOracle suggestOracle;
 	private String cookie = null;
+	private ArrayList<ItemPanel> queue;
 
 	/**
 	 * This is the entry point method.
@@ -128,6 +131,21 @@ public class Index implements EntryPoint {
 //				}
 //			}
 //		});					
+
+		queue = new ArrayList<ItemPanel>();
+		Timer scrollTimer = new Timer() {
+			public void run() {
+				if (queue.size() < 1) return;
+			    ItemPanel item = queue.remove(Random.nextInt(queue.size()));
+			    scrollNewItem(item);
+			}
+
+			private void scrollNewItem(ItemPanel item) {
+				scrollContentPanel.add(item);
+			}
+		};
+		scrollTimer.scheduleRepeating(1000);
+		
 	}
 
 	private VerticalPanel getLeftNavigation()
@@ -252,6 +270,7 @@ public class Index implements EntryPoint {
 	{
 		// Clear previous content
 		scrollContentPanel.clear();
+		queue.clear();
 		mapsPanel.clear();
 		mapsPanel.add( getMap() );
 
@@ -267,7 +286,6 @@ public class Index implements EntryPoint {
 			}
 			public void onSuccess(ArrayList<TwitterItem> results) {   				
 				if(results.size() < 1) {
-					scrollContentPanel.add(new HTML("No blog items to list."));
 					return;
 				}
 				for(int i=0; i<results.size(); i++)
@@ -295,7 +313,7 @@ public class Index implements EntryPoint {
 							});
 						}
 					};
-					scrollContentPanel.add(tweetPanel);
+					queue.add(tweetPanel);
 				}
 			}
 		});
@@ -308,10 +326,7 @@ public class Index implements EntryPoint {
 				scrollContentPanel.add(new HTML("Error: Failed to get blogs. " + caught.getMessage() ));
 			}
 			public void onSuccess(ArrayList<TechnoratiItem> results) {   				
-				if(results.size() < 1) {
-					scrollContentPanel.add(new HTML("No blog items to list."));
-					return;
-				}
+				if(results.size() < 1) return;
 				for(int i=0; i<results.size(); i++) {
 					final TechnoratiItem fi = results.get(i);
 					Anchor a = new Anchor(fi.name, fi.link);
@@ -336,7 +351,7 @@ public class Index implements EntryPoint {
 							});
 						}
 					};
-					scrollContentPanel.add(blogPanel);
+					queue.add(blogPanel);
 				}
 			}
 		});
@@ -351,10 +366,7 @@ public class Index implements EntryPoint {
 			}
 
 			public void onSuccess(ArrayList<FlickrPhoto> results) {
-				if( results.size() < 1 ) {
-					scrollContentPanel.add(new HTML("No photos to list"));
-					return;
-				}
+				if( results.size() < 1 ) return;
 				for(int i=0; i<10; i++)	{
 					final FlickrPhoto photo = results.get(i);
 					Image img = new Image(photo.getUrl());
@@ -382,7 +394,7 @@ public class Index implements EntryPoint {
 							});
 						}
 					};
-					scrollContentPanel.add(photoPanel);
+					queue.add(photoPanel);
 				}
 				showMap(results);
 			}
