@@ -198,302 +198,42 @@ public class Index implements EntryPoint {
 		return leftNavPanel;
 	}
 
+	final String words[] = {
+			"omg",
+			"wtf",
+			"lol",
+			//"ftw",
+			"imho",
+			"fail",
+			"pwned",
+			"fail",
+			};
 	private VerticalPanel getPresetLinks()
 	{
-		final Image omg = new Image("images/omg.png");
-		omg.addClickListener( getTagListener("omg") );
-		omg.addMouseListener( new MouseListener() {
-			public void onMouseDown(Widget sender, int x, int y) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void onMouseEnter(Widget sender) {
-				omg.setUrl("images/omg_highlighted.png");
-			}
-
-			public void onMouseLeave(Widget sender) {
-				omg.setUrl("images/omg.png");
-			}
-
-			public void onMouseMove(Widget sender, int x, int y) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void onMouseUp(Widget sender, int x, int y) {
-				// TODO Auto-generated method stub
-
-			}			
-		});
-
-		final Image wtf = new Image("images/wtf.png");
-		wtf.addClickListener( getTagListener("wtf") );
-		wtf.addMouseListener( new MouseListener() {
-			public void onMouseDown(Widget sender, int x, int y) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void onMouseEnter(Widget sender) {
-				wtf.setUrl("images/wtf_highlighted.png");
-			}
-
-			public void onMouseLeave(Widget sender) {
-				wtf.setUrl("images/wtf.png");
-			}
-
-			public void onMouseMove(Widget sender, int x, int y) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void onMouseUp(Widget sender, int x, int y) {
-				// TODO Auto-generated method stub
-
-			}			
-		});
-
-		final Image lol = new Image("images/lol.png");
-		lol.addClickListener( getTagListener("lol") );
-		lol.addMouseListener( new MouseListener() {
-			public void onMouseDown(Widget sender, int x, int y) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void onMouseEnter(Widget sender) {
-				lol.setUrl("images/lol_highlighted.png");
-			}
-
-			public void onMouseLeave(Widget sender) {
-				lol.setUrl("images/lol.png");
-			}
-
-			public void onMouseMove(Widget sender, int x, int y) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void onMouseUp(Widget sender, int x, int y) {
-				// TODO Auto-generated method stub
-
-			}
-		});
-
-		/*
-		final Image ftw = new Image("images/ftw.png");
-		ftw.addClickListener( getTagListener("ftw") );
-		ftw.addMouseListener( new MouseListener() {
-			public void onMouseDown(Widget sender, int x, int y) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void onMouseEnter(Widget sender) {
-				ftw.setUrl("images/ftw_highlighted.png");
-			}
-
-			public void onMouseLeave(Widget sender) {
-				ftw.setUrl("images/ftw.png");
-			}
-
-			public void onMouseMove(Widget sender, int x, int y) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void onMouseUp(Widget sender, int x, int y) {
-				// TODO Auto-generated method stub
-
-			}
-
-		});
-		 */
-
-		final Image imho = new Image("images/imho.png");
-		imho.addClickListener( getTagListener("imho") );
-		imho.addMouseListener( new MouseListener() {
-			public void onMouseDown(Widget sender, int x, int y) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void onMouseEnter(Widget sender) {
-				imho.setUrl("images/imho_highlighted.png");
-			}
-
-			public void onMouseLeave(Widget sender) {
-				imho.setUrl("images/imho.png");
-			}
-
-			public void onMouseMove(Widget sender, int x, int y) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void onMouseUp(Widget sender, int x, int y) {
-				// TODO Auto-generated method stub
-
-			}
-
-		});
-
-		final Image fail = new Image("images/fail.png");
-		fail.addClickListener( getTagListener("fail") );
-		fail.addMouseListener( new MouseListener() {
-			public void onMouseDown(Widget sender, int x, int y) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void onMouseEnter(Widget sender) {
-				fail.setUrl("images/fail_highlighted.png");
-			}
-
-			public void onMouseLeave(Widget sender) {
-				fail.setUrl("images/fail.png");
-			}
-
-			public void onMouseMove(Widget sender, int x, int y) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void onMouseUp(Widget sender, int x, int y) {
-				// TODO Auto-generated method stub
-
-			}
-
-		});
-
-		final Image pwned = new Image("images/pwned.png");
-		pwned.addClickListener( getTagListener("pwned") );
-		pwned.addMouseListener( new MouseListener() {
-			public void onMouseDown(Widget sender, int x, int y) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void onMouseEnter(Widget sender) {
-				pwned.setUrl("images/pwned_highlighted.png");
-			}
-
-			public void onMouseLeave(Widget sender) {
-				pwned.setUrl("images/pwned.png");
-			}
-
-			public void onMouseMove(Widget sender, int x, int y) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void onMouseUp(Widget sender, int x, int y) {
-				// TODO Auto-generated method stub
-
-			}
-
-		});
-
-		final Image jk = new Image("images/jk.png");
-		jk.addClickListener( getTagListener("jk") );
-		jk.addMouseListener( new MouseListener() {
-			public void onMouseDown(Widget sender, int x, int y) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void onMouseEnter(Widget sender) {
-				jk.setUrl("images/jk_highlighted.png");
-			}
-
-			public void onMouseLeave(Widget sender) {
-				jk.setUrl("images/jk.png");
-			}
-
-			public void onMouseMove(Widget sender, int x, int y) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void onMouseUp(Widget sender, int x, int y) {
-				// TODO Auto-generated method stub
-
-			}
-
-		});
-
-		/*
-		final Image smileyFace = new Image("images/smiley.png");
-		smileyFace.addClickListener( getTagListener(":-)") );
-		smileyFace.addMouseListener( new MouseListener() {
-			public void onMouseDown(Widget sender, int x, int y) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void onMouseEnter(Widget sender) {
-				smileyFace.setUrl("images/smiley_highlighted.png");
-			}
-
-			public void onMouseLeave(Widget sender) {
-				smileyFace.setUrl("images/smiley.png");
-			}
-
-			public void onMouseMove(Widget sender, int x, int y) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void onMouseUp(Widget sender, int x, int y) {
-				// TODO Auto-generated method stub
-
-			}
-
-		});
-
-		final Image sadFace = new Image("images/sad.png");
-		sadFace.addClickListener( getTagListener(":-(") );
-		sadFace.addMouseListener( new MouseListener() {
-			public void onMouseDown(Widget sender, int x, int y) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void onMouseEnter(Widget sender) {
-				sadFace.setUrl("images/sad_highlighted.png");
-			}
-
-			public void onMouseLeave(Widget sender) {
-				sadFace.setUrl("images/sad.png");
-			}
-
-			public void onMouseMove(Widget sender, int x, int y) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void onMouseUp(Widget sender, int x, int y) {
-				// TODO Auto-generated method stub
-
-			}
-
-		});
-		 */
-
 		VerticalPanel linksPanel = new VerticalPanel();
 		linksPanel.setWidth("100%");
 		linksPanel.setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
-		linksPanel.add(omg);
-		linksPanel.add(wtf);
-		linksPanel.add(lol);
-		//linksPanel.add(ftw);
-		linksPanel.add(imho);
-		linksPanel.add(fail);
-		linksPanel.add(pwned);
-		linksPanel.add(jk);
-		//linksPanel.add(smileyFace);
-		//linksPanel.add(sadFace);
+
+		for(int i=0; i<words.length; i++) {
+			final String word = words[i];
+			final Image omg = new Image("images/" + word + ".png");
+			omg.addClickListener( getTagListener(word) );
+			omg.addMouseListener( new MouseListener() {
+				public void onMouseDown(Widget sender, int x, int y) {
+				}
+				public void onMouseEnter(Widget sender) {
+					omg.setUrl("images/" + word + "_highlighted.png");
+				}
+				public void onMouseLeave(Widget sender) {
+					omg.setUrl("images/" + word + ".png");
+				}
+				public void onMouseMove(Widget sender, int x, int y) {
+				}
+				public void onMouseUp(Widget sender, int x, int y) {
+				}			
+			});
+			linksPanel.add(omg);
+		}
 
 		return linksPanel;
 	}
