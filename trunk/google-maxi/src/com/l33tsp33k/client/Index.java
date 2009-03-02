@@ -230,7 +230,6 @@ public class Index implements EntryPoint {
 			"omg",
 			"wtf",
 			"lol",
-			//"ftw",
 			"imho",
 			"fail",
 			"pwned",
@@ -289,6 +288,50 @@ public class Index implements EntryPoint {
 		//Add tag to oracle
 		suggestOracle.add(tag);
 
+		//Get Flickr photos data
+		GetFlickrData.App.getInstance().getFlickrPhotos( tag,
+				new AsyncCallback<ArrayList<FlickrPhoto>>() {
+			public void onFailure(Throwable caught) {
+				// TODO: implement error handling???
+				// shows an error message - for testing purposes only
+				scrollContentPanel.add(new HTML("Error: Failed to get photos. " + caught.getMessage() ));
+			}
+
+			public void onSuccess(ArrayList<FlickrPhoto> results) {
+				if( results.size() < 1 ) return;
+				for(int i=0; i<10; i++)	{
+					final FlickrPhoto photo = results.get(i);
+					Image img = new Image(photo.getUrl());
+					HTML title = new HTML(photo.getTitle() + "<br /><br />");
+
+					VerticalPanel vp = new VerticalPanel();
+					vp.setWidth("300px");
+					vp.add(img);
+					vp.add(title);
+
+					ItemPanel photoPanel = new ItemPanel("images/flickr.png", vp) {
+						public void onStarClick() {
+							addToFavorites(photo);
+							// Save to DB
+							GetFavorites.Util.getInstance().addFlickrItem(photo, cookie,
+									new AsyncCallback<CachedSearchList>() {
+								public void onFailure(Throwable caught) {
+									// TODO: implement error handling???
+								}
+								public void onSuccess(CachedSearchList results) {
+									for (int i = 0; i < results.getSize(); i++) {
+										suggestOracle.add(results.getSearchItem(i));
+									}
+								}
+							});
+						}
+					};
+					queue.add(photoPanel);
+				}
+				showMap(results);
+			}
+		});
+		
 		// Get Twitter data
 		GetTwitterData.App.getInstance().getFeedItems(tag, new AsyncCallback<ArrayList<TwitterItem>>() {
 			public void onFailure(Throwable caught) {        			
@@ -365,50 +408,6 @@ public class Index implements EntryPoint {
 					};
 					queue.add(blogPanel);
 				}
-			}
-		});
-
-		//Get Flickr photos data
-		GetFlickrData.App.getInstance().getFlickrPhotos( tag,
-				new AsyncCallback<ArrayList<FlickrPhoto>>() {
-			public void onFailure(Throwable caught) {
-				// TODO: implement error handling???
-				// shows an error message - for testing purposes only
-				scrollContentPanel.add(new HTML("Error: Failed to get photos. " + caught.getMessage() ));
-			}
-
-			public void onSuccess(ArrayList<FlickrPhoto> results) {
-				if( results.size() < 1 ) return;
-				for(int i=0; i<10; i++)	{
-					final FlickrPhoto photo = results.get(i);
-					Image img = new Image(photo.getUrl());
-					HTML title = new HTML(photo.getTitle() + "<br /><br />");
-
-					VerticalPanel vp = new VerticalPanel();
-					vp.setWidth("300px");
-					vp.add(img);
-					vp.add(title);
-
-					ItemPanel photoPanel = new ItemPanel("images/flickr.png", vp) {
-						public void onStarClick() {
-							addToFavorites(photo);
-							// Save to DB
-							GetFavorites.Util.getInstance().addFlickrItem(photo, cookie,
-									new AsyncCallback<CachedSearchList>() {
-								public void onFailure(Throwable caught) {
-									// TODO: implement error handling???
-								}
-								public void onSuccess(CachedSearchList results) {
-									for (int i = 0; i < results.getSize(); i++) {
-										suggestOracle.add(results.getSearchItem(i));
-									}
-								}
-							});
-						}
-					};
-					queue.add(photoPanel);
-				}
-				showMap(results);
 			}
 		});
 
