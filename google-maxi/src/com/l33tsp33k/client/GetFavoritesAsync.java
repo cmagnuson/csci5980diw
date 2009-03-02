@@ -1,7 +1,10 @@
 package com.l33tsp33k.client;
 
-import com.l33tsp33k.client.datamodels.*;
-import java.util.*;
+import java.util.HashMap;
+
+import com.l33tsp33k.client.datamodels.FlickrPhoto;
+import com.l33tsp33k.client.datamodels.TechnoratiItem;
+import com.l33tsp33k.client.datamodels.TwitterItem;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface GetFavoritesAsync {

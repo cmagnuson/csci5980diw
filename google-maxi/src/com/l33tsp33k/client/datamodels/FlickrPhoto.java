@@ -4,6 +4,10 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class FlickrPhoto implements IsSerializable, GeoReferencedData, java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3265280095557909969L;
 	private float lon, lat;
 	private String title;
 	private String url;

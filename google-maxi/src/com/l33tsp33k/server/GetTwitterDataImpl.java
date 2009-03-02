@@ -4,10 +4,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import com.l33tsp33k.client.GetTechnoratiData;
-import com.l33tsp33k.client.GetTwitterData;
-import com.l33tsp33k.client.datamodels.*;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import com.l33tsp33k.client.GetTwitterData;
+import com.l33tsp33k.client.datamodels.TwitterItem;
 import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.SyndFeedInput;
@@ -20,6 +19,7 @@ public class GetTwitterDataImpl extends RemoteServiceServlet implements GetTwitt
 
 	private final String feedProviderUrl = "http://search.twitter.com/search.atom?q=";
 
+	@SuppressWarnings("unchecked")
 	public ArrayList<TwitterItem> getFeedItems(String tag) {
 		ArrayList<TwitterItem> list = new ArrayList<TwitterItem>();
 		try{

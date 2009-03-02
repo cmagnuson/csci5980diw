@@ -9,7 +9,6 @@ import com.google.gwt.maps.client.*;
 import com.google.gwt.maps.client.control.MapTypeControl;  
 import com.google.gwt.maps.client.control.SmallMapControl;  
 import com.google.gwt.maps.client.geom.*;
-import com.google.gwt.maps.client.overlay.*;  
 import com.google.gwt.maps.client.event.MarkerClickHandler;
 import java.util.*;
 
@@ -527,11 +526,9 @@ public class Index implements EntryPoint {
 				scrollContentPanel.add(new HTML("Error: Failed to get blogs. " + caught.getMessage() ));
 			}
 			public void onSuccess(ArrayList<TwitterItem> results) {   				
-				TwitterItem item;
 
 				if(results.size() > 0) 
 				{
-					item = results.get(0);
 					for(int i=0; i<results.size(); i++)
 					{
 						Image tweet = new Image("images/tweet.png");
@@ -625,11 +622,8 @@ public class Index implements EntryPoint {
 				scrollContentPanel.add(new HTML("Error: Failed to get blogs. " + caught.getMessage() ));
 			}
 			public void onSuccess(ArrayList<TechnoratiItem> results) {   				
-				TechnoratiItem item;
-
 				if(results.size() > 0) 
 				{
-					item = results.get(0);
 					for(int i=0; i<results.size(); i++)
 					{
 						Image blog = new Image("images/blog.png");
@@ -859,7 +853,6 @@ public class Index implements EntryPoint {
 		mapWidget.addControl(new SmallMapControl());  
 		mapWidget.addControl(new MapTypeControl()); 
 
-		this.mapWidget = mapWidget;
 		return mapWidget;
 	}
 

@@ -9,6 +9,11 @@ import com.l33tsp33k.client.datamodels.*;
 
 public class GetFavoritesImpl extends RemoteServiceServlet implements GetFavorites {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2858630671954665924L;
+
 	public void addFlickrItem(FlickrPhoto p, String cookie){
 		addItem(p, "flickr", cookie);
 	}

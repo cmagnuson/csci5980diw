@@ -1,11 +1,13 @@
 package com.l33tsp33k.client;
 
+import java.util.HashMap;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
-import com.google.gwt.user.client.rpc.ServiceDefTarget;
-import com.l33tsp33k.client.datamodels.*;
-import java.util.*;
+import com.l33tsp33k.client.datamodels.FlickrPhoto;
+import com.l33tsp33k.client.datamodels.TechnoratiItem;
+import com.l33tsp33k.client.datamodels.TwitterItem;
 
 @RemoteServiceRelativePath("GetFavorites")
 public interface GetFavorites extends RemoteService {
