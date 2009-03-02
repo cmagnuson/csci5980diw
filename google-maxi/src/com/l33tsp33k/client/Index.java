@@ -22,6 +22,7 @@ public class Index implements EntryPoint {
 	private static final String COOKIE = "l33tsp33k";
 	private MapWidget mapWidget;
 	private VerticalPanel scrollContentPanel;
+	private VerticalPanel scrollPlaceHolderPanel;
 	private SimplePanel footerPanel;
 	private VerticalPanel rightUtilPanel;
 	private SimplePanel mapsPanel;
@@ -58,6 +59,13 @@ public class Index implements EntryPoint {
 		scrollContentPanel = new VerticalPanel();
 		scrollContentPanel.setWidth("441px");
 		scrollContentPanel.setSpacing(10);
+	    Element scp = scrollContentPanel.getElement();
+		DOM.setStyleAttribute(scp, "position", "absolute");
+		scp.getStyle().setPropertyPx("top", 600);
+
+		// SCROLL PLACEHOLDER PANEL
+		scrollPlaceHolderPanel = new VerticalPanel();
+		scrollPlaceHolderPanel.setWidth("441px");
 
 		// RIGHT-HAND UTILITIES PANEL
 		rightUtilPanel = new VerticalPanel();
@@ -91,6 +99,7 @@ public class Index implements EntryPoint {
 		mainContentPanel.setWidth("100%");
 		mainContentPanel.add(leftNavPanel);
 		mainContentPanel.add(scrollContentPanel);
+		mainContentPanel.add(scrollPlaceHolderPanel);
 		mainContentPanel.add(rightUtilPanel);
 
 		// FOOTER PANEL
@@ -142,9 +151,14 @@ public class Index implements EntryPoint {
 
 			private void scrollNewItem(ItemPanel item) {
 				scrollContentPanel.add(item);
+				int spacing = scrollContentPanel.getSpacing();
+				int height = item.getOffsetHeight();
+			    Element elem = scrollContentPanel.getElement();
+			    int top = elem.getAbsoluteTop();
+			    elem.getStyle().setPropertyPx("top", top - spacing - height);
 			}
 		};
-		scrollTimer.scheduleRepeating(1000);
+		scrollTimer.scheduleRepeating(2000);
 		
 	}
 
@@ -270,6 +284,8 @@ public class Index implements EntryPoint {
 	{
 		// Clear previous content
 		scrollContentPanel.clear();
+	    Element scp = scrollContentPanel.getElement();
+		scp.getStyle().setPropertyPx("top", 600);
 		queue.clear();
 		mapsPanel.clear();
 		mapsPanel.add( getMap() );
