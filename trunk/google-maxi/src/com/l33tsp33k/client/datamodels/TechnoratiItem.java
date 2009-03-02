@@ -12,6 +12,10 @@ import com.google.gwt.user.client.rpc.*;
 
 public class TechnoratiItem implements IsSerializable, java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6204374867908960813L;
 	public String name = "";
 	public String link = "";
 	public String author = "";

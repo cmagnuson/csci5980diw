@@ -22,7 +22,6 @@ public class GetTechnoratiDataImpl extends RemoteServiceServlet implements GetTe
 	private final String feedProviderUrl = "http://api.technorati.com/search";
 
 	// append this string to the end of a technorati query for better results	
-	@SuppressWarnings("unused")
 	private final String feedQuery = "?key=" + apiKey + "&format=rss&authority=a4&language=en&limit=100&query=";
 
 	@SuppressWarnings("unchecked")
