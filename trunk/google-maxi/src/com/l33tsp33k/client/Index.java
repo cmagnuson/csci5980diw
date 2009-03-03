@@ -80,7 +80,7 @@ public class Index implements EntryPoint {
 
 		// Scroll Favorites Panel
 		scrollFavoritesPanel = new ScrollPanel();
-		scrollFavoritesPanel.setSize("398px","350px");
+		scrollFavoritesPanel.setSize("398px","300px");
 		scrollFavoritesPanel.setAlwaysShowScrollBars(true);
 		scrollFavoritesPanel.getElement().setId("scrollFavorites");
 		scrollFavoritesPanel.add(scrollItemsPanel);
@@ -488,7 +488,7 @@ public class Index implements EntryPoint {
 	private MapWidget getMap()
 	{
 		mapWidget = new MapWidget(LatLng.newInstance(38.548165,-95.361328), 3);  
-		mapWidget.setSize("400px", "350px");  
+		mapWidget.setSize("400px", "300px");  
 
 		mapWidget.addControl(new SmallMapControl());  
 		mapWidget.addControl(new MapTypeControl()); 
