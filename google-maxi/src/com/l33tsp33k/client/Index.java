@@ -59,7 +59,7 @@ public class Index implements EntryPoint {
 		scrollContentPanel = new VerticalPanel();
 		scrollContentPanel.setWidth("441px");
 		scrollContentPanel.setSpacing(10);
-	    Element scp = scrollContentPanel.getElement();
+		Element scp = scrollContentPanel.getElement();
 		DOM.setStyleAttribute(scp, "position", "absolute");
 		scp.getStyle().setPropertyPx("top", 600);
 
@@ -129,37 +129,57 @@ public class Index implements EntryPoint {
 		//Add saved favorites
 		GetFavorites.Util.getInstance().getFavoritePhotos(cookie,
 				new AsyncCallback<FlickrPhoto[]>() {
-			public void onFailure(Throwable caught) {
-				// TODO: implement error handling???
-			}
+					public void onFailure(Throwable caught) {
+						// TODO: implement error handling???
+					}
 
-			public void onSuccess(FlickrPhoto[] favs) {
-				for(FlickrPhoto o: favs){
-					Window.alert("Added "+o.getUrl());
-					addToFavorites(o);
-				}
-			}
-		});					
+					public void onSuccess(FlickrPhoto[] favs) {
+						for(FlickrPhoto o: favs){
+							addToFavorites(o);
+						}
+					}
+				});
+		GetFavorites.Util.getInstance().getFavoriteTwitters(cookie,
+				new AsyncCallback<TwitterItem[]>() {
+					public void onFailure(Throwable caught) {
+					}
+					public void onSuccess(TwitterItem[] favs) {
+						for(TwitterItem o: favs){
+							addToFavorites(o);
+						}
+					}
+				});
+		GetFavorites.Util.getInstance().getFavoriteFeeds(cookie,
+				new AsyncCallback<TechnoratiItem[]>() {
+					public void onFailure(Throwable caught) {
+					}
+					public void onSuccess(TechnoratiItem[] favs) {
+						for(TechnoratiItem o: favs){
+							addToFavorites(o);
+						}
+					}
+				});
+		
 
 		queue = new ArrayList<ItemPanel>();
 		Timer scrollTimer = new Timer() {
 			public void run() {
 				if (queue.size() < 1) return;
-			    ItemPanel item = queue.remove(Random.nextInt(queue.size()));
-			    scrollNewItem(item);
+				ItemPanel item = queue.remove(Random.nextInt(queue.size()));
+				scrollNewItem(item);
 			}
 
 			private void scrollNewItem(ItemPanel item) {
 				scrollContentPanel.add(item);
 				int spacing = scrollContentPanel.getSpacing();
 				int height = item.getOffsetHeight();
-			    Element elem = scrollContentPanel.getElement();
-			    int top = elem.getAbsoluteTop();
-			    elem.getStyle().setPropertyPx("top", top - spacing - height);
+				Element elem = scrollContentPanel.getElement();
+				int top = elem.getAbsoluteTop();
+				elem.getStyle().setPropertyPx("top", top - spacing - height);
 			}
 		};
 		scrollTimer.scheduleRepeating(4000);
-		
+
 	}
 
 	private VerticalPanel getLeftNavigation()
@@ -238,7 +258,7 @@ public class Index implements EntryPoint {
 			"fail",
 			"pwned",
 			"jk",
-			};
+	};
 	private VerticalPanel getPresetLinks()
 	{
 		VerticalPanel linksPanel = new VerticalPanel();
@@ -283,7 +303,7 @@ public class Index implements EntryPoint {
 	{
 		// Clear previous content
 		scrollContentPanel.clear();
-	    Element scp = scrollContentPanel.getElement();
+		Element scp = scrollContentPanel.getElement();
 		scp.getStyle().setPropertyPx("top", 600);
 		queue.clear();
 		mapsPanel.clear();
@@ -323,6 +343,9 @@ public class Index implements EntryPoint {
 									// TODO: implement error handling???
 								}
 								public void onSuccess(CachedSearchList results) {
+									if(results==null){
+										return;
+									}
 									for (int i = 0; i < results.getSize(); i++) {
 										suggestOracle.add(results.getSearchItem(i));
 									}
@@ -335,7 +358,7 @@ public class Index implements EntryPoint {
 				showMap(results);
 			}
 		});
-		
+
 		// Get Twitter data
 		GetTwitterData.App.getInstance().getFeedItems(tag, new AsyncCallback<ArrayList<TwitterItem>>() {
 			public void onFailure(Throwable caught) {        			
@@ -403,8 +426,10 @@ public class Index implements EntryPoint {
 									// TODO: implement error handling???
 								}
 								public void onSuccess(CachedSearchList results) {
-									for (int i = 0; i < results.getSize(); i++) {
-										suggestOracle.add(results.getSearchItem(i));
+									if(results!=null){
+										for (int i = 0; i < results.getSize(); i++) {
+											suggestOracle.add(results.getSearchItem(i));
+										}
 									}
 								}
 							});
@@ -497,42 +522,42 @@ public class Index implements EntryPoint {
 
 		return oracle;
 	}
-	
+
 	private void addToFavorites(final FlickrPhoto photo) {
 		// Add an item to scrollItemsPanel
 		Image flickr_small = new Image("images/flickr_small.png");
 
 		Image i = new Image(photo.getUrl());
 		HTML t = new HTML(photo.getTitle() + "<br /><br />");
-		
+
 		final Image no = new Image("images/white_no.png");
 		no.addMouseListener(new MouseListener() {
 
 			public void onMouseDown(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void onMouseEnter(Widget sender) {
 				no.setUrl("images/red_no.png");
-				
+
 			}
 
 			public void onMouseLeave(Widget sender) {
 				no.setUrl("images/white_no.png");
-				
+
 			}
 
 			public void onMouseMove(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void onMouseUp(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 		});
 
 		VerticalPanel v = new VerticalPanel();
@@ -547,14 +572,14 @@ public class Index implements EntryPoint {
 		favPanel.add(no);
 
 		scrollItemsPanel.add(favPanel);
-		
+
 		no.addClickListener(new ClickListener() {
 
 			public void onClick(Widget sender) {
 				scrollItemsPanel.remove(favPanel);
-				
+
 			}
-			
+
 		});
 	}
 	private void addToFavorites(final TechnoratiItem fi) {
@@ -566,35 +591,35 @@ public class Index implements EntryPoint {
 		SimplePanel s = new SimplePanel();
 		s.setWidth("265px");
 		s.add(an);
-		
+
 		final Image no = new Image("images/white_no.png");
 		no.addMouseListener(new MouseListener() {
 
 			public void onMouseDown(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void onMouseEnter(Widget sender) {
 				no.setUrl("images/red_no.png");
-				
+
 			}
 
 			public void onMouseLeave(Widget sender) {
 				no.setUrl("images/white_no.png");
-				
+
 			}
 
 			public void onMouseMove(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void onMouseUp(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 		});
 
 		final HorizontalPanel favPanel = new HorizontalPanel();
@@ -604,14 +629,14 @@ public class Index implements EntryPoint {
 		favPanel.add(no);
 
 		scrollItemsPanel.add(favPanel);
-		
+
 		no.addClickListener(new ClickListener() {
 
 			public void onClick(Widget sender) {
 				scrollItemsPanel.remove(favPanel);
-				
+
 			}
-			
+
 		});
 	}
 	private void addToFavorites(final TwitterItem fi) {
@@ -629,31 +654,31 @@ public class Index implements EntryPoint {
 
 			public void onMouseDown(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void onMouseEnter(Widget sender) {
 				no.setUrl("images/red_no.png");
-				
+
 			}
 
 			public void onMouseLeave(Widget sender) {
 				no.setUrl("images/white_no.png");
-				
+
 			}
 
 			public void onMouseMove(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			public void onMouseUp(Widget sender, int x, int y) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 		});
-		
+
 		final HorizontalPanel favPanel = new HorizontalPanel();
 		favPanel.setSpacing(10);
 		favPanel.add(tweet_small);
@@ -661,14 +686,14 @@ public class Index implements EntryPoint {
 		favPanel.add(no);
 
 		scrollItemsPanel.add(favPanel);
-		
+
 		no.addClickListener(new ClickListener() {
 
 			public void onClick(Widget sender) {
 				scrollItemsPanel.remove(favPanel);
-				
+
 			}
-			
+
 		});
 	}
 }
