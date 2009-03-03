@@ -331,8 +331,9 @@ public class Index implements EntryPoint {
 				for(int i=0; i<size; i++)	{
 					final FlickrPhoto photo = results.get(i);
 					Image img = new Image(photo.getUrl());
-					HTML title = new HTML(photo.getTitle() + "<br /><br />");
-
+					//HTML title = new HTML(photo.getTitle() + "<br /><br />");
+					Anchor title = new Anchor(photo.getTitle(),photo.getLink_url());
+					
 					VerticalPanel vp = new VerticalPanel();
 					vp.setWidth("300px");
 					vp.add(img);
@@ -529,7 +530,8 @@ public class Index implements EntryPoint {
 		Image flickr_small = new Image("images/flickr_small.png");
 
 		Image i = new Image(photo.getUrl());
-		HTML t = new HTML(photo.getTitle() + "<br /><br />");
+		//HTML t = new HTML(photo.getTitle() + "<br /><br />");
+		Anchor t = new Anchor(photo.getTitle(), photo.getLink_url());
 
 		final Image no = new Image("images/white_no.png");
 		no.addMouseListener(new MouseListener() {
