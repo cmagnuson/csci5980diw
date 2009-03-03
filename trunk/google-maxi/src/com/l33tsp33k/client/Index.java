@@ -322,8 +322,13 @@ public class Index implements EntryPoint {
 			}
 
 			public void onSuccess(ArrayList<FlickrPhoto> results) {
-				if( results.size() < 1 ) return;
-				for(int i=0; i<10; i++)	{
+				int size = results.size();
+				if( size < 1 ) 
+					return;
+				else if( size > 100 ) 
+					size = 100;
+				
+				for(int i=0; i<size; i++)	{
 					final FlickrPhoto photo = results.get(i);
 					Image img = new Image(photo.getUrl());
 					HTML title = new HTML(photo.getTitle() + "<br /><br />");
