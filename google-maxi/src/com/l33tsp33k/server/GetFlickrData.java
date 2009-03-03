@@ -30,6 +30,8 @@ public class GetFlickrData extends com.google.gwt.user.server.rpc.RemoteServiceS
 				fp.setUrl(p.getSmallUrl());
 				fp.setThumbnailUrl(p.getThumbnailUrl());
 				fp.setTitle(p.getTitle());
+				fp.setDescription(p.getDescription());
+				fp.setLink_url(p.getUrl());
 				if(p.getGeoData()!=null){
 					fp.setCoordinates(p.getGeoData().getLongitude(), p.getGeoData().getLatitude());
 				}

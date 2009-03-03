@@ -13,7 +13,25 @@ public class FlickrPhoto implements IsSerializable, GeoReferencedData, java.io.S
 	private String url;
 	private String thumbnailUrl;
 	private boolean geoReferenced = false;
+	private String description;
+	private String link_url;
 	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getLink_url() {
+		return link_url;
+	}
+
+	public void setLink_url(String link_url) {
+		this.link_url = link_url;
+	}
+
 	public String toString(){
 		return title+" "+url+" "+lon+","+lat;
 	}
