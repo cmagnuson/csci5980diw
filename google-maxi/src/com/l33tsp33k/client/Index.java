@@ -80,7 +80,7 @@ public class Index implements EntryPoint {
 
 		// Scroll Favorites Panel
 		scrollFavoritesPanel = new ScrollPanel();
-		scrollFavoritesPanel.setSize("398px","300px");
+		scrollFavoritesPanel.setSize("398px","275px");
 		scrollFavoritesPanel.setAlwaysShowScrollBars(true);
 		scrollFavoritesPanel.getElement().setId("scrollFavorites");
 		scrollFavoritesPanel.add(scrollItemsPanel);
@@ -459,9 +459,6 @@ public class Index implements EntryPoint {
 
 	private void showMap(ArrayList<FlickrPhoto> photos){
 		//TODO: add twitter geocoding
-		//TODO: favorites to/from DB
-
-		//MapWidget mapWidget = getMap();
 
 		for(int i=0; i<photos.size(); i++){
 			FlickrPhoto p = photos.get(i);
@@ -472,7 +469,6 @@ public class Index implements EntryPoint {
 				m.setImage("images/f.png");
 				m.addMarkerClickHandler(new MarkerClickHandler() {
 					public void	onClick(MarkerClickHandler.MarkerClickEvent event){
-						//event.getSender().showMapBlowup(new InfoWindowContent("test"));
 						PhotoMarker pm = (PhotoMarker)event.getSender();
 						InfoWindow iw = mapWidget.getInfoWindow();
 						iw.open(pm, new InfoWindowContent("<div><img src=\""+pm.getPhoto().getThumbnailUrl()+"\"><br>"+pm.getPhoto().getTitle()+"</div>"));
@@ -488,7 +484,7 @@ public class Index implements EntryPoint {
 	private MapWidget getMap()
 	{
 		mapWidget = new MapWidget(LatLng.newInstance(38.548165,-95.361328), 3);  
-		mapWidget.setSize("400px", "300px");  
+		mapWidget.setSize("400px", "250px");  
 
 		mapWidget.addControl(new SmallMapControl());  
 		mapWidget.addControl(new MapTypeControl()); 
