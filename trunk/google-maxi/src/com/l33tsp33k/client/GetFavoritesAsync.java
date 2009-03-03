@@ -14,5 +14,6 @@ public interface GetFavoritesAsync {
 	void addFlickrItem(FlickrPhoto p, String cookie, AsyncCallback<?> callback);
 	void getFavoritePhotos(String cookie, AsyncCallback<FlickrPhoto[]> callback);
 	void getFavoriteFeeds(String cookie, AsyncCallback<TechnoratiItem[]> callback);
+	void getFavoriteTwitters(String cookie, AsyncCallback<TwitterItem[]> callback);
 
 }

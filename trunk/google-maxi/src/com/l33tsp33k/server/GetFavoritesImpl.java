@@ -9,9 +9,6 @@ import com.l33tsp33k.client.datamodels.*;
 
 public class GetFavoritesImpl extends RemoteServiceServlet implements GetFavorites {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2858630671954665924L;
 
 	public void addFlickrItem(FlickrPhoto p, String cookie){
@@ -21,17 +18,25 @@ public class GetFavoritesImpl extends RemoteServiceServlet implements GetFavorit
 	public void addTechnoratiItem(TechnoratiItem ti, String cookie){
 		addItem(ti, "technorati", cookie);
 	}
-	
+
 	public FlickrPhoto[] getFavoritePhotos(String cookie){
 		LinkedList<FlickrPhoto> photos = new LinkedList<FlickrPhoto>();
 		Object[] os = getFavorites(cookie, "flickr");
 		for(Object o: os){
 			photos.add((FlickrPhoto)o);
-			System.err.println("Photo requested");
 		}
 		return photos.toArray(new FlickrPhoto[]{});
 	}
 	
+	public TwitterItem[] getFavoriteTwitters(String cookie){
+		LinkedList<TwitterItem> items = new LinkedList<TwitterItem>();
+		Object[] os = getFavorites(cookie, "twitter");
+		for(Object o: os){
+			items.add((TwitterItem)o);
+		}
+		return items.toArray(new TwitterItem[]{});
+	}
+
 	public TechnoratiItem[] getFavoriteFeeds(String cookie){
 		LinkedList<TechnoratiItem> photos = new LinkedList<TechnoratiItem>();
 		Object[] os = getFavorites(cookie, "technorati");
@@ -40,13 +45,12 @@ public class GetFavoritesImpl extends RemoteServiceServlet implements GetFavorit
 		}
 		return photos.toArray(new TechnoratiItem[]{});
 	}
-	
+
 	public void addTwitterItem(TwitterItem ti, String cookie){
 		addItem(ti, "twitter", cookie);
 	}
-	
+
 	private Object[] getFavorites(String cookie, String type){
-		System.err.println("Get favs called: "+type+"  "+cookie);
 		LinkedList<Object> favs = new LinkedList<Object>();
 		Connection conn = InitalizeDB.connectToMySqlDatabase("championchipmn.com/google-maxi", "5980-group", "lebowski");
 		try{
@@ -56,12 +60,14 @@ public class GetFavoritesImpl extends RemoteServiceServlet implements GetFavorit
 			pstmt.setString(2, type);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()){
-				System.err.println("res gound");
-				favs.add(rs.getObject("object"));
+				Object o = toObject((byte[])rs.getObject("object"));
+				if(o!=null){
+					favs.add(o);
+				}
 			}
 			rs.close();
+			pstmt.close();
 			conn.close();
-			System.out.println("returning from get favcs");
 			return favs.toArray();
 		}
 		catch(SQLException sql){
@@ -75,13 +81,27 @@ public class GetFavoritesImpl extends RemoteServiceServlet implements GetFavorit
 		}
 	}
 
+	public Object toObject(byte[] bytes){
+		try{
+			return new java.io.ObjectInputStream(new java.io.ByteArrayInputStream(bytes)).readObject();
+		}
+		catch(java.io.IOException ioe){
+			return null;
+		}
+		catch(java.lang.ClassNotFoundException cnfe){
+			return null;
+		}
+	}
+
 	private void addItem(Object o, String type, String cookie) {
 		Connection conn = InitalizeDB.connectToMySqlDatabase("championchipmn.com/google-maxi", "5980-group", "lebowski");
 		try{
 			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO user_favorites (cookie,object,object_type) VALUES (?,?,?)");
 			pstmt.setString(1, cookie);
-			pstmt.setObject(2, o);
-			//pstmt.setBlob(2, new Blob(o));
+			if(type.equals("flickr")){
+				pstmt.setObject(2, (FlickrPhoto)o);
+			}
+			pstmt.setObject(2, o.getClass().cast(o));
 			pstmt.setString(3, type);
 			pstmt.executeUpdate();
 			conn.close();
