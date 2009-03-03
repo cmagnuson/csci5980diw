@@ -159,7 +159,7 @@ public class Index implements EntryPoint {
 						}
 					}
 				});
-		
+
 
 		queue = new ArrayList<ItemPanel>();
 		Timer scrollTimer = new Timer() {
@@ -582,7 +582,13 @@ public class Index implements EntryPoint {
 
 			public void onClick(Widget sender) {
 				scrollItemsPanel.remove(favPanel);
-
+				GetFavorites.Util.getInstance().removeItem(photo, cookie,
+						new AsyncCallback<Object>() {
+					public void onFailure(Throwable caught) {
+					}
+					public void onSuccess(Object o) {
+					}
+				});
 			}
 
 		});
@@ -639,7 +645,13 @@ public class Index implements EntryPoint {
 
 			public void onClick(Widget sender) {
 				scrollItemsPanel.remove(favPanel);
-
+				GetFavorites.Util.getInstance().removeItem(fi, cookie,
+						new AsyncCallback<Object>() {
+					public void onFailure(Throwable caught) {
+					}
+					public void onSuccess(Object o) {
+					}
+				});
 			}
 
 		});
@@ -696,7 +708,13 @@ public class Index implements EntryPoint {
 
 			public void onClick(Widget sender) {
 				scrollItemsPanel.remove(favPanel);
-
+				GetFavorites.Util.getInstance().removeItem(fi, cookie,
+						new AsyncCallback<Object>() {
+					public void onFailure(Throwable caught) {
+					}
+					public void onSuccess(Object o) {
+					}
+				});
 			}
 
 		});

@@ -1,7 +1,5 @@
 package com.l33tsp33k.client;
 
-import java.util.HashMap;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -15,6 +13,9 @@ public interface GetFavorites extends RemoteService {
 	void addTwitterItem(TwitterItem ti, String cookie);
 	void addTechnoratiItem(TechnoratiItem ti, String cookie);
 	void addFlickrItem(FlickrPhoto p, String cookie);
+	void removeItem(FlickrPhoto p, String cookie);
+	void removeItem(TechnoratiItem p, String cookie);
+	void removeItem(TwitterItem p, String cookie);
 	FlickrPhoto[] getFavoritePhotos(String cookie);
 	TechnoratiItem[] getFavoriteFeeds(String cookie);
 	TwitterItem[] getFavoriteTwitters(String cookie);
