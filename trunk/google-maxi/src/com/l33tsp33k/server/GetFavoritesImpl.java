@@ -27,7 +27,7 @@ public class GetFavoritesImpl extends RemoteServiceServlet implements GetFavorit
 		}
 		return photos.toArray(new FlickrPhoto[]{});
 	}
-	
+
 	public TwitterItem[] getFavoriteTwitters(String cookie){
 		LinkedList<TwitterItem> items = new LinkedList<TwitterItem>();
 		Object[] os = getFavorites(cookie, "twitter");
@@ -44,6 +44,37 @@ public class GetFavoritesImpl extends RemoteServiceServlet implements GetFavorit
 			photos.add((TechnoratiItem)o);
 		}
 		return photos.toArray(new TechnoratiItem[]{});
+	}
+	
+	public void removeItem(FlickrPhoto p, String cookie){
+		removeItemP(p, cookie);
+	}
+	public void removeItem(TechnoratiItem i, String cookie){
+		removeItemP(i, cookie);
+	}
+	public void removeItem(TwitterItem i, String cookie){
+		removeItemP(i, cookie);
+	}
+
+	private void removeItemP(Object o, String cookie){
+		Connection conn = InitalizeDB.connectToMySqlDatabase("championchipmn.com/google-maxi", "5980-group", "lebowski");
+		try{
+			PreparedStatement pstmt = conn.prepareStatement("DELETE FROM user_favorites WHERE cookie=? AND object=?");
+			pstmt.setString(1, cookie);
+			pstmt.setObject(2, o.getClass().cast(o));
+			pstmt.executeUpdate();
+			conn.close();
+			return;
+		}
+		catch(SQLException sql){
+			sql.printStackTrace();
+			try{conn.close();}
+			catch(SQLException s){
+				s.printStackTrace();
+				conn = null;
+			}
+			return;
+		}
 	}
 
 	public void addTwitterItem(TwitterItem ti, String cookie){
@@ -98,9 +129,6 @@ public class GetFavoritesImpl extends RemoteServiceServlet implements GetFavorit
 		try{
 			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO user_favorites (cookie,object,object_type) VALUES (?,?,?)");
 			pstmt.setString(1, cookie);
-			if(type.equals("flickr")){
-				pstmt.setObject(2, (FlickrPhoto)o);
-			}
 			pstmt.setObject(2, o.getClass().cast(o));
 			pstmt.setString(3, type);
 			pstmt.executeUpdate();
