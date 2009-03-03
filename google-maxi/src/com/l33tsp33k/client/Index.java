@@ -45,11 +45,11 @@ public class Index implements EntryPoint {
 		}
 
 		// HEADER PANEL
-		SimplePanel headerPanel = new SimplePanel();
-		headerPanel.setWidth("100%");
-		Image headerImage = new Image("images/l33tsp33k_header.png");
-		headerImage.setTitle("Welcome to L33tSp33k.c0m");
-		headerPanel.add(headerImage);
+		//SimplePanel headerPanel = new SimplePanel();
+		//headerPanel.setWidth("100%");
+		//Image headerImage = new Image("images/l33tsp33k_header.png");
+		//headerImage.setTitle("Welcome to L33tSp33k.c0m");
+		//headerPanel.add(headerImage);
 
 		// LEFT-HAND NAVIGATION PANEL
 		SimplePanel leftNavPanel = new SimplePanel();
@@ -106,14 +106,14 @@ public class Index implements EntryPoint {
 		footerPanel = new SimplePanel();
 		footerPanel.setWidth("100%");
 		footerPanel.getElement().setId("footer");
-		HTML footerText = new HTML("<b>Copyright &copy; 2009 Little Lebowski Urban Achievers</b>");
+		HTML footerText = new HTML("<br /><br /><br /><b>Copyright &copy; 2009 Little Lebowski Urban Achievers</b>");
 		footerPanel.add(footerText);
 
 		// ALL PANEL
 		VerticalPanel allPanel = new VerticalPanel();
 		allPanel.setWidth("100%");
 		allPanel.setHorizontalAlignment(VerticalPanel.ALIGN_LEFT);
-		allPanel.add(headerPanel);
+		//allPanel.add(headerPanel);
 		allPanel.add(mainContentPanel);
 		allPanel.add(footerPanel);
 
@@ -154,7 +154,7 @@ public class Index implements EntryPoint {
 			    elem.getStyle().setPropertyPx("top", top - spacing - height);
 			}
 		};
-		scrollTimer.scheduleRepeating(2000);
+		scrollTimer.scheduleRepeating(4000);
 		
 	}
 
