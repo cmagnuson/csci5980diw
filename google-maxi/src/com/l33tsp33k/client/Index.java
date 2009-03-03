@@ -23,7 +23,7 @@ public class Index implements EntryPoint {
 	private MapWidget mapWidget;
 	private VerticalPanel scrollContentPanel;
 	private VerticalPanel scrollPlaceHolderPanel;
-	private SimplePanel footerPanel;
+	private VerticalPanel footerPanel;
 	private VerticalPanel rightUtilPanel;
 	private SimplePanel mapsPanel;
 	private ScrollPanel scrollFavoritesPanel;
@@ -103,11 +103,15 @@ public class Index implements EntryPoint {
 		mainContentPanel.add(rightUtilPanel);
 
 		// FOOTER PANEL
-		footerPanel = new SimplePanel();
+		footerPanel = new VerticalPanel();
 		footerPanel.setWidth("100%");
-		footerPanel.getElement().setId("footer");
-		HTML footerText = new HTML("<br /><br /><br /><b>Copyright &copy; 2009 Little Lebowski Urban Achievers</b>");
-		footerPanel.add(footerText);
+		footerPanel.setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
+		HTML footerText1 = new HTML("<br /><br />");
+		Image footerImage = new Image("images/l33tsp33k.png");
+		HTML footerText2 = new HTML("Copyright &copy; 2009 Little Lebowski Urban Achievers");
+		footerPanel.add(footerText1);
+		footerPanel.add(footerImage);
+		footerPanel.add(footerText2);
 
 		// ALL PANEL
 		VerticalPanel allPanel = new VerticalPanel();
