@@ -21,6 +21,7 @@ public class Index implements EntryPoint {
 
 	private static final String COOKIE = "l33tsp33k";
 	private MapWidget mapWidget;
+	private SimplePanel leftNavPanel;
 	private VerticalPanel scrollContentPanel;
 	private VerticalPanel scrollPlaceHolderPanel;
 	private VerticalPanel footerPanel;
@@ -52,7 +53,7 @@ public class Index implements EntryPoint {
 		//headerPanel.add(headerImage);
 
 		// LEFT-HAND NAVIGATION PANEL
-		SimplePanel leftNavPanel = new SimplePanel();
+		leftNavPanel = new SimplePanel();
 		leftNavPanel.add( getLeftNavigation() );
 
 		// SCROLL CONTENT PANEL
@@ -61,7 +62,6 @@ public class Index implements EntryPoint {
 		scrollContentPanel.setSpacing(10);
 		Element scp = scrollContentPanel.getElement();
 		DOM.setStyleAttribute(scp, "position", "absolute");
-		scp.getStyle().setPropertyPx("top", 600);
 
 		// SCROLL PLACEHOLDER PANEL
 		scrollPlaceHolderPanel = new VerticalPanel();
@@ -304,7 +304,8 @@ public class Index implements EntryPoint {
 		// Clear previous content
 		scrollContentPanel.clear();
 		Element scp = scrollContentPanel.getElement();
-		scp.getStyle().setPropertyPx("top", 600);
+		int height = leftNavPanel.getOffsetHeight();
+		scp.getStyle().setPropertyPx("top", height);
 		queue.clear();
 		mapsPanel.clear();
 		mapsPanel.add( getMap() );
