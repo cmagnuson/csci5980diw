@@ -17,7 +17,7 @@ public class GetTwitterDataImpl extends RemoteServiceServlet implements GetTwitt
 
 	private static final long serialVersionUID = 1L;
 
-	private final String feedProviderUrl = "http://search.twitter.com/search.atom?q=";
+	private final String feedProviderUrl = "http://search.twitter.com/search.atom?rpp=100&lang=en&q=";
 
 	@SuppressWarnings("unchecked")
 	public ArrayList<TwitterItem> getFeedItems(String tag) {
