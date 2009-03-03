@@ -58,6 +58,9 @@ public class GetFavoritesImpl extends RemoteServiceServlet implements GetFavorit
 
 	private void removeItemP(Object o, String cookie){
 		Connection conn = InitalizeDB.connectToMySqlDatabase("championchipmn.com/google-maxi", "5980-group", "lebowski");
+		if(conn==null){
+			return;
+		}
 		try{
 			PreparedStatement pstmt = conn.prepareStatement("DELETE FROM user_favorites WHERE cookie=? AND object=?");
 			pstmt.setString(1, cookie);
@@ -84,6 +87,9 @@ public class GetFavoritesImpl extends RemoteServiceServlet implements GetFavorit
 	private Object[] getFavorites(String cookie, String type){
 		LinkedList<Object> favs = new LinkedList<Object>();
 		Connection conn = InitalizeDB.connectToMySqlDatabase("championchipmn.com/google-maxi", "5980-group", "lebowski");
+		if(conn==null){
+			return new Object[]{};
+		}
 		try{
 			PreparedStatement pstmt = conn.prepareStatement("SELECT object FROM user_favorites " +
 			"WHERE cookie=? AND object_type=?");
@@ -126,6 +132,9 @@ public class GetFavoritesImpl extends RemoteServiceServlet implements GetFavorit
 
 	private void addItem(Object o, String type, String cookie) {
 		Connection conn = InitalizeDB.connectToMySqlDatabase("championchipmn.com/google-maxi", "5980-group", "lebowski");
+		if(conn==null){
+			return;
+		}
 		try{
 			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO user_favorites (cookie,object,object_type) VALUES (?,?,?)");
 			pstmt.setString(1, cookie);
