@@ -42,7 +42,7 @@ public class GetTechnoratiDataImpl extends RemoteServiceServlet implements GetTe
 				String author = entry.getAuthor();
 				String desc = "";
 				if(entry.getDescription()!=null){
-					entry.getDescription().getValue();
+					desc = entry.getDescription().getValue();
 				}
 				list.add(new TechnoratiItem(title, uri, author, desc));
 			}
