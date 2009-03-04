@@ -24,6 +24,15 @@
 		<description>
 		</description>
 		<display-name>
+		GetTwitterData</display-name>
+		<servlet-name>GetTwitterData</servlet-name>
+		<servlet-class>
+		com.l33tsp33k.server.GetTwitterDataImpl</servlet-class>
+	</servlet>
+		<servlet>
+		<description>
+		</description>
+		<display-name>
 		GetTechnoratiData</display-name>
 		<servlet-name>GetTechnoratiData</servlet-name>
 		<servlet-class>
@@ -41,6 +50,10 @@
 	<servlet-mapping>
 		<servlet-name>GetFlickrData</servlet-name>
 		<url-pattern>/GetFlickrData</url-pattern>
+	</servlet-mapping>
+		<servlet-mapping>
+		<servlet-name>GetTwitterData</servlet-name>
+		<url-pattern>/GetTwitterData</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>GetCachedSearches</servlet-name>

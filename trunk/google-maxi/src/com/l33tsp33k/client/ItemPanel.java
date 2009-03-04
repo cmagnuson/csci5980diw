@@ -6,6 +6,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.MouseListener;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.*;
 
 public abstract class ItemPanel extends Composite {
 	public abstract void onStarClick();
@@ -32,7 +33,13 @@ public abstract class ItemPanel extends Composite {
 		star.addClickListener(new ClickListener() {
 			public void onClick(Widget sender) {
 				// Remove the click listener to avoid repeats
-				star.removeClickListener(this);
+//				ClickListener i = this;
+//				DeferredCommand.addCommand(new Command() {
+//				       public void execute() {
+//				              star.removeClickListener(i);
+//				       }
+//				});
+				//star.removeClickListener(this);
 				onStarClick();
 			};							
 		});
