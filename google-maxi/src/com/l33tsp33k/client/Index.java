@@ -172,7 +172,7 @@ public class Index implements EntryPoint {
 					int top = div.getAbsoluteTop();
 					top -= velocity;
 					div.getStyle().setPropertyPx("top", top);
-					schedule(10);
+					schedule(50);
 				}
 			}
 		};
