@@ -33,7 +33,7 @@ public class GetTwitterDataImpl extends RemoteServiceServlet implements GetTwitt
 			while (entryIter.hasNext()) {
 				SyndEntry entry = (SyndEntry) entryIter.next();
 				String title = entry.getTitle();
-				String uri = entry.getUri();
+				String uri = entry.getLink();
 				String author = entry.getAuthor();
 				String desc = "";
 				if(entry.getDescription()!=null){

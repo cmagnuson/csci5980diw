@@ -28,7 +28,7 @@ public class GetFlickrData extends com.google.gwt.user.server.rpc.RemoteServiceS
 				Photo p = (Photo) o;
 				FlickrPhoto fp = new FlickrPhoto();
 				fp.setUrl(p.getSmallUrl());
-				fp.setThumbnailUrl(p.getThumbnailUrl());
+				fp.setThumbnailUrl(p.getSmallSquareUrl());
 				fp.setTitle(p.getTitle());
 				fp.setDescription(p.getDescription());
 				fp.setLink_url(p.getUrl());
