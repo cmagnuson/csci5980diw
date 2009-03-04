@@ -1,5 +1,9 @@
 package com.l33tsp33k.server;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -18,6 +22,42 @@ public class GetTwitterDataImpl extends RemoteServiceServlet implements GetTwitt
 	private static final long serialVersionUID = 1L;
 
 	private final String feedProviderUrl = "http://search.twitter.com/search.atom?rpp=100&lang=en&q=";
+
+	public ArrayList<TwitterItem> getGeoreferencedFeedItems(ArrayList<TwitterItem> items){
+		ArrayList<TwitterItem> ret = new ArrayList<TwitterItem>();
+		try{
+			for(int i=0; i<20 && i<items.size(); i++){
+				String feedURI = "http://twitter.com/users/show/"+items.get(i).getUsername()+".xml";
+				URL u = new URL(feedURI);
+				HttpURLConnection hu = (HttpURLConnection)u.openConnection();
+
+				BufferedReader br;
+				try{br = new BufferedReader(new InputStreamReader(hu.getInputStream()));}
+				catch(IOException e){
+					continue;
+				}
+				String input="";
+				while((input=br.readLine())!=null){
+					if(input.contains("location")){
+						String loc = input.substring(input.indexOf("location")+9, input.lastIndexOf("location")-2);
+						Location l = AddressToCord.convertToCord(loc);
+						if(l.accuracy>3){
+							TwitterItem ti = items.get(i);
+							ti.setLocation(loc);
+							ti.setCoords(l.getLon(), l.getLat());
+							ret.add(ti);
+						}
+					}
+				}
+			}
+
+		} 
+		catch (Exception e) {
+			e.printStackTrace(); 
+			return ret;
+		}	    
+		return ret;
+	}
 
 	@SuppressWarnings("unchecked")
 	public ArrayList<TwitterItem> getFeedItems(String tag) {

@@ -8,4 +8,5 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public interface GetTwitterDataAsync {
 
 	void getFeedItems(String tag, AsyncCallback<ArrayList<TwitterItem>> callback);
+	void getGeoreferencedFeedItems(ArrayList<TwitterItem> items, AsyncCallback<ArrayList<TwitterItem>> callback);
 }	

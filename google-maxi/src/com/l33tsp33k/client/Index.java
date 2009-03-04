@@ -12,6 +12,7 @@ import com.google.gwt.maps.client.control.MapTypeControl;
 import com.google.gwt.maps.client.control.SmallMapControl;  
 import com.google.gwt.maps.client.geom.*;
 import com.google.gwt.maps.client.event.MarkerClickHandler;
+import com.google.gwt.maps.client.overlay.*;
 import java.util.*;
 
 /**
@@ -413,6 +414,15 @@ public class Index implements EntryPoint {
 					};
 					queue.add(tweetPanel);
 				}
+				
+				//get some geocoded twitter items
+				GetTwitterData.App.getInstance().getGeoreferencedFeedItems(results, new AsyncCallback<ArrayList<TwitterItem>>() {
+					public void onFailure(Throwable caught) {        			
+					}
+					public void onSuccess(ArrayList<TwitterItem> items){
+						showMapT(items);
+					}
+				});
 			}
 		});
 
@@ -471,8 +481,6 @@ public class Index implements EntryPoint {
 	}
 
 	private void showMap(ArrayList<FlickrPhoto> photos){
-		//TODO: add twitter geocoding
-
 		for(int i=0; i<photos.size(); i++){
 			FlickrPhoto p = photos.get(i);
 			if(p.hasCoordinates()){
@@ -490,8 +498,26 @@ public class Index implements EntryPoint {
 			}
 		}
 
-		mapsPanel.clear();
-		mapsPanel.add(mapWidget);
+	//	mapsPanel.add(mapWidget);
+	}
+	
+	private void showMapT(ArrayList<TwitterItem> tweets){
+		for(int i=0; i<tweets.size(); i++){
+			TwitterItem t = tweets.get(i);
+			if(t.hasCoordinates()){
+				LatLng l = LatLng.newInstance(t.getLat(), t.getLong());
+				TwitterMarker m = new TwitterMarker(l,t);
+				mapWidget.addOverlay(m);
+				m.setImage("images/t.png");
+				m.addMarkerClickHandler(new MarkerClickHandler() {
+					public void	onClick(MarkerClickHandler.MarkerClickEvent event){
+						TwitterMarker pm = (TwitterMarker)event.getSender();
+						InfoWindow iw = mapWidget.getInfoWindow();
+						iw.open(pm, new InfoWindowContent("<div><a href=\""+pm.getLink()+"\">"+pm.getName()+"</a></div>"));
+					}
+				});
+			}
+		}
 	}
 
 	private MapWidget getMap()

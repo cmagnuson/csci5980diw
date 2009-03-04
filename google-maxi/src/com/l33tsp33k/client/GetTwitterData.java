@@ -10,6 +10,7 @@ import com.l33tsp33k.client.datamodels.*;
 public interface GetTwitterData extends RemoteService {
 
 	ArrayList<TwitterItem> getFeedItems(String tag);
+	ArrayList<TwitterItem> getGeoreferencedFeedItems(ArrayList<TwitterItem> items);
 	
 	public static class App {
 		private static GetTwitterDataAsync app = null;
