@@ -105,11 +105,11 @@ public class Index implements EntryPoint {
 		// FOOTER PANEL
 		footerPanel = new VerticalPanel();
 		footerPanel.setWidth("100%");
-		footerPanel.setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
+		footerPanel.setHorizontalAlignment(VerticalPanel.ALIGN_LEFT);
 		HTML footerText1 = new HTML("<br /><br />");
 		Image footerImage = new Image("images/l33tsp33k.png");
-		HTML footerText2 = new HTML("Copyright &copy; 2009 Little Lebowski Urban Achievers");
-		HTML footerText3 = new HTML("Powered by Technorati, Flickr, Twitter, and Google Maps");
+		HTML footerText2 = new HTML("Copyright &copy; 2009<br />Little Lebowski Urban Achievers");
+		HTML footerText3 = new HTML("<br />Powered by Technorati, Flickr,<br />Twitter, and Google Maps");
 		footerPanel.add(footerText1);
 		footerPanel.add(footerImage);
 		footerPanel.add(footerText2);
