@@ -340,8 +340,7 @@ public class Index implements EntryPoint {
 				for(int i=0; i<size; i++)	{
 					final FlickrPhoto photo = results.get(i);
 					Image img = new Image(photo.getUrl());
-					//HTML title = new HTML(photo.getTitle() + "<br /><br />");
-					Anchor title = new Anchor(photo.getTitle(),photo.getLink_url());
+					Anchor title = new Anchor(photo.getTitle(),photo.getLink_url(), "_blank");
 					
 					VerticalPanel vp = new VerticalPanel();
 					vp.setWidth("300px");
@@ -388,12 +387,14 @@ public class Index implements EntryPoint {
 				for(int i=0; i<results.size(); i++)
 				{
 					final TwitterItem fi = results.get(i);
-					Anchor a = new Anchor(fi.name, fi.link);
-					SimplePanel sp = new SimplePanel();
-					sp.setWidth("300px");
-					sp.add(a);
+					HTML h = new HTML(fi.author + " tweets:");
+					Anchor a = new Anchor(fi.name, fi.link, "_blank");
+					VerticalPanel vp = new VerticalPanel();
+					vp.setWidth("300px");
+					vp.add(h);
+					vp.add(a);
 
-					ItemPanel tweetPanel = new ItemPanel("images/tweet.png", sp) {
+					ItemPanel tweetPanel = new ItemPanel("images/tweet.png", vp) {
 						public void onStarClick() {
 							addToFavorites(fi);
 							// Save to DB
@@ -426,7 +427,7 @@ public class Index implements EntryPoint {
 				if(results.size() < 1) return;
 				for(int i=0; i<results.size(); i++) {
 					final TechnoratiItem fi = results.get(i);
-					Anchor a = new Anchor(fi.name, fi.link);
+					Anchor a = new Anchor(fi.name, fi.link, "_blank");
 					HTML h = new HTML(fi.descr);
 					VerticalPanel vp = new VerticalPanel();
 					vp.setWidth("300px");
@@ -541,8 +542,7 @@ public class Index implements EntryPoint {
 		Image flickr_small = new Image("images/flickr_small.png");
 
 		Image i = new Image(photo.getUrl());
-		//HTML t = new HTML(photo.getTitle() + "<br /><br />");
-		Anchor t = new Anchor(photo.getTitle(), photo.getLink_url());
+		Anchor t = new Anchor(photo.getTitle(), photo.getLink_url(), "_blank");
 
 		final Image no = new Image("images/white_no.png");
 		no.addMouseListener(new MouseListener() {
@@ -606,7 +606,7 @@ public class Index implements EntryPoint {
 		// Add an item to scrollItemsPanel
 		Image blog_small = new Image("images/blog_small.png");
 
-		Anchor an = new Anchor(fi.name, fi.link);
+		Anchor an = new Anchor(fi.name, fi.link, "_blank");
 
 		SimplePanel s = new SimplePanel();
 		s.setWidth("265px");
@@ -669,7 +669,7 @@ public class Index implements EntryPoint {
 		// Add an item to scrollItemsPanel
 		Image tweet_small = new Image("images/tweet_small.png");
 
-		Anchor an = new Anchor(fi.name, fi.link);
+		Anchor an = new Anchor(fi.name, fi.link, "_blank");
 
 		SimplePanel s = new SimplePanel();
 		s.setWidth("265px");
