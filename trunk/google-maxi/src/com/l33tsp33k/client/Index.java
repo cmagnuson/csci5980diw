@@ -160,22 +160,28 @@ public class Index implements EntryPoint {
 					}
 				});
 
-
+		final Element div = scrollContentPanel.getElement();
+		final Timer annimationTimer = new Timer() {
+			public void run() {
+				int div_bottom = div.getOffsetTop() + div.getOffsetHeight();
+				int nav_bottom = leftNavPanel.getOffsetHeight();
+				if (div_bottom > nav_bottom) {
+					int velocity = (div_bottom - nav_bottom) / 30 + 1;
+					int top = div.getAbsoluteTop();
+					top -= velocity;
+					div.getStyle().setPropertyPx("top", top);
+					schedule(10);
+				}
+			}
+		};
+		
 		queue = new ArrayList<ItemPanel>();
 		Timer scrollTimer = new Timer() {
 			public void run() {
 				if (queue.size() < 1) return;
 				ItemPanel item = queue.remove(Random.nextInt(queue.size()));
-				scrollNewItem(item);
-			}
-
-			private void scrollNewItem(ItemPanel item) {
 				scrollContentPanel.add(item);
-				int spacing = scrollContentPanel.getSpacing();
-				int height = item.getOffsetHeight();
-				Element elem = scrollContentPanel.getElement();
-				int top = elem.getAbsoluteTop();
-				elem.getStyle().setPropertyPx("top", top - spacing - height);
+				annimationTimer.run();
 			}
 		};
 		scrollTimer.scheduleRepeating(4000);
