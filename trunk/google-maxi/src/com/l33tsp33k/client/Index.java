@@ -109,9 +109,11 @@ public class Index implements EntryPoint {
 		HTML footerText1 = new HTML("<br /><br />");
 		Image footerImage = new Image("images/l33tsp33k.png");
 		HTML footerText2 = new HTML("Copyright &copy; 2009 Little Lebowski Urban Achievers");
+		HTML footerText3 = new HTML("Powered by Technorati, Flickr, Twitter, and Google Maps");
 		footerPanel.add(footerText1);
 		footerPanel.add(footerImage);
 		footerPanel.add(footerText2);
+		footerPanel.add(footerText3);
 
 		// ALL PANEL
 		VerticalPanel allPanel = new VerticalPanel();
@@ -425,11 +427,13 @@ public class Index implements EntryPoint {
 				for(int i=0; i<results.size(); i++) {
 					final TechnoratiItem fi = results.get(i);
 					Anchor a = new Anchor(fi.name, fi.link);
-					SimplePanel sp = new SimplePanel();
-					sp.setWidth("300px");
-					sp.add(a);
-
-					ItemPanel blogPanel = new ItemPanel("images/blog.png", sp) {
+					HTML h = new HTML(fi.descr);
+					VerticalPanel vp = new VerticalPanel();
+					vp.setWidth("300px");
+					vp.add(a);
+					vp.add(h);
+					
+					ItemPanel blogPanel = new ItemPanel("images/blog.png", vp) {
 						public void onStarClick() {
 							addToFavorites(fi);
 							// Save to DB
