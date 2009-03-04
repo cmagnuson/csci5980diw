@@ -184,6 +184,7 @@ public class Index implements EntryPoint {
 				if (queue.size() < 1) return;
 				ItemPanel item = queue.remove(Random.nextInt(queue.size()));
 				scrollContentPanel.add(item);
+				annimationTimer.cancel();
 				annimationTimer.run();
 			}
 		};
