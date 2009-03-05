@@ -493,7 +493,7 @@ public class Index implements EntryPoint {
 					public void	onClick(MarkerClickHandler.MarkerClickEvent event){
 						PhotoMarker pm = (PhotoMarker)event.getSender();
 						InfoWindow iw = mapWidget.getInfoWindow();
-						iw.open(pm, new InfoWindowContent("<div><img src=\""+pm.getPhoto().getThumbnailUrl()+"\"><br>"+pm.getPhoto().getTitle()+"</div>"));
+						iw.open(pm, new InfoWindowContent("<div><img src=\""+pm.getPhoto().getThumbnailUrl()+"\"></div>"));
 					}
 				});
 			}
