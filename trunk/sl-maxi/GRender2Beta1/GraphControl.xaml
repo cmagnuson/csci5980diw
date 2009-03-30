@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="GRender.Page"
+        x:Name="parentCanvas"
+        xmlns="http://schemas.microsoft.com/client/2007" 
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        Loaded="Page_Loaded" >
+    <Canvas x:Name="MainCanvas" Background="Bisque">
+        
+        <TextBlock x:Name="Details" Foreground="#303030" Canvas.Top="22" Canvas.Left="240" FontSize="12" FontFamily="Arial">
+    <Run Text="0.9"/>
+  </TextBlock>
+        <TextBlock x:Name="Title" Canvas.Left="10" Canvas.Top="10" Foreground="#cccccc" FontSize="24" FontFamily="Arial">
+    <Run Text="GRender | Silverlight"/>
+    </TextBlock>
+        
+    </Canvas>
+
+
+
+    <!-- Graph gets generated into here ... -->
+
+</UserControl>
