@@ -34,6 +34,7 @@ namespace GRender
 
         public NodeType Type;
         public string Title;
+        public long uid;
     }
 
     public class Graph

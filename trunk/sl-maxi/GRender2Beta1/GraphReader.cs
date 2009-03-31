@@ -47,17 +47,24 @@ namespace GRender
                            };
             Graph g = new Graph();
             Dictionary<long, Node> nodeDict = new Dictionary<long, Node>();
+            Node n = null;
             foreach (var el in elements)
             {
-                Node n = new Node() { Title = el.name, Type = Node.NodeType.Fact, };
-                nodeDict.Add(el.uid, n);
-                g.Nodes.Add(n);
+                if (n != null)
+                {
+                    nodeDict.Add(n.uid, n);
+                    g.Nodes.Add(n);
+                }
+                n = new Node() { Title = el.name, Type = Node.NodeType.Fact, uid = el.uid };
             }
             foreach (var el in elements)
             {
                 foreach (long fid in el.friendlist)
                 {
-                    g.Edges[nodeDict[el.uid], nodeDict[fid]] = true;
+                    if (el.uid != n.uid && n.uid != fid)
+                    {
+                        g.Edges[nodeDict[el.uid], nodeDict[fid]] = true;
+                    }
                 }
             }
             
