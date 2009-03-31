@@ -18,6 +18,10 @@
 
 
 using System;
+using System.IO;
+using System.Linq;
+using System.Xml;
+using System.Xml.Linq;
 using System.Collections.Generic;
 
 namespace GRender
@@ -31,8 +35,33 @@ namespace GRender
         /// <returns>The graph created.</returns>
         public static Graph BuildGraph( System.IO.Stream s)
         {
-            string[] graphLines = Sys.IO.File.ReadAllLines( s );
-            return BuildGraph(graphLines);
+            XDocument xml = XDocument.Load(XmlReader.Create(s));
+            XElement elementRoot = xml.Root; // Not sure if this is necessary
+            var elements = from element in elementRoot.Descendants("friend")
+                           select new
+                           {
+                               uid = (long)element.Element("uid"),
+                               name = (string)element.Element("name"),
+                               friendlist = from friend in element.Element("friendlist").Descendants()
+                                            select (long)friend,
+                           };
+            Graph g = new Graph();
+            Dictionary<long, Node> nodeDict = new Dictionary<long, Node>();
+            foreach (var el in elements)
+            {
+                Node n = new Node() { Title = el.name, Type = Node.NodeType.Fact, };
+                nodeDict.Add(el.uid, n);
+                g.Nodes.Add(n);
+            }
+            foreach (var el in elements)
+            {
+                foreach (long fid in el.friendlist)
+                {
+                    g.Edges[nodeDict[el.uid], nodeDict[fid]] = true;
+                }
+            }
+            
+            return g;
         }
 
         /// <summary>

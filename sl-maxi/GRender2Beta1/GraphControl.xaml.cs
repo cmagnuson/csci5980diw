@@ -43,25 +43,16 @@ namespace GRender
             // Required to initialize variables
             InitializeComponent();
 
-            try
-            {
                 Graph g = null;
 
                 /* This is the file which will be rendered.
                  *  If you want to render a different file, you need to add it to your project
                  *  and, in the property panel for the file, set Build Action to "Embedded Resource"
                  */
-                string graphResource = "GRender.states.txt";
+                string graphResource = "GRender.friends.xml";
+                System.IO.Stream s = this.GetType().Assembly.GetManifestResourceStream(graphResource);
 
-                try
-                {
-                    g = GraphReader.BuildGraph(this.GetType().Assembly.GetManifestResourceStream(graphResource));
-                }
-                catch
-                {
-                    this.Details.Text = "Error while loading graph: " + graphResource + ". \n Loading a random graph instead.";
-                    g = GraphReader.BuildGraph(20); ;
-                }
+                g = GraphReader.BuildGraph(s);
 
                 /* Execute the spiffy graph visualizer */
                 _v = new GraphViewer(g, new Size(800, 600));
@@ -79,11 +70,6 @@ namespace GRender
 
                 _timer.Start();
 
-            }
-            catch (Exception ex)
-            {
-                this.Details.Text += ex.ToString();
-            }
         }
 
         void _timer_Tick(object sender, EventArgs e)
