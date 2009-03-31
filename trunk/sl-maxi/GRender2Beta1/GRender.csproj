@@ -53,6 +53,7 @@
     <Reference Include="System.Windows.Controls">
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Xml.Linq, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -77,6 +78,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="alarm.txt" />
+    <EmbeddedResource Include="edges.xml" />
+    <EmbeddedResource Include="friends.xml" />
+    <EmbeddedResource Include="photos.xml" />
     <Content Include="License.txt" />
     <EmbeddedResource Include="states.txt" />
   </ItemGroup>
