@@ -276,7 +276,7 @@ namespace GRender
                 foreach (KeyValuePair<Node, NodeState> kvpB in _nodeState)
                 {
                     if(kvpB.Key == n) continue;
-                    Point coulomb = CoulombRepulsion(state.Position, kvpB.Value.Position, 100.0);
+                    Point coulomb = CoulombRepulsion(state.Position, kvpB.Value.Position, 900.0);
                     F.X += coulomb.X;
                     F.Y += coulomb.Y;
                     //F.Offset(coulomb.X, coulomb.Y); 
@@ -285,14 +285,14 @@ namespace GRender
                 /* foreach spring connected ... */
                 foreach (Node child in _graph.Nodes.Children(n))
                 {
-                    Point hooke = HookeAttraction(state.Position, _nodeState[child].Position, 0.9);
+                    Point hooke = HookeAttraction(state.Position, _nodeState[child].Position, 0.1);
                     F.X += hooke.X;
                     F.Y += hooke.Y;
                     //F.Offset(hooke.X, hooke.Y);
                 }
                 foreach (Node parent in _graph.Nodes.Parents(n))
                 {
-                    Point hooke = HookeAttraction(state.Position, _nodeState[parent].Position, 0.9);
+                    Point hooke = HookeAttraction(state.Position, _nodeState[parent].Position, 0.1);
                     F.X += hooke.X;
                     F.Y += hooke.Y;
                     //F.Offset(hooke.X, hooke.Y);
