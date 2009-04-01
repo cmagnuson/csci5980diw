@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="Graphite.Demo.WhitePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Graphite="clr-namespace:Graphite;assembly=Graphite"
+    Width="900" Height="600" Background="#FFFFFFFF" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
+  <Border Height="600" Width="900" BorderBrush="#FFFF8E00" BorderThickness="6,6,6,6" CornerRadius="6,6,6,6" Background="#FF539560" x:Name="LayoutRoot">
+    <StackPanel Orientation="Vertical" x:Name="VerticalStack">
+      <StackPanel x:Name="HorizontalStack" Background="#FF539560" Orientation="Horizontal" Height="442" Width="888">
+        <Graphite:GraphCanvas  x:Name="graphite" Width="563" Height="438" VerticalAlignment="Top" Margin="0,0,0,0" >
+          <Graphite:GraphCanvas.Background>
+            <RadialGradientBrush GradientOrigin="0.359,0.335">
+              <RadialGradientBrush.RelativeTransform>
+                <TransformGroup>
+                  <ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="0.98" ScaleY="0.966"/>
+                  <SkewTransform CenterX="0.5" CenterY="0.5"/>
+                  <RotateTransform CenterX="0.5" CenterY="0.5"/>
+                  <TranslateTransform X="0" Y="-0.003"/>
+                </TransformGroup>
+              </RadialGradientBrush.RelativeTransform>
+              <GradientStop Color="#FF539660" Offset="1"/>
+              <GradientStop Color="#FFC5C9C3" Offset="0"/>
+            </RadialGradientBrush>
+          </Graphite:GraphCanvas.Background>
+        </Graphite:GraphCanvas>
+        <StackPanel Height="435" VerticalAlignment="Top" Width="316" Margin="12,0,0,0">
+          <TextBlock Height="137" Width="Auto" Text="" TextWrapping="Wrap" x:Name="Notifier" Padding="6,6,6,6"/>
+          <Border Height="227" Width="314" Background="#FFFF8E00" BorderBrush="#FF000000" CornerRadius="12,0,0,12" RenderTransformOrigin="0.505,0.442">
+            <Grid Height="Auto" Width="Auto" Margin="0,0,10,0">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="*"/>
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="55"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="40"/>
+              </Grid.RowDefinitions>
+              <TextBlock Height="33" HorizontalAlignment="Stretch" Margin="10,11,0,0" VerticalAlignment="Top" Width="Auto" Grid.ColumnSpan="2" FontSize="18" Foreground="#FF000000" Text="Add a node" TextWrapping="Wrap" x:Name="AddNodeHeader"/>
+              <TextBlock Height="Auto" VerticalAlignment="Top" Text="Title:" TextWrapping="Wrap" HorizontalAlignment="Right" Width="Auto" Grid.Row="1" Foreground="#FF000000" x:Name="TitleLabel" Margin="0,0,5,0"/>
+              <TextBox VerticalAlignment="Top" Grid.Column="1" Grid.Row="1" ToolTipService.ToolTip="The name as it appears in the diagram." Text="" TextWrapping="Wrap" x:Name="TitleBox"/>
+              <TextBox Grid.Column="1" Grid.Row="2" ToolTipService.ToolTip="Add here the info you want to see displayed when hovering over the node." Text="" TextWrapping="Wrap" x:Name="InfoBox" VerticalAlignment="Stretch" Margin="0,0,0,10"/>
+              <TextBlock Height="22" VerticalAlignment="Top" Grid.Row="2" Text="Info:" TextWrapping="Wrap" HorizontalAlignment="Right" x:Name="InfoLabel" Margin="0,0,5,0" Width="29"/>
+              <Button Click="AddNewNode" HorizontalAlignment="Right" Margin="0,0,0,19" Width="67" Content="Add" Grid.Row="3" Grid.Column="1" x:Name="AddButton" Height="24"/>
+            </Grid>
+
+          </Border>
+          <Border Height="57" Width="314" Background="#FFFF8E00" BorderBrush="#FF000000" CornerRadius="12,0,0,12" Margin="0,12,0,0">
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+              </Grid.ColumnDefinitions>
+            
+            <TextBlock Grid.Column="0" Text="Selected two nodes in order to add a new edge. Use SHIFT-Click to select them." HorizontalAlignment="Stretch" Margin="10,4,4,6" x:Name="AddEdgeLabel" TextWrapping="Wrap"/>
+            <Button Click="AddNewEdge" Grid.Column="1" Content="Add" Width="67" HorizontalAlignment="Right" Margin="0,0,10,0" Height="24"/></Grid>
+          </Border>
+        </StackPanel>
+
+      </StackPanel>
+      <StackPanel Height="Auto" Width="Auto" Orientation="Horizontal">
+        <Border Height="121" Width="572" Background="#FFFF8E00" CornerRadius="0,12,12,0" HorizontalAlignment="Left">
+          <TextBlock Height="Auto" Margin="5,5,11,5" x:Name="Info" Width="Auto" Text="" TextWrapping="Wrap"/>
+        </Border>
+        <TextBlock Height="Auto" Width="276" Text="Graphite" TextWrapping="Wrap" FontSize="80" FontFamily="./Fonts/Fonts.zip#Freestyle Script" Margin="44,0,0,0" d:IsStaticText="True" HorizontalAlignment="Stretch"/>
+      </StackPanel>
+    </StackPanel>
+  </Border>
+</UserControl>

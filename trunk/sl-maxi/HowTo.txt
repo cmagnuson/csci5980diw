@@ -1,0 +1,15 @@
+﻿
+- You can switch between the different interfaces in line 20 of App.xaml.cs.
+
+- If you want to import diagram data from a network location, read first
+    http://msdn.microsoft.com/en-us/library/cc645032(VS.95).aspx
+
+- The expected format of the flat file data and the XML data can be seen in the sample files included in this project,
+  see 'SampleGraph.txt' and 'SampleGraph.xml'.
+  
+- The API has been documented and most events or methods are quite straightforward.
+
+- Have fun.
+
+[http://www.orbifold.net]
+
