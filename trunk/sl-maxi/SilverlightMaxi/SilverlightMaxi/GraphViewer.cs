@@ -110,21 +110,12 @@ namespace SilverlightMaxi
                 nodeLoc.Value.NodeCanvas = nCanv;
                 nCanv.NodeState = nodeLoc.Value;
 
-                /* Set the position of the node */
-                nCanv.SetValue(Canvas.LeftProperty, nodeLoc.Value.Position.X - nCanv.Width / 2);
-                nCanv.SetValue(Canvas.TopProperty, nodeLoc.Value.Position.Y - nCanv.Height / 2);
-
                 _canvas.Children.Add(nCanv);
 
                 foreach (Node child in _graph.Nodes.Children(nodeLoc.Key))
                 {
-                    Point a = nodeLoc.Value.Position;
-                    Point b = _nodeState[child].Position;
-
                     Line edge = new Line()
                     {
-                        X1 = a.X, X2 = b.X,
-                        Y1 = a.Y, Y2 = b.Y,
                         Stroke = new SolidColorBrush { Color = Color.FromArgb(255, 128, 128, 255) },
                         StrokeThickness = 0.5
                     };
@@ -134,7 +125,7 @@ namespace SilverlightMaxi
                     _canvas.Children.Insert(0, edge);
                 }
             }
-
+            UpdateVisualPositions();
             #endregion
         
         }
@@ -154,8 +145,8 @@ namespace SilverlightMaxi
 
                 if (!DragState.IsDragging)
                     ApplyGlobalOffset(_center, 0.5);
-                UpdateVisualPositions();
             }
+            UpdateVisualPositions();
         }
 
         private void UpdateVisualPositions()
