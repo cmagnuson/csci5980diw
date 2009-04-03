@@ -159,8 +159,8 @@ namespace GRender
 
                 if (!DragState.IsDragging)
                     ApplyGlobalOffset(_center, 0.5);
-                UpdateVisualPositions();
             }
+            UpdateVisualPositions();
         }
 
         private void UpdateVisualPositions()
