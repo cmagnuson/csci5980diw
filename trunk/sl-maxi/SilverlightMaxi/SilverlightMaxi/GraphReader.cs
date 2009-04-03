@@ -29,14 +29,12 @@ namespace SilverlightMaxi
     public class GraphReader
     {
     
-        public Dictionary<long, Node> nodeDict;
-    	
         /// <summary>
         /// Creates a graph by interpreting a specially formatted text file.
         /// </summary>
         /// <param name="path">The file to open for reading.</param>
         /// <returns>The graph created.</returns>
-        public static Graph BuildGraph( System.IO.Stream s, boolean addEdges)
+        public static Graph BuildGraph( System.IO.Stream s, Boolean addEdges)
         {
             XDocument xml = XDocument.Load(XmlReader.Create(s));
             XElement elementRoot = xml.Root; // Not sure if this is necessary
@@ -49,7 +47,7 @@ namespace SilverlightMaxi
                                             select (long)friend,
                            };
             Graph g = new Graph();
-            nodeDict = new Dictionary<long, Node>();
+            Dictionary<long, Node> nodeDict = new Dictionary<long, Node>();
             Node n = null;
             foreach (var el in elements)
             {
