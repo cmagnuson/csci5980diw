@@ -38,7 +38,7 @@ namespace SilverlightMaxi
                 string graphResource = "SilverlightMaxi.friends.xml";
                 System.IO.Stream s = this.GetType().Assembly.GetManifestResourceStream(graphResource);
 
-                g = GraphReader.BuildGraph(s);
+                g = GraphReader.BuildGraph(s, true);
 
                 /* Execute the spiffy graph visualizer */
                 _v = new GraphViewer(g, new Size(800, 600));
