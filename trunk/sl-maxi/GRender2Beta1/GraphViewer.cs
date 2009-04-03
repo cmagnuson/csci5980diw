@@ -329,10 +329,10 @@ namespace GRender
             Brush textColor = new SolidColorBrush(Color.FromArgb(255,255, 150, 150));
             Brush borderColor = new SolidColorBrush(Color.FromArgb(255,255, 100, 100));
 
-            TextBlock title = new TextBlock() { Foreground= textColor , Text = "", FontSize = 12 };
+            //TextBlock title = new TextBlock() { Foreground= textColor , Text = "", FontSize = 12 };
 
-            double Height = 25d;
-            double Width = 25d; // (title.ActualWidth + 4) < Height ? Height : title.ActualWidth + 4;
+            double Height = 10d;
+            double Width = 10d; // (title.ActualWidth + 4) < Height ? Height : title.ActualWidth + 4;
 
             NodeCanvas nodeCanvas = new NodeCanvas() { Width = Width, Height = Height };
             
@@ -367,16 +367,16 @@ namespace GRender
             Canvas.MouseLeave += new MouseEventHandler(Canvas_MouseLeave);
 
             nodeCanvas.Children.Add(nodeBkg);
-            nodeCanvas.Children.Add(title);
+            //nodeCanvas.Children.Add(title);
 
-            #region Center the title
+            //#region Center the title
 
-            double left = (nodeBkg.Width - title.ActualWidth) / 2;
-            double top = (nodeBkg.Height - title.ActualHeight) / 2;
-            title.SetValue(Canvas.LeftProperty, left);
-            title.SetValue(Canvas.TopProperty, top);
+            //double left = (nodeBkg.Width - title.ActualWidth) / 2;
+            //double top = (nodeBkg.Height - title.ActualHeight) / 2;
+            //title.SetValue(Canvas.LeftProperty, left);
+            //title.SetValue(Canvas.TopProperty, top);
 
-            #endregion
+            //#endregion
 
             return nodeCanvas;
         }
