@@ -329,12 +329,17 @@ namespace GRender
             Brush textColor = new SolidColorBrush(Color.FromArgb(255,255, 150, 150));
             Brush borderColor = new SolidColorBrush(Color.FromArgb(255,255, 100, 100));
 
-            TextBlock title = new TextBlock() { Foreground= textColor , Text = n.Title, FontSize = 12 };
+            TextBlock title = new TextBlock() { Foreground= textColor , Text = "", FontSize = 12 };
 
             double Height = 25d;
-            double Width = (title.ActualWidth + 4) < Height ? Height : title.ActualWidth + 4;
+            double Width = 25d; // (title.ActualWidth + 4) < Height ? Height : title.ActualWidth + 4;
 
             NodeCanvas nodeCanvas = new NodeCanvas() { Width = Width, Height = Height };
+            
+            ToolTip nameToolTip = new ToolTip();
+            nameToolTip.Content = n.Title;
+            ToolTipService.SetToolTip(nodeCanvas, nameToolTip);
+            
 
             Rectangle nodeBkg = new Rectangle()
             {
