@@ -121,17 +121,12 @@ namespace SilverlightMaxi
                     Point a = nodeLoc.Value.Position;
                     Point b = _nodeState[child].Position;
 
-                    LinearGradientBrush lgb = new LinearGradientBrush();
-                    lgb.GradientStops.Add(new GradientStop() { Color = Color.FromArgb(255,0, 0, 0), Offset = 0 });
-                    lgb.GradientStops.Add(new GradientStop() { Color = Color.FromArgb(255,128, 0, 0), Offset = 0.5 });
-                    lgb.GradientStops.Add(new GradientStop() { Color = Color.FromArgb(255,0, 0, 0), Offset = 1.0 });
-
                     Line edge = new Line()
                     {
                         X1 = a.X, X2 = b.X,
                         Y1 = a.Y, Y2 = b.Y,
-                        Stroke = lgb,
-                        StrokeThickness = 2.0
+                        Stroke = new SolidColorBrush { Color = Color.FromArgb(255, 128, 128, 255) },
+                        StrokeThickness = 0.5
                     };
 
                     nodeLoc.Value.ChildLinks.Add(new KeyValuePair<Node, Line>(child, edge));
@@ -324,15 +319,10 @@ namespace SilverlightMaxi
 
         private NodeCanvas CreateNodeCanvas(Node n)
         {
-            Color projColor = Color.FromArgb(128, 100, 55, 55);
-            Brush projBrush = new SolidColorBrush(projColor);
-            Brush textColor = new SolidColorBrush(Color.FromArgb(255,255, 150, 150));
-            Brush borderColor = new SolidColorBrush(Color.FromArgb(255,255, 100, 100));
+            Brush nodeColor = new SolidColorBrush(Color.FromArgb(255,255, 100, 100));
 
-            TextBlock title = new TextBlock() { Foreground= textColor , Text = "", FontSize = 12 };
-
-            double Height = 25d;
-            double Width = 25d; // (title.ActualWidth + 4) < Height ? Height : title.ActualWidth + 4;
+            double Height = 10d;
+            double Width = 10d;
 
             NodeCanvas nodeCanvas = new NodeCanvas() { Width = Width, Height = Height };
             
@@ -345,8 +335,8 @@ namespace SilverlightMaxi
             {
                 Width = Width,
                 Height = Height,
-                Fill = projBrush,
-                Stroke = borderColor
+                Fill = nodeColor,
+                Stroke = nodeColor,
             };
 
             switch (n.Type)
@@ -367,16 +357,6 @@ namespace SilverlightMaxi
             Canvas.MouseLeave += new MouseEventHandler(Canvas_MouseLeave);
 
             nodeCanvas.Children.Add(nodeBkg);
-            nodeCanvas.Children.Add(title);
-
-            #region Center the title
-
-            double left = (nodeBkg.Width - title.ActualWidth) / 2;
-            double top = (nodeBkg.Height - title.ActualHeight) / 2;
-            title.SetValue(Canvas.LeftProperty, left);
-            title.SetValue(Canvas.TopProperty, top);
-
-            #endregion
 
             return nodeCanvas;
         }
