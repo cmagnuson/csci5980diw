@@ -24,7 +24,7 @@ namespace SilverlightMaxi
 		private List<Photo> photoList;
 		private int numToDisplay;
 		private int currentPointer = 0;
-		Dictionary<String, Int> edges = new Dictionary<String, Int>();
+		Dictionary<String, int> edges = new Dictionary<String, int>();
 		Dictionary<long, Node> nodes = new Dictionary<long, Node>();
 		
 		public PhotoGraph(List<Photo> pl, int toDisplay, Dictionary<long, Node> ns){
@@ -34,55 +34,64 @@ namespace SilverlightMaxi
 		}
 		
 		//decrement edge values in dictionary by 1, if 0 then remove from graph
-		public void remove(Photo photo){
-			for(int i=photo.getTaggedList().size(); i++){
-				for(int j=i+1; j<photo.getTaggedList(); j++){
-					long uid1 = photo.getTaggedList().get(i);
-					long uid2 = photo.getTaggedList.get(j);
-					String key = uid1+","+uid2;
-					if(!edges.contains(key)){
-						edges.put(key, 1);
-					}
-					else if(edges.get(key)==1){
-						g.setEdge(nodes.get(uid1), nodes.get(uid2), false);
-					}
-					else if(edges.get(key)<1){
-						//should never happen!
-						edges.put(key, 1);
-					}
-					edges.put(key, edges.get(key)-1);
-				}
-			}
+		private void remove(Photo photo, Graph g){
+            for (int i = 0;  i<photo.getTaggedList().Count(); i++)
+            {
+                for (int j = i + 1; j < photo.getTaggedList().Count(); j++)
+                {
+                    long uid1 = photo.getTaggedList().ElementAt(i);
+                    long uid2 = photo.getTaggedList().ElementAt(j);
+                    String key = uid1 + "," + uid2;
+                    if (!edges.ContainsKey(key))
+                    {
+                        edges.Add(key, 1);
+                    }
+                    else if (edges[key] == 1)
+                    {
+                        g.Edges[nodes[uid1], nodes[uid2]] = false;
+                    }
+                    else if (edges[key] < 1)
+                    {
+                        //should never happen!
+                        edges.Add(key, 1);
+                    }
+                    edges.Add(key, edges[key] - 1);
+                }
+            }
 		}
 		//increment edge values in dictionary by 1, if starting at 0 or not existing then add to graph
-		public void add(Photo photo){
-			for(int i=photo.getTaggedList().size(); i++){
-				for(int j=i+1; j<photo.getTaggedList(); j++){
-					long uid1 = photo.getTaggedList().get(i);
-					long uid2 = photo.getTaggedList.get(j);
-					String key = uid1+","+uid2;
-					if(!edges.contains(key)){
-						edges.put(key, 0);
-						g.setEdge(nodes.get(uid1), nodes.get(uid2), true);
-					}
-					else if(edges.get(key)==0){
-						g.setEdge(nodes.get(uid1), nodes.get(uid2), true);
-					}
-					edges.put(key, edges.get(key)+1);
-				}
-			}
+		private void add(Photo photo, Graph g){
+            for (int i = 0; i < photo.getTaggedList().Count(); i++)
+            {
+                for (int j = i + 1; j < photo.getTaggedList().Count(); j++)
+                {
+                    long uid1 = photo.getTaggedList().ElementAt(i);
+                    long uid2 = photo.getTaggedList().ElementAt(j);
+                    String key = uid1 + "," + uid2;
+                    if (!edges.ContainsKey(key))
+                    {
+                        edges.Add(key, 0);
+                        g.Edges[nodes[uid1], nodes[uid2]] = true;
+                    }
+                    else if (edges[key] == 0)
+                    {
+                        g.Edges[nodes[uid1], nodes[uid2]] = true;
+                    }
+                    edges.Add(key, edges[key] + 1);
+                }
+            }
 		}
 		
 		public void next(Graph g){
-			if(currentPointer+numToDisplay>=photoList.size()){
+			if(currentPointer+numToDisplay>=photoList.Count()){
 			 return;
 			}
 			else{
 			  currentPointer++;
-			  	Photo addPhoto = photoList.get(currentPointer+numToDisplay);
-				Photo removePhoto = photoList.get(currentPointer-1);
-				remove(removePhoto);
-				add(addPhoto);
+              Photo addPhoto = photoList.ElementAt(currentPointer + numToDisplay);
+              Photo removePhoto = photoList.ElementAt(currentPointer - 1);
+				remove(removePhoto, g);
+				add(addPhoto, g);
 			}
 		}
 		public void previous(Graph g){
@@ -91,10 +100,10 @@ namespace SilverlightMaxi
 			}		
 			else{
 				currentPointer--;
-				Photo addPhoto = photoList.get(currentPointer);
-				Photo removePhoto = photoList.get(currentPointer+numToDisplay+1);
-				remove(removePhoto);
-				add(addPhoto);
+				Photo addPhoto = photoList.ElementAt(currentPointer);
+				Photo removePhoto = photoList.ElementAt(currentPointer+numToDisplay+1);
+				remove(removePhoto, g);
+				add(addPhoto, g);
 			}
     	}
 	}
