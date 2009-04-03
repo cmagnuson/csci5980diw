@@ -20,12 +20,6 @@ namespace SilverlightMaxi
 
         public Page()
         {
-            InitializeComponent();
-        }
-
-
-        public void Page_Loaded(object o, EventArgs e)
-        {
             // Required to initialize variables
             InitializeComponent();
 
