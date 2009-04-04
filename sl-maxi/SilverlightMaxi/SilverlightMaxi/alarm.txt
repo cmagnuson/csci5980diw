@@ -1,0 +1,5 @@
+0/earthquake/2
+1/burglar/2
+2/alarm/3,4
+3/john calls/
+4/mary calls/
