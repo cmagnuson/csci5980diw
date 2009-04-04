@@ -15,8 +15,10 @@ namespace SilverlightMaxi
 {
     public partial class Page : UserControl
     {
-        private GraphViewer _v;
-        private DispatcherTimer _timer;
+        private GraphViewer _v, _v2;
+        private DispatcherTimer _timer, _timer2;
+        private PhotoGraph pg;
+        Graph g2;
 
         public Page()
         {
@@ -33,13 +35,21 @@ namespace SilverlightMaxi
                 System.IO.Stream s = this.GetType().Assembly.GetManifestResourceStream(graphResource);
 
                 g = GraphReader.BuildGraph(s, true);
-
-                /* Execute the spiffy graph visualizer */
+                s = this.GetType().Assembly.GetManifestResourceStream(graphResource);
+                g2 = GraphReader.BuildGraph(s, false);
+                Dictionary<long, Node> nodeDict =    GraphReader.nodeDict;
+                IOrderedEnumerable<Photo> photos = Photo.getPhotoList(graphResource, this);
+                pg = new PhotoGraph(photos, 50, nodeDict);
+            /* Execute the spiffy graph visualizer */
                 _v = new GraphViewer(g, new Size(800, 600));
                 _v.DoLayout();
 
+                _v2 = new GraphViewer(g2, new Size(800, 600));
+                _v2.DoLayout();
+
                 /* Add the result to the current screen */
                 this.FriendCluster.Children.Insert(0, _v.Canvas);
+                this.FriendPhotos.Children.Insert(0, _v2.Canvas);
 
                 _timer = new DispatcherTimer()
                 {
@@ -55,6 +65,8 @@ namespace SilverlightMaxi
         void _timer_Tick(object sender, EventArgs e)
         {
             _v.StepLayout();
+            _v2.StepLayout();
+            pg.next(g2);
         }
 
         private void emailSearchButton_Click(object sender, RoutedEventArgs e)

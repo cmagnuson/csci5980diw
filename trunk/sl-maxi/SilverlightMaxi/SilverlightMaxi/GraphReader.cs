@@ -74,7 +74,6 @@ namespace SilverlightMaxi
                 }
             }
             }
-            
             return g;
         }
 
