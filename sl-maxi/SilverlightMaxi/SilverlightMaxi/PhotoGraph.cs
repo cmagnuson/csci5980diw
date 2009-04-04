@@ -21,13 +21,13 @@ namespace SilverlightMaxi
 
     public class PhotoGraph
     {
-		private List<Photo> photoList;
+		private IOrderedEnumerable<Photo> photoList;
 		private int numToDisplay;
 		private int currentPointer = 0;
 		Dictionary<String, int> edges = new Dictionary<String, int>();
 		Dictionary<long, Node> nodes = new Dictionary<long, Node>();
 		
-		public PhotoGraph(List<Photo> pl, int toDisplay, Dictionary<long, Node> ns){
+		public PhotoGraph(IOrderedEnumerable<Photo> pl, int toDisplay, Dictionary<long, Node> ns){
 			photoList = pl;
 			numToDisplay = toDisplay;
 			nodes = ns;
