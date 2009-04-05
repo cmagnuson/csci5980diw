@@ -33,7 +33,7 @@ namespace SilverlightMaxi
             {
                 _v2.StepLayout();
             }
-            pg.next(g2);
+            pg.next(ref g2);
         }
 
         private void emailSearchButton_Click(object sender, RoutedEventArgs e)
@@ -83,8 +83,9 @@ namespace SilverlightMaxi
 
                 _v2 = new GraphViewer(g2, new Size(800, 600));
 
-                pg.addInitial(g);
+                pg.addInitial(ref g);
                 _v2.DoLayout();
+              
 
                 /* Add the result to the current screen */
                 this.FriendCluster.Children.Clear();

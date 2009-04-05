@@ -34,7 +34,7 @@ namespace SilverlightMaxi
 		}
 		
 		//decrement edge values in dictionary by 1, if 0 then remove from graph
-		private void remove(Photo photo, Graph g){
+		private void remove(Photo photo, ref Graph g){
             for (int i = 0;  i<photo.getTaggedList().Count(); i++)
             {
                 for (int j = i + 1; j < photo.getTaggedList().Count(); j++)
@@ -60,7 +60,7 @@ namespace SilverlightMaxi
             }
 		}
 		//increment edge values in dictionary by 1, if starting at 0 or not existing then add to graph
-		private void add(Photo photo, Graph g){
+		private void add(Photo photo, ref Graph g){
             for (int i = 0; i < photo.getTaggedList().Count(); i++)
             {
                 for (int j = i + 1; j < photo.getTaggedList().Count(); j++)
@@ -96,16 +96,16 @@ namespace SilverlightMaxi
             }
 		}
 
-        public void addInitial(Graph g)
+        public void addInitial(ref Graph g)
         {
             for (int i = 0; i < numToDisplay; i++)
             {
                 currentPointer++;
-                add(photoList.ElementAt(i), g);
+                add(photoList.ElementAt(i), ref g);
             }
         }
 
-        public void next(Graph g)
+        public void next(ref Graph g)
         {
 			if(currentPointer+numToDisplay>=photoList.Count()){
 			 return;
@@ -116,12 +116,12 @@ namespace SilverlightMaxi
               if (currentPointer + numToDisplay - 1 >= 0)
               {
                   Photo removePhoto = photoList.ElementAt(currentPointer - 1);
-                  remove(removePhoto, g);
+                  remove(removePhoto, ref g);
               }
-				add(addPhoto, g);
+				add(addPhoto, ref g);
 			}
 		}
-		public void previous(Graph g){
+		public void previous(ref Graph g){
 			if(currentPointer<=0){
 			 return;
 			}		
@@ -129,8 +129,8 @@ namespace SilverlightMaxi
 				currentPointer--;
 				Photo addPhoto = photoList.ElementAt(currentPointer);
 				Photo removePhoto = photoList.ElementAt(currentPointer+numToDisplay+1);
-				remove(removePhoto, g);
-				add(addPhoto, g);
+				remove(removePhoto, ref g);
+				add(addPhoto, ref g);
 			}
     	}
 	}
