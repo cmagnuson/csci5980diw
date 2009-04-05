@@ -42,9 +42,9 @@ namespace SilverlightMaxi
                     long uid1 = photo.getTaggedList().ElementAt(i);
                     long uid2 = photo.getTaggedList().ElementAt(j);
                     String key = uid1 + "," + uid2;
-                    if (!edges.ContainsKey(key))
+                    if (!nodes.ContainsKey(uid1) || !nodes.ContainsKey(uid2))
                     {
-                        edges.Add(key, 1);
+                        continue;
                     }
                     else if (edges[key] == 1)
                     {
@@ -55,7 +55,7 @@ namespace SilverlightMaxi
                         //should never happen!
                         edges.Add(key, 1);
                     }
-                    edges.Add(key, edges[key] - 1);
+                    edges[key]--;
                 }
             }
 		}
@@ -68,29 +68,56 @@ namespace SilverlightMaxi
                     long uid1 = photo.getTaggedList().ElementAt(i);
                     long uid2 = photo.getTaggedList().ElementAt(j);
                     String key = uid1 + "," + uid2;
+                    if (!nodes.ContainsKey(uid1) || !nodes.ContainsKey(uid2))
+                    {
+                        continue;
+                    }
+                    if(!g.Nodes.Contains(nodes[uid1])){
+                        g.Nodes.Add(nodes[uid1]);
+                    }
+                    if(!g.Nodes.Contains(nodes[uid2])){
+                        g.Nodes.Add(nodes[uid2]);
+                    }
                     if (!edges.ContainsKey(key))
                     {
-                        edges.Add(key, 0);
+                        edges.Add(key, 1);
                         g.Edges[nodes[uid1], nodes[uid2]] = true;
                     }
                     else if (edges[key] == 0)
                     {
+                        edges[key] = edges[key] + 1;
                         g.Edges[nodes[uid1], nodes[uid2]] = true;
                     }
-                    edges.Add(key, edges[key] + 1);
+                    else
+                    {
+                        edges[key]++;
+                    }
                 }
             }
 		}
-		
-		public void next(Graph g){
+
+        public void addInitial(Graph g)
+        {
+            for (int i = 0; i < numToDisplay; i++)
+            {
+                currentPointer++;
+                add(photoList.ElementAt(i), g);
+            }
+        }
+
+        public void next(Graph g)
+        {
 			if(currentPointer+numToDisplay>=photoList.Count()){
 			 return;
 			}
 			else{
 			  currentPointer++;
               Photo addPhoto = photoList.ElementAt(currentPointer + numToDisplay);
-              Photo removePhoto = photoList.ElementAt(currentPointer - 1);
-				remove(removePhoto, g);
+              if (currentPointer + numToDisplay - 1 >= 0)
+              {
+                  Photo removePhoto = photoList.ElementAt(currentPointer - 1);
+                  remove(removePhoto, g);
+              }
 				add(addPhoto, g);
 			}
 		}

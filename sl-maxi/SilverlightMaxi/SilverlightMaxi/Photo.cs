@@ -82,8 +82,8 @@ namespace SilverlightMaxi
                                time = (long)element.Element("time"),
                                taker = (long)element.Element("taker"),
                                url = (String)element.Element("url"),
-                               taggedlist = from friend in element.Element("tagged").Descendants()
-                                            select (long)element.Element("uid"),
+                               taggedlist = (from friend in element.Element("tagged").Descendants()
+                                            select (long)friend),
                            };
 
             List<Photo> list = new List<Photo>();

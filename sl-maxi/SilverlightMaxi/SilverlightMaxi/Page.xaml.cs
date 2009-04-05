@@ -29,6 +29,11 @@ namespace SilverlightMaxi
         void _timer_Tick(object sender, EventArgs e)
         {
             _v.StepLayout();
+            for (int i = 0; i < 10; i++)
+            {
+                _v2.StepLayout();
+            }
+            pg.next(g2);
         }
 
         private void emailSearchButton_Click(object sender, RoutedEventArgs e)
@@ -62,13 +67,14 @@ namespace SilverlightMaxi
                  *  and, in the property panel for the file, set Build Action to "Embedded Resource"
                  */
                 string graphResource = "SilverlightMaxi." + searchTerm + ".friends.xml";
+                string photoResource = "SilverlightMaxi." + searchTerm + ".photos.xml";
                 System.IO.Stream s = this.GetType().Assembly.GetManifestResourceStream(graphResource);
 
                 g = GraphReader.BuildGraph(s, true);
                 s = this.GetType().Assembly.GetManifestResourceStream(graphResource);
                 g2 = GraphReader.BuildGraph(s, false);
                 Dictionary<long, Node> nodeDict =    GraphReader.nodeDict;
-                IOrderedEnumerable<Photo> photos = Photo.getPhotoList(graphResource, this);
+                IOrderedEnumerable<Photo> photos = Photo.getPhotoList(photoResource, this);
                 pg = new PhotoGraph(photos, 50, nodeDict);
                 
                 /* Execute the spiffy graph visualizer */
@@ -76,6 +82,8 @@ namespace SilverlightMaxi
                 _v.DoLayout();
 
                 _v2 = new GraphViewer(g2, new Size(800, 600));
+
+                pg.addInitial(g);
                 _v2.DoLayout();
 
                 /* Add the result to the current screen */
