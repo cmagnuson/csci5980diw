@@ -66,6 +66,8 @@ namespace SilverlightMaxi
 
         public Canvas Canvas { get { return _canvas; } }
 
+        private Random r;
+
         public GraphViewer(Graph g, Size size)
         {
             _graph = g;
@@ -89,32 +91,20 @@ namespace SilverlightMaxi
         {
             _center = new Point(_canvas.Width / 2, _canvas.Height / 2);
 
-            Random r = new Random();
+            r = new Random();
 
             foreach (Node n in _graph.Nodes)
             {
-                Point randomPos = new Point(300 + 200 * (r.NextDouble() - 0.5), 300 + 150 * (r.NextDouble() - 0.5));
-                _nodeState.Add(n,
-                    new NodeState()
-                    {
-                        Position = randomPos,
-                        Velocity = new Point(0, 0)
-                    });
+                AddNodeToCanvas(n);
             }
 
             #region Build visual graph representation
 
             foreach (KeyValuePair<Node, NodeState> nodeLoc in _nodeState)
             {
-                NodeCanvas nCanv = CreateNodeCanvas(nodeLoc.Key);
-                nodeLoc.Value.NodeCanvas = nCanv;
-                nCanv.NodeState = nodeLoc.Value;
-
-                _canvas.Children.Add(nCanv);
-
                 foreach (Node child in _graph.Nodes.Children(nodeLoc.Key))
                 {
-                    AddEdge(nodeLoc.Key, child);
+                    AddEdgeToCanvas(nodeLoc.Key, child);
                 }
             }
             StepLayout(50);
@@ -122,7 +112,42 @@ namespace SilverlightMaxi
         
         }
 
-        public void AddEdge(Node n1, Node n2) {
+        public void AddNode(Node n)
+        {
+            _graph.Nodes.Add(n);
+            AddNodeToCanvas(n);
+        }
+
+        public void RemoveNode(Node n)
+        {
+            if (_nodeState[n].ChildLinks.Count > 0) throw new Exception("Can't remove until all edges are gone.");
+            _graph.Nodes.Remove(n);
+            _canvas.Children.Remove(_nodeState[n].NodeCanvas);
+            _nodeState.Remove(n);
+        }
+
+        protected void AddNodeToCanvas(Node n)
+        {
+            Point randomPos = new Point(300 + 200 * (r.NextDouble() - 0.5), 300 + 150 * (r.NextDouble() - 0.5));
+            NodeState ns = new NodeState()
+                {
+                    Position = randomPos,
+                    Velocity = new Point(0, 0),
+                    NodeCanvas = CreateNodeCanvas(n),
+                };
+            ns.NodeCanvas.NodeState = ns;
+            _nodeState.Add(n, ns);
+
+            _canvas.Children.Add(ns.NodeCanvas);
+        }
+
+        public void AddEdge(Node n1, Node n2)
+        {
+            _graph.Edges[n1, n2] = true;
+            AddEdgeToCanvas(n1, n2);
+        }
+
+        protected void AddEdgeToCanvas(Node n1, Node n2) {
             Line edge = new Line()
             {
                 Stroke = new SolidColorBrush { Color = Color.FromArgb(255, 128, 128, 255) },
@@ -140,14 +165,26 @@ namespace SilverlightMaxi
 
         public void RemoveEdge(Node n1, Node n2)
         {
+            _graph.Edges[n1, n2] = false;
             Line edge = _nodeState[n1].ChildLinks[n2];
             _canvas.Children.Remove(edge);
             _nodeState[n1].ChildLinks.Remove(n2);
             _nodeState[n2].ChildLinks.Remove(n1);
+            /*
+            if (_nodeState[n1].ChildLinks.Count == 0)
+            {
+                RemoveNode(n1);
+            }
+
+            if (_nodeState[n2].ChildLinks.Count == 0)
+            {
+                RemoveNode(n2);
+            }
+             */
 
             if (_canvas.Children.Contains(edge))
             {
-                throw new Exception("edge was in there more than once");
+                throw new Exception("edge is in there more than once");
             }
         }
 

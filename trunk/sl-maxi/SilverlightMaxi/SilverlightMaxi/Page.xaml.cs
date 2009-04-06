@@ -67,20 +67,24 @@ namespace SilverlightMaxi
                 System.IO.Stream s = this.GetType().Assembly.GetManifestResourceStream(graphResource);
 
                 g = GraphReader.BuildGraph(s, true);
-                s = this.GetType().Assembly.GetManifestResourceStream(graphResource);
-                g2 = GraphReader.BuildGraph(s, false);
-                Dictionary<long, Node> nodeDict =    GraphReader.nodeDict;
-                IOrderedEnumerable<Photo> photos = Photo.getPhotoList(photoResource, this);
-                pg = new PhotoGraph(photos, 50, nodeDict);
-                
-                /* Execute the spiffy graph visualizer */
                 _v = new GraphViewer(g, new Size(800, 600));
                 _v.DoLayout();
 
+                s = this.GetType().Assembly.GetManifestResourceStream(graphResource);
+                g2 = GraphReader.BuildGraph(s, false);
                 _v2 = new GraphViewer(g2, new Size(800, 600));
-
-                pg.addInitial(ref g);
                 _v2.DoLayout();
+
+                pg = new PhotoGraph
+                {
+                    photoList = Photo.getPhotoList(photoResource, this),
+                    nodes = GraphReader.nodeDict,
+                    numToDisplay = 50,
+                    viewer = _v2,
+                };
+
+                pg.addInitial();
+                _v2.StepLayout(50);
               
 
                 /* Add the result to the current screen */
@@ -89,6 +93,12 @@ namespace SilverlightMaxi
 
                 this.FriendPhotos.Children.Clear();
                 this.FriendPhotos.Children.Insert(0, _v2.Canvas);
+                Button b = new Button();
+                b.Click += new RoutedEventHandler(nextPhoto_Click);
+                b.Content = "Next 50 Photos";
+                b.Width = 100;
+                b.Height = 20;
+                this.FriendPhotos.Children.Insert(1, b);
 
                 _timer = new DispatcherTimer()
                 {
@@ -116,6 +126,16 @@ namespace SilverlightMaxi
                 this.FriendPhotos.Children.Clear();
                 this.FriendPhotos.Children.Add(emailNotFoundMessage2);
             }
+        }
+
+        private void nextPhoto_Click(object sender, RoutedEventArgs e)
+        {
+            for (int i = 0; i < 50; i++)
+            {
+                pg.next();
+            }
+            _v2.StepLayout(1);
+            //emailSearchTextBox.Text = pg.currentPointer.ToString();
         }
     }
 }
