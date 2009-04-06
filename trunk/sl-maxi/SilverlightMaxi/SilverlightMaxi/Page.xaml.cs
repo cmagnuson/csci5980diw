@@ -16,7 +16,7 @@ namespace SilverlightMaxi
     public partial class Page : UserControl
     {
         private GraphViewer _v, _v2;
-        private DispatcherTimer _timer, _timer2;
+        private DispatcherTimer _timer;
         private PhotoGraph pg;
         Graph g2;
 
@@ -28,12 +28,8 @@ namespace SilverlightMaxi
 
         void _timer_Tick(object sender, EventArgs e)
         {
-            _v.StepLayout();
-            for (int i = 0; i < 10; i++)
-            {
-                _v2.StepLayout();
-            }
-            pg.next(ref g2);
+            _v.StepLayout(15);
+            _v2.StepLayout(15);
         }
 
         private void emailSearchButton_Click(object sender, RoutedEventArgs e)

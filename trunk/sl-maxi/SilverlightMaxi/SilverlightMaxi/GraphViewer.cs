@@ -117,7 +117,7 @@ namespace SilverlightMaxi
                     AddEdge(nodeLoc.Key, child);
                 }
             }
-            UpdateVisualPositions();
+            StepLayout(50);
             #endregion
         
         }
@@ -154,9 +154,9 @@ namespace SilverlightMaxi
         /// <summary>
         /// Applies one step of the graph layout algorithm, moving nodes to a more stable configuration.
         /// </summary>
-        public void StepLayout()
+        public void StepLayout(int steps)
         {
-            for (int i = 0; i < 15; i++)
+            for (int i = 0; i < steps; i++)
             {
                 double KE = RunPhysics();
 
@@ -397,6 +397,15 @@ namespace SilverlightMaxi
                 ns.Position.X += position.X; ns.Position.Y += position.Y;
                 ns.NodeCanvas.SetValue(Canvas.LeftProperty, ns.Position.X - ns.NodeCanvas.Width / 2);
                 ns.NodeCanvas.SetValue(Canvas.TopProperty, ns.Position.Y - ns.NodeCanvas.Height / 2);
+
+                foreach (KeyValuePair<Node, Line> kvp in ns.ChildLinks)
+                {
+                    Point childLoc = _nodeState[kvp.Key].Position;
+                    kvp.Value.X1 = ns.Position.X;
+                    kvp.Value.Y1 = ns.Position.Y;
+                    kvp.Value.X2 = childLoc.X;
+                    kvp.Value.Y2 = childLoc.Y;
+                }
             }
         }
 
