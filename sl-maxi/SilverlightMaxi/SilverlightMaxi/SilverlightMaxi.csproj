@@ -92,6 +92,8 @@
     <Content Include="edges.xml" />
     <EmbeddedResource Include="magnu213%40umn.edu.friends.xml" />
     <Content Include="GRender.csproj" />
+    <EmbeddedResource Include="norg0013%40umn.edu.friends.xml" />
+    <EmbeddedResource Include="norg0013%40umn.edu.photos.xml" />
     <Content Include="states.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight\v2.0\Microsoft.Silverlight.CSharp.targets" />
