@@ -21,20 +21,16 @@ namespace SilverlightMaxi
 
     public class PhotoGraph
     {
-		private IOrderedEnumerable<Photo> photoList;
-		private int numToDisplay;
-		private int currentPointer = 0;
+		public IOrderedEnumerable<Photo> photoList;
+		public int numToDisplay;
+		public int currentPointer = 0;
 		Dictionary<String, int> edges = new Dictionary<String, int>();
-		Dictionary<long, Node> nodes = new Dictionary<long, Node>();
+		public Dictionary<long, Node> nodes = new Dictionary<long, Node>();
+        public GraphViewer viewer;
 		
-		public PhotoGraph(IOrderedEnumerable<Photo> pl, int toDisplay, Dictionary<long, Node> ns){
-			photoList = pl;
-			numToDisplay = toDisplay;
-			nodes = ns;
-		}
 		
 		//decrement edge values in dictionary by 1, if 0 then remove from graph
-		private void remove(Photo photo, ref Graph g){
+		private void remove(Photo photo){
             for (int i = 0;  i<photo.getTaggedList().Count(); i++)
             {
                 for (int j = i + 1; j < photo.getTaggedList().Count(); j++)
@@ -46,21 +42,25 @@ namespace SilverlightMaxi
                     {
                         continue;
                     }
+                    if (!edges.ContainsKey(key)) {
+                        // Shouldn't be happening, but sometimes happens.
+                        continue;
+                    }
                     else if (edges[key] == 1)
                     {
-                        g.Edges[nodes[uid1], nodes[uid2]] = false;
+                        viewer.RemoveEdge(nodes[uid1], nodes[uid2]);
                     }
                     else if (edges[key] < 1)
                     {
-                        //should never happen!
-                        edges.Add(key, 1);
+                        //throw new Exception("Edge Does Not Exist");
+                        continue;
                     }
                     edges[key]--;
                 }
             }
 		}
 		//increment edge values in dictionary by 1, if starting at 0 or not existing then add to graph
-		private void add(Photo photo, ref Graph g){
+		private void add(Photo photo){
             for (int i = 0; i < photo.getTaggedList().Count(); i++)
             {
                 for (int j = i + 1; j < photo.getTaggedList().Count(); j++)
@@ -72,21 +72,25 @@ namespace SilverlightMaxi
                     {
                         continue;
                     }
-                    if(!g.Nodes.Contains(nodes[uid1])){
-                        g.Nodes.Add(nodes[uid1]);
+                    try
+                    {
+                        viewer.AddNode(nodes[uid1]);
                     }
-                    if(!g.Nodes.Contains(nodes[uid2])){
-                        g.Nodes.Add(nodes[uid2]);
+                    catch (Graph.NodeAlreadyExists e) { }
+                    try
+                    {
+                        viewer.AddNode(nodes[uid2]);
                     }
+                    catch (Graph.NodeAlreadyExists e) { }
                     if (!edges.ContainsKey(key))
                     {
                         edges.Add(key, 1);
-                        g.Edges[nodes[uid1], nodes[uid2]] = true;
+                        viewer.AddEdge(nodes[uid1], nodes[uid2]);
                     }
                     else if (edges[key] == 0)
                     {
                         edges[key] = edges[key] + 1;
-                        g.Edges[nodes[uid1], nodes[uid2]] = true;
+                        viewer.AddEdge(nodes[uid1], nodes[uid2]);
                     }
                     else
                     {
@@ -96,16 +100,16 @@ namespace SilverlightMaxi
             }
 		}
 
-        public void addInitial(ref Graph g)
+        public void addInitial()
         {
             for (int i = 0; i < numToDisplay; i++)
             {
                 currentPointer++;
-                add(photoList.ElementAt(i), ref g);
+                add(photoList.ElementAt(i));
             }
         }
 
-        public void next(ref Graph g)
+        public void next()
         {
 			if(currentPointer+numToDisplay>=photoList.Count()){
 			 return;
@@ -116,12 +120,13 @@ namespace SilverlightMaxi
               if (currentPointer + numToDisplay - 1 >= 0)
               {
                   Photo removePhoto = photoList.ElementAt(currentPointer - 1);
-                  remove(removePhoto, ref g);
+                  remove(removePhoto);
               }
-				add(addPhoto, ref g);
+				add(addPhoto);
 			}
 		}
-		public void previous(ref Graph g){
+        public void previous()
+        {
 			if(currentPointer<=0){
 			 return;
 			}		
@@ -129,8 +134,8 @@ namespace SilverlightMaxi
 				currentPointer--;
 				Photo addPhoto = photoList.ElementAt(currentPointer);
 				Photo removePhoto = photoList.ElementAt(currentPointer+numToDisplay+1);
-				remove(removePhoto, ref g);
-				add(addPhoto, ref g);
+				remove(removePhoto);
+				add(addPhoto);
 			}
     	}
 	}

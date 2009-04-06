@@ -39,6 +39,11 @@ namespace SilverlightMaxi
 
     public class Graph
     {
+        public class NodeAlreadyExists : Exception
+        {
+            public NodeAlreadyExists(String message): base(message){}
+        };
+
         public class GraphNodes : IEnumerable<Node>
         {
             private Graph _parentGraph;
@@ -68,7 +73,7 @@ namespace SilverlightMaxi
             public void Add(Node node)
             {
                 if (Contains(node))
-                    throw new Exception("The graph already contains the node specified for addition.");
+                    throw new NodeAlreadyExists("The graph already contains the node specified for addition.");
                 else
                     _nodeSet[node] = true;
             }
