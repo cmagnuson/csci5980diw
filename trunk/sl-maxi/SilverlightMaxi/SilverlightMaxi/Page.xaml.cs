@@ -49,7 +49,7 @@ namespace SilverlightMaxi
             List<string> emailAddresses = new List<string>();
             emailAddresses.Add("magnu213@umn.edu");
             //emailAddresses.Add("ande7966@umn.edu");
-            //emailAddresses.Add("norg0013@umn.com");
+            emailAddresses.Add("norg0013@umn.edu");
 
             string searchTerm = this.emailSearchTextBox.Text.Trim().ToLower();
 
