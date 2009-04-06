@@ -3,6 +3,7 @@ import java.util.Arrays;
 import net.sf.fb4j.FacebookSession;
 import net.sf.fb4j.client.FacebookClientException;
 import net.sf.fb4j.desktop.DesktopApplication;
+import net.sf.json.JSONException;
 import net.sf.fb4j.model.*;
 import java.util.*;
 import edu.uci.ics.jung.graph.*;
@@ -20,6 +21,8 @@ import java.beans.XMLEncoder;
 //somewhat based off of http://forum.fb4j.org/viewtopic.php?f=2&t=29
 public class Driver {
 
+//	private static final String API_KEY = "be938b26993eb17af95e620b1d5d45fd";
+//	private static final String SECRET = "e58e5f16fbfd3b90ab9c61aab80cc3c1";
 	private static final String API_KEY = "5dd0ad0b7f09d65e567b9b0803809a05";
 	private static final String SECRET = "1799b6f00248b0d4d2867559c6a21b6c";
 
@@ -68,7 +71,13 @@ public class Driver {
 			friends.add(p);
 
 			//new photo method
-			net.sf.fb4j.model.Photo[] photos = s.getPhotosOfUser(fids[i]);
+			net.sf.fb4j.model.Photo[] photos;
+			try {
+				 photos = s.getPhotosOfUser(fids[i]);
+			}
+			catch (JSONException e){
+				continue;
+			}
 			for(net.sf.fb4j.model.Photo photo: photos){
 				if(photoList.containsKey(photo.getId())){
 					continue;
