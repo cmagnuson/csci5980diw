@@ -55,8 +55,8 @@ namespace SilverlightMaxi
             public Point Position;
             public Point Velocity;
             public NodeCanvas NodeCanvas;
-            public List<KeyValuePair<Node, Line>> ChildLinks 
-                 = new List<KeyValuePair<Node, Line>>();
+            public Dictionary<Node, Line> ChildLinks
+                 = new Dictionary<Node, Line>();
         }
 
         private Point _center;
@@ -114,20 +114,41 @@ namespace SilverlightMaxi
 
                 foreach (Node child in _graph.Nodes.Children(nodeLoc.Key))
                 {
-                    Line edge = new Line()
-                    {
-                        Stroke = new SolidColorBrush { Color = Color.FromArgb(255, 128, 128, 255) },
-                        StrokeThickness = 0.5
-                    };
-
-                    nodeLoc.Value.ChildLinks.Add(new KeyValuePair<Node, Line>(child, edge));
-
-                    _canvas.Children.Insert(0, edge);
+                    AddEdge(nodeLoc.Key, child);
                 }
             }
             UpdateVisualPositions();
             #endregion
         
+        }
+
+        public void AddEdge(Node n1, Node n2) {
+            Line edge = new Line()
+            {
+                Stroke = new SolidColorBrush { Color = Color.FromArgb(255, 128, 128, 255) },
+                StrokeThickness = 0.5
+            };
+
+            _nodeState[n1].ChildLinks[n2] = edge;
+            _nodeState[n2].ChildLinks[n1] = edge;
+
+            if (!_canvas.Children.Contains(edge))
+            {
+                _canvas.Children.Insert(0, edge);
+            }
+        }
+
+        public void RemoveEdge(Node n1, Node n2)
+        {
+            Line edge = _nodeState[n1].ChildLinks[n2];
+            _canvas.Children.Remove(edge);
+            _nodeState[n1].ChildLinks.Remove(n2);
+            _nodeState[n2].ChildLinks.Remove(n1);
+
+            if (_canvas.Children.Contains(edge))
+            {
+                throw new Exception("edge was in there more than once");
+            }
         }
 
         /// <summary>
