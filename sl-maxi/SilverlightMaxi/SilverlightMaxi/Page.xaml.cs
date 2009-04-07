@@ -200,6 +200,12 @@ namespace SilverlightMaxi
                 this.skinButton.Foreground = new SolidColorBrush(Color.FromArgb(255, 33, 6, 114));
                 this.skinButton.Background = new SolidColorBrush(Color.FromArgb(255, 161, 61, 213));
                 this.copyright.Foreground = new SolidColorBrush(Color.FromArgb(255, 206, 0, 113));
+                this._v.setLineColor(new SolidColorBrush(Color.FromArgb(255, 74, 3, 111)));
+                this._v2.setLineColor(new SolidColorBrush(Color.FromArgb(255, 74, 3, 111)));
+                this._v.setNodeColor(new SolidColorBrush(Color.FromArgb(255, 251, 254, 0)));
+                this._v2.setNodeColor(new SolidColorBrush(Color.FromArgb(255, 251, 254, 0)));
+                this._v.setBackgroundColor(new SolidColorBrush(Color.FromArgb(255, 206, 0, 113)));
+                this._v2.setBackgroundColor(new SolidColorBrush(Color.FromArgb(255, 206, 0, 113)));
             }
             else // isGreenSkin
             {
@@ -217,6 +223,12 @@ namespace SilverlightMaxi
                 this.skinButton.Foreground = new SolidColorBrush(Color.FromArgb(255, 3, 71, 105));
                 this.skinButton.Background = new SolidColorBrush(Color.FromArgb(255, 181, 243, 109));
                 this.copyright.Foreground = new SolidColorBrush(Color.FromArgb(255, 3, 71, 105));
+                this._v.setLineColor(new SolidColorBrush(Color.FromArgb(255, 128, 255, 128)));
+                this._v2.setLineColor(new SolidColorBrush(Color.FromArgb(255, 128, 255, 128)));
+                this._v.setNodeColor(new SolidColorBrush(Color.FromArgb(255, 166, 35, 0)));
+                this._v2.setNodeColor(new SolidColorBrush(Color.FromArgb(255, 166, 35, 0)));
+                this._v.setBackgroundColor(new SolidColorBrush(Color.FromArgb(255, 3, 71, 105)));
+                this._v2.setBackgroundColor(new SolidColorBrush(Color.FromArgb(255, 3, 71, 105)));
             }
 
 

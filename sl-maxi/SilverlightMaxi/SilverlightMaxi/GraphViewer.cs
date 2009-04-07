@@ -64,6 +64,7 @@ namespace SilverlightMaxi
         private Canvas _canvas;
         private Dictionary<Node, NodeState> _nodeState;
         private bool isPurpleSkin;
+        private Brush lineColor = new SolidColorBrush { Color = Color.FromArgb(255, 128, 128, 255) };
 
         public Canvas Canvas { get { return _canvas; } }
 
@@ -154,7 +155,7 @@ namespace SilverlightMaxi
         protected void AddEdgeToCanvas(Node n1, Node n2) {
             Line edge = new Line()
             {
-                Stroke = new SolidColorBrush { Color = Color.FromArgb(255, 128, 128, 255) },
+                Stroke = lineColor,
                 StrokeThickness = 0.5
             };
 
@@ -192,6 +193,33 @@ namespace SilverlightMaxi
                 RemoveNode(n2);
             }
              */
+        }
+
+        public void setNodeColor(Brush color)
+        {
+            foreach (NodeState ns in _nodeState.Values)
+            {
+                Rectangle nodeBkg = (Rectangle)ns.NodeCanvas.Children[0];
+                nodeBkg.Stroke = color;
+                nodeBkg.Fill = color;
+            }
+        }
+
+        public void setLineColor(Brush color)
+        {
+            lineColor = color;
+            foreach (NodeState ns in _nodeState.Values)
+            {
+                foreach (Line line in ns.ChildLinks.Values)
+                {
+                    line.Stroke = color;
+                }
+            }
+        }
+
+        public void setBackgroundColor(Brush color)
+        {
+            _canvas.Background = color;
         }
 
         /// <summary>
