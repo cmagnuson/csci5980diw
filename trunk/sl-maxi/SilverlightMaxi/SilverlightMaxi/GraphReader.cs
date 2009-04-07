@@ -54,12 +54,9 @@ namespace SilverlightMaxi
             Node n = null;
             foreach (var el in elements)
             {
-                if (n != null)
-                {
-                    nodeDict.Add(n.uid, n);
-                    g.Nodes.Add(n);
-                }
                 n = new Node() { Title = el.name, Type = Node.NodeType.Fact, uid = el.uid };
+                nodeDict.Add(n.uid, n);
+                g.Nodes.Add(n);
             }
             
             if(addEdges){
@@ -67,7 +64,7 @@ namespace SilverlightMaxi
             {
                 foreach (long fid in el.friendlist)
                 {
-                    if (el.uid != n.uid && n.uid != fid)
+                    if (nodeDict.ContainsKey(fid))
                     {
                         g.Edges[nodeDict[el.uid], nodeDict[fid]] = true;
                     }

@@ -48,14 +48,12 @@ public class Photo implements java.io.Serializable {
 		this.members = members;
 	}
 
-	public Photo(Date time, long taker, long pid, PhotoTag[] pts){
+	public Photo(Date time, long taker, long pid){
 		this.taker = taker;
 		this.time = time;
 		this.pid = pid;
 		members = new HashSet<Long>();
-		for(PhotoTag tag: pts){
-			members.add(tag.getSubjectId());
-		}
+		members.add(taker);
 	}
 
 	public long getTaker(){
@@ -69,6 +67,10 @@ public class Photo implements java.io.Serializable {
 	}
 	public HashSet<Long> getMembers(){
 		return members;
+	}
+
+	public void addMember(long m){
+		members.add(m);
 	}
 
 	public boolean equals(Object o){

@@ -1,11 +1,14 @@
 
 import net.sf.fb4j.model.*;
+import net.sf.fb4j.model.Photo;
+
 import java.util.*;
 
 public class Person implements java.io.Serializable {
 
 	private HashSet<Long> friends = new HashSet<Long>();
 	UserInfo ui;
+	private net.sf.fb4j.model.Photo[] photos;
 	
 	
 	private static final long serialVersionUID = 1599980710196913471L;
@@ -56,4 +59,11 @@ public class Person implements java.io.Serializable {
 		return (ui.get(UserInfo.Field.UID)==null) ? null : ui.getId();
 	}
 	
+	public Photo[] getPhotos(){
+		return photos; 
+	}
+
+	public void setPhotos(Photo[] phos){
+		this.photos = phos;
+	}
 }
