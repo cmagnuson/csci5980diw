@@ -209,6 +209,8 @@ namespace SilverlightMaxi
                 this.FriendTab.Foreground = new SolidColorBrush(Color.FromArgb(255, 33, 6, 114));
                 this.PhotoTab.Background = new SolidColorBrush(Color.FromArgb(255, 175, 102, 213));
                 this.PhotoTab.Foreground = new SolidColorBrush(Color.FromArgb(255, 33, 6, 114));
+                this.FriendCluster.Background = new SolidColorBrush(Color.FromArgb(255, 206, 0, 113));
+                this.FriendPhotos.Background = new SolidColorBrush(Color.FromArgb(255, 206, 0, 113));
                 this.skinButton.Foreground = new SolidColorBrush(Color.FromArgb(255, 33, 6, 114));
                 this.skinButton.Background = new SolidColorBrush(Color.FromArgb(255, 161, 61, 213));
                 this.copyright.Foreground = new SolidColorBrush(Color.FromArgb(255, 206, 0, 113));
@@ -232,6 +234,8 @@ namespace SilverlightMaxi
                 this.FriendTab.Foreground = new SolidColorBrush(Color.FromArgb(255, 3, 71, 105));
                 this.PhotoTab.Background = new SolidColorBrush(Color.FromArgb(255, 181, 243, 109));
                 this.PhotoTab.Foreground = new SolidColorBrush(Color.FromArgb(255, 3, 71, 105));
+                this.FriendCluster.Background = new SolidColorBrush(Color.FromArgb(255, 3, 71, 105));
+                this.FriendPhotos.Background = new SolidColorBrush(Color.FromArgb(255, 3, 71, 105));
                 this.skinButton.Foreground = new SolidColorBrush(Color.FromArgb(255, 3, 71, 105));
                 this.skinButton.Background = new SolidColorBrush(Color.FromArgb(255, 181, 243, 109));
                 this.copyright.Foreground = new SolidColorBrush(Color.FromArgb(255, 3, 71, 105));
