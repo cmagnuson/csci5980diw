@@ -64,7 +64,7 @@ namespace SilverlightMaxi
         private Canvas _canvas;
         private Dictionary<Node, NodeState> _nodeState;
         private bool isPurpleSkin;
-        private Brush lineColor = new SolidColorBrush { Color = Color.FromArgb(255, 128, 128, 255) };
+        private Brush lineColor = new SolidColorBrush { Color = Color.FromArgb(255, 74, 3, 111) };
 
         public Canvas Canvas { get { return _canvas; } }
 
@@ -78,7 +78,7 @@ namespace SilverlightMaxi
             _canvas = new Canvas();
             _canvas.Width = size.Width;
             _canvas.Height = size.Height;
-            _canvas.Background = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
+            _canvas.Background = new SolidColorBrush(Color.FromArgb(255, 206, 0, 113));
             _nodeState = new Dictionary<Node, NodeState>();
 
             Rectangle border = new Rectangle()
@@ -402,7 +402,7 @@ namespace SilverlightMaxi
 
         private NodeCanvas CreateNodeCanvas(Node n)
         {
-            Brush nodeColor = new SolidColorBrush(Color.FromArgb(255,255, 100, 100));
+            Brush nodeColor = new SolidColorBrush(Color.FromArgb(255, 251, 254, 0));
 
             double Height = 10d;
             double Width = 10d;
