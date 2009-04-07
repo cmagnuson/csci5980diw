@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using System.IO;
 using System.Linq;
 using System.Xml;
@@ -24,9 +25,12 @@ namespace SilverlightMaxi
 		public IOrderedEnumerable<Photo> photoList;
 		public int numToDisplay;
 		private int currentPointer = 0;
+        private int endPointer;
 		Dictionary<String, int> edges = new Dictionary<String, int>();
 		public Dictionary<long, Node> nodes = new Dictionary<long, Node>();
         public GraphViewer viewer;
+        private DispatcherTimer playTimer = new DispatcherTimer(){
+            Interval = new TimeSpan(0, 0, 0, 0, 200)};
 		
 		
 		//decrement edge values in dictionary by 1, if 0 then remove from graph
@@ -113,11 +117,40 @@ namespace SilverlightMaxi
 
         public void addInitial()
         {
+            playTimer.Tick +=new EventHandler(playTimer_Tick);
             currentPointer = 0;
             for (int i = 0; i < numToDisplay; i++)
             {
                 add(photoList.ElementAt(i));
             }
+        }
+
+        public void playForward()
+        {
+            endPointer = photoList.Count() - numToDisplay;
+            playTimer.Start();
+        }
+
+        public void playBackward()
+        {
+            endPointer = 0;
+            playTimer.Start();
+        }
+
+        public void stop()
+        {
+            playTimer.Stop();
+        }
+
+        void playTimer_Tick(object sender, EventArgs e)
+        {
+ 	        if (currentPointer < endPointer)
+                next();
+            if (currentPointer > endPointer)
+                previous();
+            if (currentPointer == endPointer)
+                playTimer.Stop();
+            viewer.StepLayout(1);
         }
 
         public void next()
@@ -158,17 +191,20 @@ namespace SilverlightMaxi
             {
                 numToDisplay--;
                 remove(photoList.ElementAt(currentPointer + numToDisplay));
+                if (endPointer > currentPointer) endPointer++;
             }
             while (numToDisplay < num_display && currentPointer + numToDisplay < photoList.Count())
             {
                 add(photoList.ElementAt(currentPointer + numToDisplay));
                 numToDisplay++;
+                if (endPointer > currentPointer) endPointer--;
             }
             while (numToDisplay < num_display) {
                 currentPointer--;
                 if (currentPointer < 0) throw new Exception("should not happen");
                 add(photoList.ElementAt(currentPointer));
                 numToDisplay++;
+                if (endPointer > currentPointer) endPointer--;
             }
         }
 	}
