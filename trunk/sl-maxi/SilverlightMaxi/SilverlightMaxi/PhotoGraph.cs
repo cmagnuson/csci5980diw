@@ -30,7 +30,7 @@ namespace SilverlightMaxi
 		public Dictionary<long, Node> nodes = new Dictionary<long, Node>();
         public GraphViewer viewer;
         private DispatcherTimer playTimer = new DispatcherTimer(){
-            Interval = new TimeSpan(0, 0, 0, 0, 100)};
+            Interval = new TimeSpan(0, 0, 0, 0, 90)};
         public Slider position;
 		
 		
