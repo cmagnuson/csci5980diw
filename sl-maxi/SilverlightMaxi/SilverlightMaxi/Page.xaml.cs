@@ -186,7 +186,6 @@ namespace SilverlightMaxi
 
             if (isPurpleSkin)
             {
-                runSearch();
                 this.skinButton.Content = "Show Green Skin";
                 this.LayoutRoot.Background = new SolidColorBrush(Color.FromArgb(255, 74, 3, 111));
                 this.title.Foreground = new SolidColorBrush(Color.FromArgb(255, 251, 254, 0));
@@ -204,9 +203,20 @@ namespace SilverlightMaxi
             }
             else // isGreenSkin
             {
-                runSearch();
                 this.skinButton.Content = "Show Purple Skin";
-                this.LayoutRoot.Background = new SolidColorBrush(Color.FromArgb(255, 41, 203, 44));
+                this.LayoutRoot.Background = new SolidColorBrush(Color.FromArgb(255, 0, 182, 79));
+                this.title.Foreground = new SolidColorBrush(Color.FromArgb(255, 166, 35, 0));
+                this.emailSearchText.Foreground = new SolidColorBrush(Color.FromArgb(255, 3, 71, 105));
+                this.emailSearchButton.Foreground = new SolidColorBrush(Color.FromArgb(255, 3, 71, 105));
+                this.emailSearchButton.Background = new SolidColorBrush(Color.FromArgb(255, 181, 243, 109));
+                this.tabs.Background = new SolidColorBrush(Color.FromArgb(255, 181, 243, 109));
+                this.FriendTab.Background = new SolidColorBrush(Color.FromArgb(255, 181, 243, 109));
+                this.FriendTab.Foreground = new SolidColorBrush(Color.FromArgb(255, 3, 71, 105));
+                this.PhotoTab.Background = new SolidColorBrush(Color.FromArgb(255, 181, 243, 109));
+                this.PhotoTab.Foreground = new SolidColorBrush(Color.FromArgb(255, 3, 71, 105));
+                this.skinButton.Foreground = new SolidColorBrush(Color.FromArgb(255, 3, 71, 105));
+                this.skinButton.Background = new SolidColorBrush(Color.FromArgb(255, 181, 243, 109));
+                this.copyright.Foreground = new SolidColorBrush(Color.FromArgb(255, 3, 71, 105));
             }
 
 
