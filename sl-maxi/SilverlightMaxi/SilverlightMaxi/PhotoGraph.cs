@@ -23,7 +23,7 @@ namespace SilverlightMaxi
     {
 		public IOrderedEnumerable<Photo> photoList;
 		public int numToDisplay;
-		public int currentPointer = 0;
+		private int currentPointer = 0;
 		Dictionary<String, int> edges = new Dictionary<String, int>();
 		public Dictionary<long, Node> nodes = new Dictionary<long, Node>();
         public GraphViewer viewer;
@@ -146,5 +146,30 @@ namespace SilverlightMaxi
 				add(addPhoto);
 			}
     	}
+
+        public int getCurrentPointer()
+        {
+            return currentPointer;
+        }
+
+        public void setNumToDisplay(int num_display)
+        {
+            while (numToDisplay > num_display)
+            {
+                numToDisplay--;
+                remove(photoList.ElementAt(currentPointer + numToDisplay));
+            }
+            while (numToDisplay < num_display && currentPointer + numToDisplay < photoList.Count())
+            {
+                add(photoList.ElementAt(currentPointer + numToDisplay));
+                numToDisplay++;
+            }
+            while (numToDisplay < num_display) {
+                currentPointer--;
+                if (currentPointer < 0) throw new Exception("should not happen");
+                add(photoList.ElementAt(currentPointer));
+                numToDisplay++;
+            }
+        }
 	}
 }

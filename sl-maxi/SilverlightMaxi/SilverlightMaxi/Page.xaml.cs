@@ -20,6 +20,8 @@ namespace SilverlightMaxi
         private PhotoGraph pg;
         Graph g2;
         bool isPurpleSkin = true; // false if green skin
+        Slider num_photos;
+        Button nextButton;
 
         public Page()
         {
@@ -96,13 +98,22 @@ namespace SilverlightMaxi
 
                 this.FriendPhotos.Children.Clear();
                 this.FriendPhotos.Children.Insert(0, _v2.Canvas);
-                Button b = new Button();
-                b.Click += new RoutedEventHandler(nextPhoto_Click);
-                b.Content = "Next 50 Photos";
-                b.Width = 100;
-                b.Height = 20;
-                this.FriendPhotos.Children.Insert(1, b);
+                num_photos = new Slider() {
+                    Maximum = pg.photoList.Count(),
+                    Value = 50,
+                    MinWidth = 500,
+                };
+                num_photos.ValueChanged += new RoutedPropertyChangedEventHandler<double>(num_photos_ValueChanged);
+                this.FriendPhotos.Children.Add(num_photos);
 
+                nextButton = new Button();
+                nextButton.Click += new RoutedEventHandler(nextPhoto_Click);
+                nextButton.Content = "Next 50 Photos";
+                nextButton.Width = 100;
+                nextButton.Height = 20;
+                nextButton.SetValue(Canvas.TopProperty, 20.0);
+                this.FriendPhotos.Children.Add(nextButton);
+                
                 _timer = new DispatcherTimer()
                 {
                     Interval = new TimeSpan(0, 0, 0, 0, 45)
@@ -131,6 +142,19 @@ namespace SilverlightMaxi
                 this.FriendPhotos.Children.Clear();
                 this.FriendPhotos.Children.Add(emailNotFoundMessage2);
             }
+        }
+
+        void num_photos_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            nextButton.Content = "Next " + (int)num_photos.Value + " Photos";
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 800);
+            timer.Tick += delegate
+            {
+                timer.Stop();
+                pg.setNumToDisplay((int)num_photos.Value);
+            };
+            timer.Start();
         }
 
         private void nextPhoto_Click(object sender, RoutedEventArgs e)
