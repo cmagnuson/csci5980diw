@@ -23,7 +23,7 @@ namespace SilverlightMaxi
     public class PhotoGraph
     {
 		public IOrderedEnumerable<Photo> photoList;
-		public int numToDisplay;
+		public int numToDisplay = 50;
 		private int currentPointer = 0;
         private int endPointer;
 		Dictionary<String, int> edges = new Dictionary<String, int>();
@@ -31,6 +31,7 @@ namespace SilverlightMaxi
         public GraphViewer viewer;
         private DispatcherTimer playTimer = new DispatcherTimer(){
             Interval = new TimeSpan(0, 0, 0, 0, 100)};
+        public Slider position;
 		
 		
 		//decrement edge values in dictionary by 1, if 0 then remove from graph
@@ -153,29 +154,29 @@ namespace SilverlightMaxi
 
         public void next()
         {
-			if(currentPointer+numToDisplay>=photoList.Count()){
-			 return;
-			}
-			else{
-              Photo removePhoto = photoList.ElementAt(currentPointer);
-              remove(removePhoto);
-              Photo addPhoto = photoList.ElementAt(currentPointer + numToDisplay);
-              add(addPhoto);
-              currentPointer++;
-			}
+            if (currentPointer + numToDisplay >= photoList.Count()) throw new Exception("can't go forward");
+            else
+            {
+                Photo removePhoto = photoList.ElementAt(currentPointer);
+                remove(removePhoto);
+                Photo addPhoto = photoList.ElementAt(currentPointer + numToDisplay);
+                add(addPhoto);
+                currentPointer++;
+            }
+            position.Value = currentPointer;
 		}
         public void previous()
         {
-			if(currentPointer<=0){
-			 return;
-			}		
-			else{
-				currentPointer--;
-				Photo addPhoto = photoList.ElementAt(currentPointer);
-				Photo removePhoto = photoList.ElementAt(currentPointer+numToDisplay+1);
-				remove(removePhoto);
-				add(addPhoto);
-			}
+            if (currentPointer <= 0) throw new Exception("Can't go back");
+            else
+            {
+                currentPointer--;
+                Photo addPhoto = photoList.ElementAt(currentPointer);
+                Photo removePhoto = photoList.ElementAt(currentPointer + numToDisplay);
+                remove(removePhoto);
+                add(addPhoto);
+            }
+            position.Value = currentPointer;
     	}
 
         public int getCurrentPointer()
@@ -204,6 +205,8 @@ namespace SilverlightMaxi
                 numToDisplay++;
                 if (endPointer > currentPointer) endPointer--;
             }
+            position.Maximum = photoList.Count() - numToDisplay;
+            position.Value = currentPointer;
         }
 	}
 }

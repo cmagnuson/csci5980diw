@@ -95,11 +95,23 @@ namespace SilverlightMaxi
 
                 this.FriendPhotos.Children.Clear();
                 this.FriendPhotos.Children.Insert(0, _v2.Canvas);
-                num_photos = new Slider() {
+                pg.position = new Slider()
+                {
+                    Maximum = pg.photoList.Count() - pg.numToDisplay,
+                    Value = pg.getCurrentPointer(),
+                    MinWidth = 600,
+                    IsEnabled = false,
+                };
+                this.FriendPhotos.Children.Add(pg.position);
+
+                num_photos = new Slider()
+                {
+                    Minimum = 1,
                     Maximum = pg.photoList.Count(),
                     Value = 50,
-                    MinWidth = 500,
+                    MinWidth = 100,
                 };
+                num_photos.SetValue(Canvas.LeftProperty, 700.0);
                 num_photos.ValueChanged += new RoutedPropertyChangedEventHandler<double>(num_photos_ValueChanged);
                 this.FriendPhotos.Children.Add(num_photos);
 
