@@ -1,5 +1,7 @@
 import edu.stanford.ejalbert.BrowserLauncher;
 import java.util.Arrays;
+import java.util.HashSet;
+
 import net.sf.fb4j.FacebookSession;
 import net.sf.fb4j.client.FacebookClientException;
 import net.sf.fb4j.desktop.DesktopApplication;
@@ -39,7 +41,7 @@ public class Driver {
 		long myid = s.getUserId();
 		System.out.println(s);
 		HashSet<Edge> edges = new HashSet<Edge>();
-		LinkedList<Person> friends = new LinkedList<Person>();
+		HashMap<Long, Person> friends = new HashMap<Long, Person>();
 		HashMap<Long, Photo> photoList = new HashMap<Long, Photo>();
 		long [] fidst = s.getFriendIds();
 		long [] fids = new long[fidst.length+1];
@@ -68,31 +70,59 @@ public class Driver {
 				}
 			}
 			//System.out.println("Found: "+p.getFriends().size());
-			friends.add(p);
+			friends.put(p.getPid(), p);
 
 			//new photo method
-			net.sf.fb4j.model.Photo[] photos;
 			try {
-				 photos = s.getPhotosOfUser(fids[i]);
+				p.setPhotos(s.getPhotosOfUser(fids[i]));
+				System.out.println("Number of photos " + p.ui.getName() + " is in:" + p.getPhotos().length);
 			}
 			catch (JSONException e){
+				System.out.println("Could not look up photos of " + p.ui.getName());
+				//break;
 				continue;
 			}
-			for(net.sf.fb4j.model.Photo photo: photos){
-				if(photoList.containsKey(photo.getId())){
-					continue;
-				}
-				PhotoTag[] pts = s.getPhotoTags(photo.getId());
-				Date pTime = photo.getCreationDate();
-				long pTaker = photo.getOwnerId();
-				long pid = photo.getId();
-				Photo pht = new Photo(pTime, pTaker, pid, pts);
-				photoList.put(pid, pht);
-			}
-			System.out.println("Photos: "+photoList.size());
+//			System.out.println("Photos: "+p.photos.length);
 		}
 		System.out.println(""+edges.size()+" total edges in graph");
 
+		Photo pht = null;
+		for (Person p:friends.values()) {
+			System.out.println("Processing "+p.ui.getName());
+			if (p.getPhotos() == null) {
+				continue;
+			}
+			for(net.sf.fb4j.model.Photo photo: p.getPhotos()){
+				if(!photoList.containsKey(photo.getId())){
+					Date pTime = photo.getCreationDate();
+					long pTaker = photo.getOwnerId();
+					long pid = photo.getId();
+					pht = new Photo(pTime, pTaker, pid);
+					photoList.put(pid, pht);
+				}
+				else {
+					pht = photoList.get(photo.getId());
+				}
+                pht.addMember(p.getPid());
+			}
+		}
+		System.out.println(""+photoList.size()+" total photos");
+
+		HashMap<Long, Photo> goodPhotoList = new HashMap<Long, Photo>();
+		for (Photo p : photoList.values()) {
+			HashSet<Long> friendMembers = new HashSet<Long>();
+			for (long pid : p.getMembers()){
+				if (friends.containsKey(pid)) friendMembers.add(pid);
+			}
+			p.setMembers(friendMembers);
+			if (friendMembers.size() > 1) {
+				goodPhotoList.put(p.getPid(), p);
+			}
+		}
+		System.out.println(""+goodPhotoList.size()+" good photos");
+		
+		//Don't save user as a friend
+		friends.remove(myid);
 
 		try {
 			FileOutputStream fout = new FileOutputStream("people.dat");
@@ -107,7 +137,7 @@ public class Driver {
 
 			fout = new FileOutputStream("photos.dat");
 			oos = new ObjectOutputStream(fout);
-			oos.writeObject(photoList);
+			oos.writeObject(goodPhotoList);
 			oos.close();
 		}
 		catch (Exception e) { e.printStackTrace(); }
@@ -137,24 +167,24 @@ public class Driver {
 		return null;}
 	}
 
-	public static LinkedList<Person> loadFriends(){
+	public static HashMap<Long, Person> loadFriends(){
 		try {
 			FileInputStream fin = new FileInputStream("people.dat");
 			ObjectInputStream ois = new ObjectInputStream(fin);
 			Object o = ois.readObject();
 			ois.close();
-			return (LinkedList<Person>)o;
+			return (HashMap<Long, Person>)o;
 		}
 		catch (Exception e) { e.printStackTrace(); 
 		return null;}
 	}
 
-	public static void saveToXml(HashSet<Edge> edges, LinkedList<Person> friends, HashMap<Long, Photo> photos) throws Exception {
+	public static void saveToXml(HashSet<Edge> edges, HashMap<Long, Person> friends, HashMap<Long, Photo> photos) throws Exception {
 
 		FileWriter fos = new FileWriter("friends.xml");
 		BufferedWriter bw = new BufferedWriter(fos);
 		bw.write("<friends>\r\n");
-		for(Person f: friends){
+		for(Person f: friends.values()){
 			bw.write(f.toXml());
 		}
 		bw.write("</friends>\r\n");
@@ -183,7 +213,7 @@ public class Driver {
 	public static void main(String a[]) throws Exception{
 		readAndSave();
 		HashSet<Edge> edges = loadEdges();
-		LinkedList<Person> friends = loadFriends();
+		HashMap<Long, Person> friends = loadFriends();
 		HashMap<Long, Photo> photos = loadPhotos();
 
 		saveToXml(edges, friends, photos);
@@ -193,7 +223,7 @@ public class Driver {
 		Graph g = new SparseGraph(); 
 		HashMap<Long, UndirectedSparseVertex> ptov = new HashMap<Long, UndirectedSparseVertex>();
 
-		for(Person p: friends){
+		for(Person p: friends.values()){
 			ptov.put(p.getPid(), new MyUndirectedSparseVertex(p.ui.getName()));
 			g.addVertex(ptov.get(p.getPid()));
 		}
