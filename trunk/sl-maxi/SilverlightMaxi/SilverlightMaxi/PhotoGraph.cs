@@ -59,6 +59,8 @@ namespace SilverlightMaxi
                         throw new Exception("Edge Does Not Exist");
                     }
                     edges[key]--;
+                    if (edges[key] > 0)
+                        viewer.setEdgeWidth(nodes[uid1], nodes[uid2], ((double)edges[key]) / 2);
                 }
             }
 		}
@@ -103,6 +105,7 @@ namespace SilverlightMaxi
                     else
                     {
                         edges[key]++;
+                        viewer.setEdgeWidth(nodes[uid1], nodes[uid2], ((double)edges[key]) / 2);
                     }
                 }
             }
