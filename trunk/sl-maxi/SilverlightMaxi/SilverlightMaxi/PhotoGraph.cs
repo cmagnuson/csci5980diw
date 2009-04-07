@@ -43,8 +43,7 @@ namespace SilverlightMaxi
                         continue;
                     }
                     if (!edges.ContainsKey(key)) {
-                        // Shouldn't be happening, but sometimes happens.
-                        continue;
+                        throw new Exception("Removing edge that does not exist");
                     }
                     else if (edges[key] == 1)
                     {
@@ -52,8 +51,7 @@ namespace SilverlightMaxi
                     }
                     else if (edges[key] < 1)
                     {
-                        //throw new Exception("Edge Does Not Exist");
-                        continue;
+                        throw new Exception("Edge Does Not Exist");
                     }
                     edges[key]--;
                 }
@@ -102,9 +100,9 @@ namespace SilverlightMaxi
 
         public void addInitial()
         {
+            currentPointer = 0;
             for (int i = 0; i < numToDisplay; i++)
             {
-                currentPointer++;
                 add(photoList.ElementAt(i));
             }
         }
@@ -115,14 +113,11 @@ namespace SilverlightMaxi
 			 return;
 			}
 			else{
-			  currentPointer++;
+              Photo removePhoto = photoList.ElementAt(currentPointer);
+              remove(removePhoto);
               Photo addPhoto = photoList.ElementAt(currentPointer + numToDisplay);
-              if (currentPointer + numToDisplay - 1 >= 0)
-              {
-                  Photo removePhoto = photoList.ElementAt(currentPointer - 1);
-                  remove(removePhoto);
-              }
-				add(addPhoto);
+              add(addPhoto);
+              currentPointer++;
 			}
 		}
         public void previous()
