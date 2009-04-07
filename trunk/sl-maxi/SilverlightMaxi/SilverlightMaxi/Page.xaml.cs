@@ -74,9 +74,7 @@ namespace SilverlightMaxi
                 _v = new GraphViewer(g, new Size(800, 600), isPurpleSkin);
                 _v.DoLayout();
 
-                s = this.GetType().Assembly.GetManifestResourceStream(graphResource);
-                g2 = GraphReader.BuildGraph(s, false);
-                _v2 = new GraphViewer(g2, new Size(800, 600), isPurpleSkin);
+                _v2 = new GraphViewer(new Graph(), new Size(800, 600), isPurpleSkin);
                 _v2.DoLayout();
 
                 pg = new PhotoGraph

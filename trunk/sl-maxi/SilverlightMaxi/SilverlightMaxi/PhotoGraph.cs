@@ -30,7 +30,7 @@ namespace SilverlightMaxi
 		public Dictionary<long, Node> nodes = new Dictionary<long, Node>();
         public GraphViewer viewer;
         private DispatcherTimer playTimer = new DispatcherTimer(){
-            Interval = new TimeSpan(0, 0, 0, 0, 200)};
+            Interval = new TimeSpan(0, 0, 0, 0, 100)};
 		
 		
 		//decrement edge values in dictionary by 1, if 0 then remove from graph
@@ -47,10 +47,6 @@ namespace SilverlightMaxi
                         uid2 = tmp;
                     }
                     String key = uid1 + "," + uid2;
-                    if (!nodes.ContainsKey(uid1) || !nodes.ContainsKey(uid2))
-                    {
-                        continue;
-                    }
                     if (!edges.ContainsKey(key)) {
                         throw new Exception("Removing edge that does not exist");
                     }
@@ -82,20 +78,6 @@ namespace SilverlightMaxi
                         uid2 = tmp;
                     }
                     String key = uid1 + "," + uid2;
-                    if (!nodes.ContainsKey(uid1) || !nodes.ContainsKey(uid2))
-                    {
-                        continue;
-                    }
-                    try
-                    {
-                        viewer.AddNode(nodes[uid1]);
-                    }
-                    catch (Graph.NodeAlreadyExists e) { }
-                    try
-                    {
-                        viewer.AddNode(nodes[uid2]);
-                    }
-                    catch (Graph.NodeAlreadyExists e) { }
                     if (!edges.ContainsKey(key))
                     {
                         edges.Add(key, 1);
@@ -117,6 +99,22 @@ namespace SilverlightMaxi
 
         public void addInitial()
         {
+            for (int p = 0; p < photoList.Count(); p++)
+            {
+                Photo photo = photoList.ElementAt(p);
+                for (int i = 0; i < photo.getTaggedList().Count(); i++)
+                {
+                    long uid = photo.getTaggedList().ElementAt(i);
+                    if (!nodes.ContainsKey(uid))
+                        nodes.Add(uid, new Node() { Title = "You", uid = uid });
+                    try
+                    {
+                        viewer.AddNode(nodes[uid]);
+                    }
+                    catch (Graph.NodeAlreadyExists) { }
+                }
+            }
+
             playTimer.Tick +=new EventHandler(playTimer_Tick);
             currentPointer = 0;
             for (int i = 0; i < numToDisplay; i++)
