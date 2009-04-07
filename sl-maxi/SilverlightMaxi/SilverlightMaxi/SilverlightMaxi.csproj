@@ -89,6 +89,9 @@
     <EmbeddedResource Include="magnu213%40umn.edu.photos.xml" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ande7966%40umn.edu.edges.xml" />
+    <EmbeddedResource Include="ande7966%40umn.edu.friends.xml" />
+    <EmbeddedResource Include="ande7966%40umn.edu.photos.xml" />
     <Content Include="edges.xml" />
     <EmbeddedResource Include="magnu213%40umn.edu.friends.xml" />
     <Content Include="GRender.csproj" />
