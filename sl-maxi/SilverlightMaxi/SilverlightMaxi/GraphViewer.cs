@@ -168,6 +168,11 @@ namespace SilverlightMaxi
             _canvas.Children.Insert(0, edge);
         }
 
+        public void setEdgeWidth(Node n1, Node n2, Double width)
+        {
+            _nodeState[n1].ChildLinks[n2].StrokeThickness = width;
+        }
+
         public void RemoveEdge(Node n1, Node n2)
         {
             _graph.Edges[n1, n2] = false;
