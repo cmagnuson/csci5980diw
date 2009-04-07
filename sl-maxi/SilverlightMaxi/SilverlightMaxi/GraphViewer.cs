@@ -147,6 +147,7 @@ namespace SilverlightMaxi
         public void AddEdge(Node n1, Node n2)
         {
             _graph.Edges[n1, n2] = true;
+            _graph.Edges[n2, n1] = true;
             AddEdgeToCanvas(n1, n2);
         }
 
@@ -157,18 +158,20 @@ namespace SilverlightMaxi
                 StrokeThickness = 0.5
             };
 
+            if (_nodeState[n1].ChildLinks.ContainsKey(n2) && _nodeState[n2].ChildLinks.ContainsKey(n1))
+            {
+                return;
+            }
             _nodeState[n1].ChildLinks[n2] = edge;
             _nodeState[n2].ChildLinks[n1] = edge;
 
-            if (!_canvas.Children.Contains(edge))
-            {
-                _canvas.Children.Insert(0, edge);
-            }
+            _canvas.Children.Insert(0, edge);
         }
 
         public void RemoveEdge(Node n1, Node n2)
         {
             _graph.Edges[n1, n2] = false;
+            _graph.Edges[n2, n1] = false;
             Line edge = _nodeState[n1].ChildLinks[n2];
             _canvas.Children.Remove(edge);
             _nodeState[n1].ChildLinks.Remove(n2);
@@ -184,11 +187,6 @@ namespace SilverlightMaxi
                 RemoveNode(n2);
             }
              */
-
-            if (_canvas.Children.Contains(edge))
-            {
-                throw new Exception("edge is in there more than once");
-            }
         }
 
         /// <summary>
