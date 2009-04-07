@@ -24,11 +24,11 @@
         
         <basics:TabControl x:Name="tabs" Background="#af66d5" Grid.Row="2" Grid.Column="0">
             <basics:TabItem Background="#af66d5" Header="Friend Clusters" Foreground="#210672" FontSize="22" x:Name="FriendTab">
-                <Canvas x:Name="FriendCluster" Background="Black" Width="800" Height="600">
+                <Canvas x:Name="FriendCluster" Background="#ce0071" Width="800" Height="600">
                 </Canvas>
             </basics:TabItem>
             <basics:TabItem Background="#af66d5" Header="Friend Photo Timeline" Foreground="#210672" FontSize="22" x:Name="PhotoTab">
-                <Canvas x:Name="FriendPhotos" Background="Black" Width="800" Height="600">
+                <Canvas x:Name="FriendPhotos" Background="#ce0071" Width="800" Height="600">
                 </Canvas>
             </basics:TabItem>
         </basics:TabControl>
