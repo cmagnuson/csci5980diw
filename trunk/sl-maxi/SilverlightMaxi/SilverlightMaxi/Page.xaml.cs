@@ -100,8 +100,8 @@ namespace SilverlightMaxi
                     Maximum = pg.photoList.Count() - pg.numToDisplay,
                     Value = pg.getCurrentPointer(),
                     MinWidth = 600,
-                    IsEnabled = false,
                 };
+                pg.position.ValueChanged += new RoutedPropertyChangedEventHandler<double>(position_ValueChanged);
                 this.FriendPhotos.Children.Add(pg.position);
 
                 num_photos = new Slider()
@@ -175,6 +175,19 @@ namespace SilverlightMaxi
                 this.FriendPhotos.Children.Clear();
                 this.FriendPhotos.Children.Add(emailNotFoundMessage2);
             }
+        }
+
+        void position_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (pg.is_playing()) return;
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 900);
+            timer.Tick += delegate
+            {
+                timer.Stop();
+                pg.seek((int)pg.position.Value);
+            };
+            timer.Start();
         }
 
         void num_photos_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

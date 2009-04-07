@@ -141,6 +141,11 @@ namespace SilverlightMaxi
             playTimer.Stop();
         }
 
+        public Boolean is_playing()
+        {
+            return playTimer.IsEnabled;
+        }
+
         void playTimer_Tick(object sender, EventArgs e)
         {
  	        if (currentPointer < endPointer)
@@ -208,5 +213,17 @@ namespace SilverlightMaxi
             position.Maximum = photoList.Count() - numToDisplay;
             position.Value = currentPointer;
         }
-	}
+
+        public void seek(int newPointer)
+        {
+            while (currentPointer > newPointer)
+            {
+                previous();
+            }
+            while (currentPointer < newPointer)
+            {
+                next();
+            }
+        }
+    }
 }
