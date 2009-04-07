@@ -21,7 +21,6 @@ namespace SilverlightMaxi
         Graph g2;
         bool isPurpleSkin = true; // false if green skin
         Slider num_photos;
-        Button nextButton;
 
         public Page()
         {
@@ -106,12 +105,36 @@ namespace SilverlightMaxi
                 num_photos.ValueChanged += new RoutedPropertyChangedEventHandler<double>(num_photos_ValueChanged);
                 this.FriendPhotos.Children.Add(num_photos);
 
-                nextButton = new Button();
-                nextButton.Click += new RoutedEventHandler(nextPhoto_Click);
-                nextButton.Content = "Next 50 Photos";
-                nextButton.Width = 100;
-                nextButton.Height = 20;
+                Button prevButton = new Button()
+                {
+                    Content = "Play Backward",
+                    Width = 100,
+                    Height = 20,
+                };
+                prevButton.SetValue(Canvas.TopProperty, 20.0);
+                prevButton.Click += delegate { pg.playBackward(); };
+                this.FriendPhotos.Children.Add(prevButton);
+
+                Button stopButton = new Button()
+                {
+                    Content = "Stop",
+                    Width = 50,
+                    Height = 20,
+                };
+                stopButton.SetValue(Canvas.TopProperty, 20.0);
+                stopButton.SetValue(Canvas.LeftProperty, 100.0);
+                stopButton.Click += delegate { pg.stop(); };
+                this.FriendPhotos.Children.Add(stopButton);
+
+                Button nextButton = new Button()
+                {
+                    Content = "Play Forward",
+                    Width = 100,
+                    Height = 20,
+                };
                 nextButton.SetValue(Canvas.TopProperty, 20.0);
+                nextButton.SetValue(Canvas.LeftProperty, 150.0);
+                nextButton.Click += delegate { pg.playForward(); };
                 this.FriendPhotos.Children.Add(nextButton);
                 
                 _timer = new DispatcherTimer()
@@ -146,7 +169,6 @@ namespace SilverlightMaxi
 
         void num_photos_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            nextButton.Content = "Next " + (int)num_photos.Value + " Photos";
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 0, 0, 800);
             timer.Tick += delegate
@@ -155,16 +177,6 @@ namespace SilverlightMaxi
                 pg.setNumToDisplay((int)num_photos.Value);
             };
             timer.Start();
-        }
-
-        private void nextPhoto_Click(object sender, RoutedEventArgs e)
-        {
-            for (int i = 0; i < 50; i++)
-            {
-                pg.next();
-            }
-            _v2.StepLayout(1);
-            //emailSearchTextBox.Text = pg.currentPointer.ToString();
         }
 
         private void skinButton_Click(object sender, RoutedEventArgs e)
