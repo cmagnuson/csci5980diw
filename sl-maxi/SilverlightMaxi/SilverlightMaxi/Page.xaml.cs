@@ -19,6 +19,7 @@ namespace SilverlightMaxi
         private DispatcherTimer _timer;
         private PhotoGraph pg;
         Graph g2;
+        bool isPurpleSkin = true; // false if green skin
 
         public Page()
         {
@@ -69,12 +70,12 @@ namespace SilverlightMaxi
                 System.IO.Stream s = this.GetType().Assembly.GetManifestResourceStream(graphResource);
 
                 g = GraphReader.BuildGraph(s, true);
-                _v = new GraphViewer(g, new Size(800, 600));
+                _v = new GraphViewer(g, new Size(800, 600), isPurpleSkin);
                 _v.DoLayout();
 
                 s = this.GetType().Assembly.GetManifestResourceStream(graphResource);
                 g2 = GraphReader.BuildGraph(s, false);
-                _v2 = new GraphViewer(g2, new Size(800, 600));
+                _v2 = new GraphViewer(g2, new Size(800, 600), isPurpleSkin);
                 _v2.DoLayout();
 
                 pg = new PhotoGraph
@@ -114,12 +115,14 @@ namespace SilverlightMaxi
             // Else, generate a message on how to get added to the system
             else
             {
-                string message = "Your email address, " + searchTerm + ", was not found in the system. To add it...";
+                string message = "Your email address, " + searchTerm + ", was not found in the system.";
 
                 TextBlock emailNotFoundMessage1 = new TextBlock();
+                emailNotFoundMessage1.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
                 emailNotFoundMessage1.Text = message;
 
                 TextBlock emailNotFoundMessage2 = new TextBlock();
+                emailNotFoundMessage2.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
                 emailNotFoundMessage2.Text = message;
 
                 this.FriendCluster.Children.Clear();
@@ -138,6 +141,41 @@ namespace SilverlightMaxi
             }
             _v2.StepLayout(1);
             //emailSearchTextBox.Text = pg.currentPointer.ToString();
+        }
+
+        private void skinButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (isPurpleSkin)
+                isPurpleSkin = false;
+            else
+                isPurpleSkin = true;
+
+            if (isPurpleSkin)
+            {
+                runSearch();
+                this.skinButton.Content = "Show Green Skin";
+                this.LayoutRoot.Background = new SolidColorBrush(Color.FromArgb(255, 74, 3, 111));
+                this.title.Foreground = new SolidColorBrush(Color.FromArgb(255, 251, 254, 0));
+                this.emailSearchText.Foreground = new SolidColorBrush(Color.FromArgb(255, 206, 0, 113));
+                this.emailSearchButton.Foreground = new SolidColorBrush(Color.FromArgb(255, 33, 6, 114));
+                this.emailSearchButton.Background = new SolidColorBrush(Color.FromArgb(255, 161, 61, 213));
+                this.tabs.Background = new SolidColorBrush(Color.FromArgb(255, 175, 102, 213));
+                this.FriendTab.Background = new SolidColorBrush(Color.FromArgb(255, 175, 102, 213));
+                this.FriendTab.Foreground = new SolidColorBrush(Color.FromArgb(255, 33, 6, 114));
+                this.PhotoTab.Background = new SolidColorBrush(Color.FromArgb(255, 175, 102, 213));
+                this.PhotoTab.Foreground = new SolidColorBrush(Color.FromArgb(255, 33, 6, 114));
+                this.skinButton.Foreground = new SolidColorBrush(Color.FromArgb(255, 33, 6, 114));
+                this.skinButton.Background = new SolidColorBrush(Color.FromArgb(255, 161, 61, 213));
+                this.copyright.Foreground = new SolidColorBrush(Color.FromArgb(255, 206, 0, 113));
+            }
+            else // isGreenSkin
+            {
+                runSearch();
+                this.skinButton.Content = "Show Purple Skin";
+                this.LayoutRoot.Background = new SolidColorBrush(Color.FromArgb(255, 41, 203, 44));
+            }
+
+
         }
     }
 }

@@ -63,13 +63,16 @@ namespace SilverlightMaxi
         private Graph _graph;
         private Canvas _canvas;
         private Dictionary<Node, NodeState> _nodeState;
+        private bool isPurpleSkin;
 
         public Canvas Canvas { get { return _canvas; } }
 
         private Random r;
 
-        public GraphViewer(Graph g, Size size)
+        public GraphViewer(Graph g, Size size, bool setSkin)
         {
+            isPurpleSkin = setSkin;
+
             _graph = g;
             _canvas = new Canvas();
             _canvas.Width = size.Width;

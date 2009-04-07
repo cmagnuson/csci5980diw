@@ -2,37 +2,40 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
     >
-    <Grid x:Name="LayoutRoot" Background="White">
+    <Grid x:Name="LayoutRoot" Background="#4A036F">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition Height="25" />
             <RowDefinition Height="650" />
-            <RowDefinition Height="25" />
+            <RowDefinition Height="60" />
         </Grid.RowDefinitions>
         
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="810" />
         </Grid.ColumnDefinitions>
         
-        <TextBlock Text="Achiever's Friend Clusters" TextAlignment="Center" FontSize="48" Foreground="BlueViolet" Grid.Row="0" Grid.Column="0" />
+        <TextBlock x:Name="title" Text="Achievers Friend Clusters" TextAlignment="Center" FontSize="48" Foreground="#fbfe00" Grid.Row="0" Grid.Column="0" />
         
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0">
-            <TextBlock Text="Enter email address: " Foreground="Black" FontSize="18" />
+            <TextBlock x:Name="emailSearchText" Text="Enter email address: " Foreground="#ce0071" FontSize="18" />
             <TextBox x:Name="emailSearchTextBox" Width="200" KeyDown="emailSearchTextBox_KeyDown" />
-            <Button x:Name="emailSearchButton" Content="Go" FontSize="16" Click="emailSearchButton_Click" />
+            <Button x:Name="emailSearchButton" Content="Go" Foreground="#210672" Background="#a13dd5" FontSize="16" Click="emailSearchButton_Click" />
         </StackPanel>
         
-        <basics:TabControl Grid.Row="2" Grid.Column="0">
-            <basics:TabItem Header="Friend Clusters" FontSize="22" x:Name="FriendTab">
-                <Canvas x:Name="FriendCluster" Width="800" Height="610">
+        <basics:TabControl x:Name="tabs" Background="#af66d5" Grid.Row="2" Grid.Column="0">
+            <basics:TabItem Background="#af66d5" Header="Friend Clusters" Foreground="#210672" FontSize="22" x:Name="FriendTab">
+                <Canvas x:Name="FriendCluster" Background="Black" Width="800" Height="600">
                 </Canvas>
             </basics:TabItem>
-            <basics:TabItem Header="Friend Photo Timeline" FontSize="22" x:Name="PhotoTab">
-                <Canvas x:Name="FriendPhotos" Width="800" Height="610">
+            <basics:TabItem Background="#af66d5" Header="Friend Photo Timeline" Foreground="#210672" FontSize="22" x:Name="PhotoTab">
+                <Canvas x:Name="FriendPhotos" Background="Black" Width="800" Height="600">
                 </Canvas>
             </basics:TabItem>
         </basics:TabControl>
         
-        <TextBlock Text="Copyright 2009 Little Lebowski Urban Achievers" TextAlignment="Center" Grid.Row="3" Grid.Column="0" />
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="0">
+            <Button x:Name="skinButton" Content="Show Green Skin" Foreground="#210672" Background="#a13dd5" Click="skinButton_Click" /> 
+            <TextBlock x:Name="copyright" Text="Copyright 2009 Little Lebowski Urban Achievers" Foreground="#ce0071" TextAlignment="Center" />
+        </StackPanel>
     </Grid>
 </UserControl>
