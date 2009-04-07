@@ -37,6 +37,11 @@ namespace SilverlightMaxi
                 {
                     long uid1 = photo.getTaggedList().ElementAt(i);
                     long uid2 = photo.getTaggedList().ElementAt(j);
+                    if (uid1 > uid2) {
+                        long tmp = uid1;
+                        uid1 = uid2;
+                        uid2 = tmp;
+                    }
                     String key = uid1 + "," + uid2;
                     if (!nodes.ContainsKey(uid1) || !nodes.ContainsKey(uid2))
                     {
@@ -65,6 +70,11 @@ namespace SilverlightMaxi
                 {
                     long uid1 = photo.getTaggedList().ElementAt(i);
                     long uid2 = photo.getTaggedList().ElementAt(j);
+                    if (uid1 > uid2) {
+                        long tmp = uid1;
+                        uid1 = uid2;
+                        uid2 = tmp;
+                    }
                     String key = uid1 + "," + uid2;
                     if (!nodes.ContainsKey(uid1) || !nodes.ContainsKey(uid2))
                     {
