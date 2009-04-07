@@ -180,7 +180,7 @@ namespace SilverlightMaxi
         void num_photos_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = new TimeSpan(0, 0, 0, 0, 800);
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 500);
             timer.Tick += delegate
             {
                 timer.Stop();
@@ -246,12 +246,12 @@ namespace SilverlightMaxi
                 if (this._v != null)
                 {
 
-                    this._v.setLineColor(new SolidColorBrush(Color.FromArgb(255, 128, 255, 128)));
-                    this._v2.setLineColor(new SolidColorBrush(Color.FromArgb(255, 128, 255, 128)));
-                    this._v.setNodeColor(new SolidColorBrush(Color.FromArgb(255, 166, 35, 0)));
-                    this._v2.setNodeColor(new SolidColorBrush(Color.FromArgb(255, 166, 35, 0)));
-                    this._v.setBackgroundColor(new SolidColorBrush(Color.FromArgb(255, 3, 71, 105)));
-                    this._v2.setBackgroundColor(new SolidColorBrush(Color.FromArgb(255, 3, 71, 105)));
+                    this._v.setLineColor(new SolidColorBrush(Color.FromArgb(255, 128, 128, 255)));
+                    this._v2.setLineColor(new SolidColorBrush(Color.FromArgb(255, 128, 128, 255)));
+                    this._v.setNodeColor(new SolidColorBrush(Color.FromArgb(255, 128, 255, 128)));
+                    this._v2.setNodeColor(new SolidColorBrush(Color.FromArgb(255, 128, 255, 128)));
+                    this._v.setBackgroundColor(new SolidColorBrush(Color.FromArgb(255, 0, 0, 0)));
+                    this._v2.setBackgroundColor(new SolidColorBrush(Color.FromArgb(255, 0, 0, 0)));
                 }
             }
 
