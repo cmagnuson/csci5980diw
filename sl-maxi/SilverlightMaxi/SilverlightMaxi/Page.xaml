@@ -23,11 +23,11 @@
         </StackPanel>
         
         <basics:TabControl Grid.Row="2" Grid.Column="0">
-            <basics:TabItem Header="Friend Clusters" FontSize="22">
+            <basics:TabItem Header="Friend Clusters" FontSize="22" x:Name="FriendTab">
                 <Canvas x:Name="FriendCluster" Width="800" Height="610">
                 </Canvas>
             </basics:TabItem>
-            <basics:TabItem Header="Friend Photo Timeline" FontSize="22">
+            <basics:TabItem Header="Friend Photo Timeline" FontSize="22" x:Name="PhotoTab">
                 <Canvas x:Name="FriendPhotos" Width="800" Height="610">
                 </Canvas>
             </basics:TabItem>

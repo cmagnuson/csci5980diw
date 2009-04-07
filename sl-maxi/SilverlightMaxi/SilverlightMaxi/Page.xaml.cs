@@ -28,8 +28,10 @@ namespace SilverlightMaxi
 
         void _timer_Tick(object sender, EventArgs e)
         {
-            _v.StepLayout(15);
-            _v2.StepLayout(15);
+            if (FriendTab.IsSelected)
+                _v.StepLayout(15);
+            if (PhotoTab.IsSelected)
+                _v2.StepLayout(15);
         }
 
         private void emailSearchButton_Click(object sender, RoutedEventArgs e)
