@@ -16,6 +16,7 @@ $user_id = $facebook->require_login();
 function pic($uid) { echo "<fb:profile-pic uid=$uid linked=\"true\" />"; }
 function name($uid) { echo "<fb:name uid=$uid linked=\"true\" />"; }
 
+echo "<p>Your photo: "; pic("'loggedinuser'"); echo "</p>\n";
 echo "<p>Groups:";
 $query = "
 SELECT gid FROM group WHERE nid = 16777356 and gid IN
