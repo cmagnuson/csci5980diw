@@ -22,7 +22,7 @@ SELECT gid FROM group WHERE nid = 16777356 and gid IN
   (SELECT gid FROM group_member WHERE uid IN
     (SELECT uid from user WHERE 16777356 in affiliations and uid in
       (SELECT uid2 FROM friend WHERE uid1=$user_id
-       LIMIT 40)
+       LIMIT 50)
      LIMIT 10
     )
    LIMIT 100
