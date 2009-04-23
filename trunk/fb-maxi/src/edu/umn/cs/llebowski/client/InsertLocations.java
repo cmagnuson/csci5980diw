@@ -6,14 +6,16 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
+
+import edu.umn.cs.llebowski.client.datamodels.FacebookCredentials;
 import edu.umn.cs.llebowski.client.datamodels.alerts.*;
 import java.util.*;
 
 @RemoteServiceRelativePath("InsertLocations")
 public interface InsertLocations extends RemoteService {
 
-	LinkedList<Alert> insertUserAddedLocation(String location, Date time, String requestAttribute);
-	LinkedList<Alert> insertEventLocations(String requestAttribute);
+	LinkedList<Alert> insertUserAddedLocation(String location, Date time, FacebookCredentials credentials);
+	LinkedList<Alert> insertEventLocations(FacebookCredentials credentials);
 	
 	public static class Util {
 		

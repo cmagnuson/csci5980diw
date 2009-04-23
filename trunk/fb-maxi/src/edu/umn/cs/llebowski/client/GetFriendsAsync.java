@@ -6,6 +6,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface GetFriendsAsync {
 
-	void getFriends(String requestAttribute, AsyncCallback<LinkedList<Person>> callback);
+	void getFriends(FacebookCredentials credentials, AsyncCallback<LinkedList<Person>> callback);
 
 }

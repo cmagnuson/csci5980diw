@@ -10,7 +10,7 @@ import java.util.*;
 @RemoteServiceRelativePath("GetFriends")
 public interface GetFriends extends RemoteService {
 
-	LinkedList<Person> getFriends(String requestAttribute);
+	LinkedList<Person> getFriends(FacebookCredentials credentials);
 	
 	public static class Util {
 
