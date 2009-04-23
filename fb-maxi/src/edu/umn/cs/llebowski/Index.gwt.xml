@@ -1,10 +1,10 @@
-<module>
+<?xml version="1.0" encoding="UTF-8"?><module>
 
 	<!-- Inherit the core Web Toolkit stuff.                  -->
-	<inherits name='com.google.gwt.user.User'/>
+	<inherits name="com.google.gwt.user.User"/>
 
 	<!-- Specify the app entry point class.                   -->
-	<entry-point class='edu.umn.cs.llebowski.client.Index'/>
+	<entry-point class="edu.umn.cs.llebowski.client.Index"/>
   
   	<inherits name="com.google.gwt.user.theme.standard.Standard"/>
   	<!-- <inherits name="com.google.gwt.user.theme.chrome.Chrome"/> -->
@@ -13,7 +13,7 @@
 	<!-- Google Maps, added - Carl -->
     <inherits name="com.google.gwt.maps.GoogleMaps"/>  
 	<!-- mtectracking -->
-	<script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;v=2.x&amp;key=ABQIAAAAiuPVg850W_6nz_Xq0YZbBhQg-rmhZeOshYCs7CInkj2WXWuOpxQeHXTkIxzN7Ij4yHFOAffa05YkyA" />	
+	<script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;v=2.x&amp;key=ABQIAAAAiuPVg850W_6nz_Xq0YZbBhQg-rmhZeOshYCs7CInkj2WXWuOpxQeHXTkIxzN7Ij4yHFOAffa05YkyA"/>	
 
   	
-</module>
+<servlet class="edu.umn.cs.llebowski.server.GetFriendsImpl" path="/GetFriends"/></module>
