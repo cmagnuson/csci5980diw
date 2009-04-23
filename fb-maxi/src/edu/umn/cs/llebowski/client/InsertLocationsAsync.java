@@ -9,5 +9,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public interface InsertLocationsAsync {
 
 	void insertUserAddedLocation(String location, Date time, String requestAttribute, AsyncCallback<LinkedList<Alert>> callback);
+	void insertEventLocations(String requestAttribute, AsyncCallback<LinkedList<Alert>> callback);
 
 }

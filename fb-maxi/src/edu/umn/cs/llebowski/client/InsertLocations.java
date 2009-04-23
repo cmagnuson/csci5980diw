@@ -13,6 +13,7 @@ import java.util.*;
 public interface InsertLocations extends RemoteService {
 
 	LinkedList<Alert> insertUserAddedLocation(String location, Date time, String requestAttribute);
+	LinkedList<Alert> insertEventLocations(String requestAttribute);
 	
 	public static class Util {
 		
