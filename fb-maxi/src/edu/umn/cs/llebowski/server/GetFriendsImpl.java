@@ -13,7 +13,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class GetFriendsImpl extends RemoteServiceServlet implements GetFriends {
 
-	public LinkedList<Person> getFriends(String requestAttribute){
+	public LinkedList<Person> getFriends(FacebookCredentials credentials){
 		LinkedList<Person> ret = new LinkedList<Person>();
 
 		int uid = 12345; //TODO: this needs to be pulled from fb
@@ -22,7 +22,7 @@ public class GetFriendsImpl extends RemoteServiceServlet implements GetFriends {
 			return ret;
 		}
 		try{
-			FacebookSession fs = getSession(requestAttribute);
+			FacebookSession fs = getSession(credentials);
 			long[] appFriends = fs.getAppUserFriendIds();
 			for(long friendid: appFriends){
 				LinkedList<PersonLocation> places = new LinkedList<PersonLocation>();
@@ -59,7 +59,7 @@ public class GetFriendsImpl extends RemoteServiceServlet implements GetFriends {
 		}
 	}
 
-	public FacebookSession getSession(String ra){
+	public FacebookSession getSession(FacebookCredentials credentials){
 		return new FacebookSession("","",""); //TODO: this is wrong!  See fb4j javadoc, use CanvasRequest or instantiate directly?
 	}
 }
