@@ -7,9 +7,9 @@ public class Person {
 	private long fbUid;
 	private String profilePic;
 	private String name;
-	private LinkedList<Location> locations; //list of where has been in chronologically descending order
+	private LinkedList<PersonLocation> locations; //list of where has been in chronologically descending order
 	
-	public Person(long fbUid, String profilePic, String name, LinkedList<Location> locations) {
+	public Person(long fbUid, String profilePic, String name, LinkedList<PersonLocation> locations) {
 		this.fbUid = fbUid;
 		this.profilePic = profilePic;
 		this.name = name;
@@ -40,11 +40,11 @@ public class Person {
 		this.name = name;
 	}
 
-	public LinkedList<Location> getLocations() {
+	public LinkedList<PersonLocation> getLocations() {
 		return locations;
 	}
 
-	public void setLocations(LinkedList<Location> locations) {
+	public void setLocations(LinkedList<PersonLocation> locations) {
 		this.locations = locations;
 	}
 

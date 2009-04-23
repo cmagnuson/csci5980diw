@@ -88,7 +88,7 @@ public class MapPanel extends SimplePanel {
 		//do drawing stuff
 	}
 
-	public void addPersonPoint(Person p, Location l){
+	public void addPersonPoint(Person p, PersonLocation l){
 		String infoText = "";
 		MarkerOptions options = MarkerOptions.newInstance();
 		options.setTitle(infoText.replaceAll("<br>", ""));
@@ -112,7 +112,7 @@ public class MapPanel extends SimplePanel {
 	public void addPersonTrack(Person p){
 		LinkedList<LatLng> points = new LinkedList<LatLng>();
 
-		for(Location l: p.getLocations()){
+		for(PersonLocation l: p.getLocations()){
 			points.add(LatLng.newInstance(l.getLat(), l.getLon()));
 			addPersonPoint(p,l);
 		}

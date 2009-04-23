@@ -1,14 +1,30 @@
 package edu.umn.cs.llebowski.client.datamodels;
 
-public class Location {
+public class PersonLocation {
 
 	private long lon, lat, time;
+	private String address;
 	
-	public Location(long lon, long lat, long time){
+	public PersonLocation(long lon, long lat, long time, String address){
 		this.lon = lon;
 		this.lat = lat;
 		this.time = time;
+		this.address = address;
 	}
+	
+	
+
+	public String getAddress() {
+		return address;
+	}
+
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
 
 	public long getLon() {
 		return lon;
