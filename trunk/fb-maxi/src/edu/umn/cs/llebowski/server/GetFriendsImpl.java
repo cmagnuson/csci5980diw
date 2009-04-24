@@ -16,7 +16,6 @@ public class GetFriendsImpl extends RemoteServiceServlet implements GetFriends {
 	public LinkedList<Person> getFriends(FacebookCredentials credentials){
 		LinkedList<Person> ret = new LinkedList<Person>();
 
-		int uid = 12345; //TODO: this needs to be pulled from fb
 		Connection conn = InitalizeDB.connectToMySqlDatabase("championchipmn.com/google-maxi", "5980-groupf", "lebowskiSEKKRIT55");
 		if(conn==null){
 			return ret;
@@ -59,7 +58,7 @@ public class GetFriendsImpl extends RemoteServiceServlet implements GetFriends {
 		}
 	}
 
-	public FacebookSession getSession(FacebookCredentials credentials){
-		return new FacebookSession("","",""); //TODO: this is wrong!  See fb4j javadoc, use CanvasRequest or instantiate directly?
+	public FacebookSession getSession(FacebookCredentials c){
+		return new FacebookSession(c.getApiKey(), c.getSecretKey(), c.getSessionId(), c.getUid()); //TODO: this is wrong!  See fb4j javadoc, use CanvasRequest or instantiate directly?
 	}
 }

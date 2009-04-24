@@ -3,6 +3,9 @@ package edu.umn.cs.llebowski.server;
 import java.sql.*;
 import java.util.Date;
 import java.util.LinkedList;
+
+import net.sf.fb4j.FacebookException;
+import net.sf.fb4j.FacebookSession;
 import net.sf.fb4j.model.*;
 import edu.umn.cs.llebowski.client.InsertLocations;
 import edu.umn.cs.llebowski.client.datamodels.FacebookCredentials;
@@ -73,8 +76,19 @@ public class InsertLocationsImpl extends RemoteServiceServlet implements InsertL
 		}
 	}
 
-	private LinkedList<Event> getEvents(FacebookCredentials credentials){
-		return new LinkedList<Event>(); //TODO:  pull this from users fb events
+	private LinkedList<Event> getEvents(FacebookCredentials c){
+		FacebookSession fs = new FacebookSession(c.getApiKey(), c.getSecretKey(), c.getSessionId(), c.getUid()); 
+		LinkedList<Event> ret =  new LinkedList<Event>();
+		try{
+			for(Event e: fs.getEvents()){
+				ret.add(e);
+			}
+			return ret;
+		}
+		catch(FacebookException fe){
+			fe.printStackTrace();
+			return ret;
+		}
 	}
 
 }
