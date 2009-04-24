@@ -4,6 +4,14 @@ public class FacebookCredentials {
 
 	private String apiKey, sessionId, secretKey;
 	private long uid;
+	
+	public String toString(){
+		return "API: "+apiKey+"\n<br>"+
+			"Session: "+sessionId+"\n<br>"+
+			"Secret: "+secretKey+"\n<br>"+
+			"Uid: "+uid+"\n<br>";
+	}
+	
 	public String getApiKey() {
 		return apiKey;
 	}
