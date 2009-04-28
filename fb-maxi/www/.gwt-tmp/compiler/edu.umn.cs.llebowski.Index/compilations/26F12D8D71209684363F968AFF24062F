@@ -1,0 +1,26 @@
+var $intern_3 = 'edu.umn.cs.llebowski.client.Index', $intern_1 = 'moduleStartup', $intern_2 = 'onModuleLoadStart', $intern_0 = 'startup';
+var _;
+function java_lang_Object(){
+}
+
+_ = java_lang_Object.prototype = {};
+_ = String.prototype;
+function init(){
+  !!$stats && $stats({moduleName:$moduleName, subSystem:$intern_0, evtGroup:$intern_1, millis:(new Date()).getTime(), type:$intern_2, className:$intern_3});
+}
+
+function gwtOnLoad(errFn, modName, modBase){
+  $moduleName = modName;
+  $moduleBase = modBase;
+  if (errFn)
+    try {
+      init();
+    }
+     catch (e) {
+      errFn(modName);
+    }
+   else {
+    init();
+  }
+}
+
