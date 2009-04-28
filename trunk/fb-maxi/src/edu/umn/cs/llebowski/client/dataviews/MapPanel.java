@@ -39,7 +39,7 @@ public class MapPanel extends SimplePanel {
 		//set zoom based off of some user presets....
 		//mapWidget.setCenter(LatLng.newInstance(map.getCenter_lat(), map.getCenter_lon()), map.getZoom());  
 
-		mapWidget.addControl(new SmallMapControl(), new ControlPosition(ControlAnchor.TOP_RIGHT, 10, 10));  
+		//mapWidget.addControl(new SmallMapControl(), new ControlPosition(ControlAnchor.TOP_RIGHT, 10, 10));  
 		mapWidget.checkResizeAndCenter();	
 
 		mp.scheduleTimer();	
