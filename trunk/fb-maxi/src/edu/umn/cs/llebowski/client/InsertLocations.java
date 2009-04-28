@@ -14,7 +14,7 @@ import java.util.*;
 @RemoteServiceRelativePath("InsertLocations")
 public interface InsertLocations extends RemoteService {
 
-	LinkedList<Alert> insertUserAddedLocation(String location, Date time, FacebookCredentials credentials);
+	LinkedList<Alert> insertUserAddedLocation(String location, FacebookCredentials credentials);
 	LinkedList<Alert> insertEventLocations(FacebookCredentials credentials);
 	
 	public static class Util {

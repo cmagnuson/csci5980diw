@@ -1,6 +1,8 @@
 package edu.umn.cs.llebowski.client.datamodels;
 
-public class PersonLocation {
+import com.google.gwt.user.client.rpc.*;
+
+public class PersonLocation implements IsSerializable {
 
 	private long lon, lat, time;
 	private String address;

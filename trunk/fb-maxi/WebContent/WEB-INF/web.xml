@@ -7,9 +7,18 @@
 		<servlet-class>
 		edu.umn.cs.llebowski.server.GetFriendsImpl</servlet-class>
 	</servlet>
+		<servlet>
+		<servlet-name>InsertLocations</servlet-name>
+		<servlet-class>
+		edu.umn.cs.llebowski.server.InsertLocationsImpl</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>GetFriends</servlet-name>
 		<url-pattern>/GetFriends</url-pattern>
+	</servlet-mapping>
+		<servlet-mapping>
+		<servlet-name>InsertLocations</servlet-name>
+		<url-pattern>/InsertLocations</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

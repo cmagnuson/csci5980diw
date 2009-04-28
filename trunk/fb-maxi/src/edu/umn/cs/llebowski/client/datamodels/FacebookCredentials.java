@@ -1,6 +1,8 @@
 package edu.umn.cs.llebowski.client.datamodels;
 
-public class FacebookCredentials {
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+public class FacebookCredentials implements IsSerializable {
 
 	private String apiKey, sessionId, secretKey;
 	private long uid;

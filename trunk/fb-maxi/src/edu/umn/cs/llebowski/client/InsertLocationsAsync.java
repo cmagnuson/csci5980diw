@@ -9,7 +9,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface InsertLocationsAsync {
 
-	void insertUserAddedLocation(String location, Date time, FacebookCredentials credentials, AsyncCallback<LinkedList<Alert>> callback);
+	void insertUserAddedLocation(String location, FacebookCredentials credentials, AsyncCallback<LinkedList<Alert>> callback);
 	void insertEventLocations(FacebookCredentials credentials, AsyncCallback<LinkedList<Alert>> callback);
 
 }
