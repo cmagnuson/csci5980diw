@@ -21,9 +21,10 @@
 	<script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;v=2.x&amp;key=ABQIAAAAiuPVg850W_6nz_Xq0YZbBhQg-rmhZeOshYCs7CInkj2WXWuOpxQeHXTkIxzN7Ij4yHFOAffa05YkyA"/>	
 	
 	<!-- ExtJS -->
-	<stylesheet src="js/ext/resources/css/ext-all.css" />
 	<script src="js/ext/adapter/ext/ext-base.js" />
 	<script src="js/ext/ext-all.js" />
+	<stylesheet src="js/ext/resources/css/ext-all.css" />
+
   	
 <servlet class="edu.umn.cs.llebowski.server.GetFriendsImpl" path="/GetFriends"/>
 </module>
