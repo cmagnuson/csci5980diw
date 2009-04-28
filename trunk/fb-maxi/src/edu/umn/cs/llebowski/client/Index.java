@@ -3,7 +3,6 @@ package edu.umn.cs.llebowski.client;
 import com.google.gwt.core.client.EntryPoint;
 import edu.umn.cs.llebowski.client.datamodels.*;
 import com.google.gwt.user.client.*;
-import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.user.client.ui.*;
 import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.layout.AccordionLayout;
@@ -29,6 +28,8 @@ public class Index implements EntryPoint, WindowResizeListener {
 	private Panel friendsPanel;
 	private Panel invitePanel;
 	
+	private MultiWordSuggestOracle autoComplete;
+	
 	public void onModuleLoad() {
 		getCredentials();
 		
@@ -47,7 +48,6 @@ public class Index implements EntryPoint, WindowResizeListener {
 		navPanel.setWidth("300px");
 		navPanel.setHeight("400px");
 		navPanel.add( getNav() );
-		
 		
 		// FOOTER PANEL
 		footerPanel = new SimplePanel();
@@ -91,6 +91,7 @@ public class Index implements EntryPoint, WindowResizeListener {
 		
 		invitePanel = new Panel("Invite");
 		invitePanel.setCls("opaque");
+		invitePanel.add( getInvitePanel() );
 		navWidget.add(invitePanel);
 		
 		
@@ -104,4 +105,62 @@ public class Index implements EntryPoint, WindowResizeListener {
 		mapPanel.setHeight(height);
 	}
 
+	private VerticalPanel getInvitePanel()
+	{
+		VerticalPanel inviteVPanel = new VerticalPanel();
+		HorizontalPanel inviteHPanel = new HorizontalPanel();
+		
+		HTML h = new HTML("Invite your Facebook friends to join Friend Mapper!<br /><br />");
+		HTML h2 = new HTML("Name: ");
+		autoComplete = getAutoComplete();
+		final SuggestBox sb = new SuggestBox(autoComplete);
+		sb.addKeyboardListener(new KeyboardListener() {
+			public void onKeyDown(Widget sender, char keyCode, int modifiers) {
+				if( keyCode == KeyboardListener.KEY_ENTER )
+					inviteFriend( sb.getText() );
+				else if( keyCode == KeyboardListener.KEY_ESCAPE )
+					sb.setText("");
+			}
+
+			public void onKeyPress(Widget sender, char keyCode, int modifiers) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onKeyUp(Widget sender, char keyCode, int modifiers) {
+				// TODO Auto-generated method stub
+				
+			}	
+		});
+		
+		Button b = new Button("Invite");
+		b.addClickListener(new ClickListener() {
+			public void onClick(Widget sender) {
+				inviteFriend( sb.getText() );
+			}			
+		});
+		
+		inviteHPanel.add(h2);
+		inviteHPanel.add(sb);
+		inviteHPanel.add(b);
+		
+		inviteVPanel.add(h);
+		inviteVPanel.add(inviteHPanel);
+		
+		return inviteVPanel;		
+	}
+	
+	private MultiWordSuggestOracle getAutoComplete()
+	{
+		MultiWordSuggestOracle oracle = new MultiWordSuggestOracle();
+		
+		// add FB friends that are have NOT joined Friend Mapper
+		
+		return oracle;
+	}
+	
+	private void inviteFriend( String friend )
+	{
+		// invite a friend to use Friend Mapper
+	}
 }
