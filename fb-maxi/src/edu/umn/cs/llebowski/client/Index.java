@@ -3,9 +3,13 @@ package edu.umn.cs.llebowski.client;
 import com.google.gwt.core.client.EntryPoint;
 import edu.umn.cs.llebowski.client.datamodels.*;
 import com.google.gwt.user.client.*;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.layout.AccordionLayout;
+import java.util.*;
+import edu.umn.cs.llebowski.client.datamodels.alerts.*;
+
 import edu.umn.cs.llebowski.client.dataviews.*;
 
 public class Index implements EntryPoint, WindowResizeListener {
@@ -159,7 +163,17 @@ public class Index implements EntryPoint, WindowResizeListener {
 
 	private void updateLocation( String location )
 	{
-		
+		InsertLocations.Util.getInstance().insertUserAddedLocation(location, credentials, new AsyncCallback<LinkedList<Alert>>() {
+			public void onFailure(Throwable caught) {
+				Window.alert(caught.getLocalizedMessage());
+			}
+			public void onSuccess(LinkedList<Alert> alerts) {
+				for(Alert a: alerts){
+					Window.alert(a.getAlertText());
+				}
+			}
+		});
+				
 	}
 	
 	private VerticalPanel getInvitePanel()

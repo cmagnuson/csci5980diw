@@ -2,7 +2,9 @@ package edu.umn.cs.llebowski.client.datamodels;
 
 import java.util.*;
 
-public class Person {
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+public class Person implements IsSerializable {
 
 	private long fbUid;
 	private String profilePic;

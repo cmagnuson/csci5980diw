@@ -1,6 +1,8 @@
 package edu.umn.cs.llebowski.client.datamodels.alerts;
 
-public class BadLocationAlert implements Alert {
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+public class BadLocationAlert implements Alert, IsSerializable {
 
 	public String getAlertText() {
 		return "I dunno what to put here...";

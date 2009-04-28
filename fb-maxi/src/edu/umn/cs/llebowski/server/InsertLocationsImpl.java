@@ -1,9 +1,7 @@
 package edu.umn.cs.llebowski.server;
 
 import java.sql.*;
-import java.util.Date;
-import java.util.LinkedList;
-
+import java.util.*;
 import net.sf.fb4j.FacebookException;
 import net.sf.fb4j.FacebookSession;
 import net.sf.fb4j.model.*;
@@ -14,9 +12,11 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class InsertLocationsImpl extends RemoteServiceServlet implements InsertLocations {
 
-	public LinkedList<Alert> insertUserAddedLocation(String location, Date time, FacebookCredentials credentials){
+	public LinkedList<Alert> insertUserAddedLocation(String location, FacebookCredentials credentials){
+		java.util.Date time = Calendar.getInstance().getTime();
 		LinkedList<Alert> ret = new LinkedList<Alert>();
 		Location l = AddressToCord.convertToCord(location);
+		System.err.println("checking loc");
 		if(l.getAccuracy()<7) {//less then intersection accuracy
 			ret.add(new BadLocationAlert());
 		}
@@ -45,23 +45,28 @@ public class InsertLocationsImpl extends RemoteServiceServlet implements InsertL
 	}
 
 
-	private LinkedList<Alert> insertLocation(Location l, String address, Date time, FacebookCredentials credentials, Long eventid){
-		//this needs to look up the uid from the requestAttribute... not sure how to work with fb4j for this
+	private LinkedList<Alert> insertLocation(Location l, String address, java.util.Date time, FacebookCredentials credentials, Long eventid){
 		LinkedList<Alert> ret = new LinkedList<Alert>();;
-		int uid = 12345; //TODO: this needs to be pulled from fb
+		long uid = credentials.getUid();
 		Connection conn = InitalizeDB.connectToMySqlDatabase("championchipmn.com/google-maxi", "5980-groupf", "lebowskiSEKKRIT55");
 		if(conn==null){
 			return ret;
 		}
 		try{
+			System.err.println("preparing stmt");
 			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO places (uid, lon, lat, place, time, eventid) VALUES " +
-			"(?,?,?,?,?, ?) ON DUPLICATE KEY UPDATE");
+			"(?,?,?,?,TIMESTAMP(?),?)");
 			pstmt.setLong(1, uid);
 			pstmt.setDouble(2, l.getLon());
 			pstmt.setDouble(3, l.getLat());
 			pstmt.setString(4, address);
-			pstmt.setTime(5, new Time(time.getTime()));
-			pstmt.setLong(6, eventid);
+			pstmt.setTimestamp(5, new Timestamp(time.getTime()));
+			if(eventid==null){
+				pstmt.setString(6, null);
+			}
+			else{
+				pstmt.setLong(6, eventid);
+			}
 			pstmt.executeUpdate();
 			return ret;
 		}

@@ -27,4 +27,6 @@
 
   	
 <servlet class="edu.umn.cs.llebowski.server.GetFriendsImpl" path="/GetFriends"/>
+<servlet class="edu.umn.cs.llebowski.server.InsertLocationsImpl" path="/InsertLocations"/>
+
 </module>
