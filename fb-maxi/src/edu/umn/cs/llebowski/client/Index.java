@@ -25,6 +25,9 @@ public class Index implements EntryPoint, WindowResizeListener {
 	private AbsolutePanel allPanel;
 	
 	private Panel navWidget;
+	private Panel youPanel;
+	private Panel friendsPanel;
+	private Panel invitePanel;
 	
 	public void onModuleLoad() {
 		getCredentials();
@@ -73,17 +76,21 @@ public class Index implements EntryPoint, WindowResizeListener {
 
 	private Panel getNav()
 	{
-		navWidget = new Panel("accordion");
+		navWidget = new Panel("Options");
 		navWidget.setLayout(new AccordionLayout(true));
-		navWidget.setSize("300px", "400px");
+		navWidget.setSize("300px", "500px");
+		navWidget.setCls("opaque");
 		
-		Panel youPanel = new Panel("you", "hi you!");
+		youPanel = new Panel("You");
+		youPanel.setCls("opaque");
 		navWidget.add(youPanel);
 		
-		Panel friendsPanel = new Panel("friends", "hi friends!");
+		friendsPanel = new Panel("Friends");
+		friendsPanel.setCtCls("opaque");
 		navWidget.add(friendsPanel);
 		
-		Panel invitePanel = new Panel("invite", "hi invite!");
+		invitePanel = new Panel("Invite");
+		invitePanel.setCls("opaque");
 		navWidget.add(invitePanel);
 		
 		
