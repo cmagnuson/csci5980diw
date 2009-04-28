@@ -83,19 +83,18 @@ public class Index implements EntryPoint, WindowResizeListener {
 		
 		youPanel = new Panel("You");
 		youPanel.setCls("opaque");
+		youPanel.add( getYouPanel() );
 		navWidget.add(youPanel);
 		
 		friendsPanel = new Panel("Friends");
 		friendsPanel.setCtCls("opaque");
+		//friendsPanel.add( getFriendsPanel() );
 		navWidget.add(friendsPanel);
 		
 		invitePanel = new Panel("Invite");
 		invitePanel.setCls("opaque");
 		invitePanel.add( getInvitePanel() );
 		navWidget.add(invitePanel);
-		
-		
-		
 		
 		return navWidget;
 	}
@@ -104,13 +103,71 @@ public class Index implements EntryPoint, WindowResizeListener {
 		allPanel.setHeight(height+"px");
 		mapPanel.setHeight(height);
 	}
+	
+	private VerticalPanel getYouPanel()
+	{
+		VerticalPanel vPanel = new VerticalPanel();
+		HorizontalPanel hPanel = new HorizontalPanel();
+		
+		HTML h1 = new HTML("<b>Your current location:</b>");
+		//HTML h2 = new HTML( getCurrentLocation() );
+		HTML h3 = new HTML("<b>Last updated:</b>");
+		//HTML h4 = new HTML( getLastUpdated() );
+		HTML h5 = new HTML("<b>Update your location:");
+		final TextBox tb = new TextBox();
+		tb.addKeyboardListener(new KeyboardListener(){
 
+			public void onKeyDown(Widget sender, char keyCode, int modifiers) {
+				if( keyCode == KeyboardListener.KEY_ENTER )
+					updateLocation( tb.getText() );
+				else if( keyCode == KeyboardListener.KEY_ESCAPE )
+					tb.setText("");
+			}
+
+			public void onKeyPress(Widget sender, char keyCode, int modifiers) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onKeyUp(Widget sender, char keyCode, int modifiers) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		Button b = new Button("Update");
+		b.addClickListener(new ClickListener(){
+
+			public void onClick(Widget sender) {
+				updateLocation( tb.getText() );
+			}
+			
+		});
+		
+		hPanel.add(tb);
+		hPanel.add(b);
+		
+		vPanel.add(h1);
+		//vPanel.add(h2);
+		vPanel.add(h3);
+		//vPanel.add(h4);
+		vPanel.add(h5);
+		vPanel.add(hPanel);
+		
+		return vPanel;
+	}
+
+	private void updateLocation( String location )
+	{
+		
+	}
+	
 	private VerticalPanel getInvitePanel()
 	{
 		VerticalPanel inviteVPanel = new VerticalPanel();
 		HorizontalPanel inviteHPanel = new HorizontalPanel();
 		
-		HTML h = new HTML("Invite your Facebook friends to join Friend Mapper!<br /><br />");
+		HTML h = new HTML("<b>Invite your Facebook friends to join Friend Mapper!</b><br />");
 		HTML h2 = new HTML("Name: ");
 		autoComplete = getAutoComplete();
 		final SuggestBox sb = new SuggestBox(autoComplete);
