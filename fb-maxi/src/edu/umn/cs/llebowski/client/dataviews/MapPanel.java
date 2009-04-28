@@ -18,7 +18,6 @@ import edu.umn.cs.llebowski.client.datamodels.*;
 public class MapPanel extends SimplePanel {
 
 	private final MapWidget mapWidget = new MapWidget();
-	public AbsolutePanel absolutePanel = new AbsolutePanel();
 	
 	private static final int REFRESH_RATE = 15*1000;
 	private static final String LINE_COLOR = "#52FF52";
@@ -29,13 +28,13 @@ public class MapPanel extends SimplePanel {
 		super();
 		final MapPanel mp = this;
 		this.setTitle("Friend Map");
-		this.setSize("100%", "500px");
+		this.setSize("100%", "100%");
 
-		final AbsolutePanel ap = absolutePanel;
-		ap.setSize("100%", "100%");
-		absolutePanel.add(mapWidget,0,0);
+		mapWidget.setCenter(LatLng.newInstance(38.548165,-95.361328), 3);  
+		mapWidget.addControl(new SmallMapControl());  
+		mapWidget.addControl(new MapTypeControl()); 
 		mapWidget.setSize("100%", "100%");
-		this.add(ap);
+		this.add(mapWidget);
 
 		//set zoom based off of some user presets....
 		//mapWidget.setCenter(LatLng.newInstance(map.getCenter_lat(), map.getCenter_lon()), map.getZoom());  
@@ -46,6 +45,10 @@ public class MapPanel extends SimplePanel {
 		mp.scheduleTimer();	
 	}
 
+	public void setHeight(int height){
+		this.setHeight(height);
+		mapWidget.setHeight(height+"px");
+	}
 
 	private void scheduleTimer(){
 		Timer t = new Timer() {
