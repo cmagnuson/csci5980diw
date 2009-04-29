@@ -110,6 +110,7 @@ public class MapPanel extends SimplePanel {
 				iw.open(sm, new InfoWindowContent(infoTextf));
 			}
 		});
+		//checkResizeAndCenter();
 	}
 
 	public void addPersonTrack(Person p){
