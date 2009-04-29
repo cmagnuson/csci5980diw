@@ -6,10 +6,10 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class Person implements IsSerializable {
 
-	private long fbUid;
-	private String profilePic;
-	private String name;
-	private LinkedList<PersonLocation> locations; //list of where has been in chronologically descending order
+	private long fbUid = 1;
+	private String profilePic = "";
+	private String name = "";
+	private LinkedList<PersonLocation> locations = new LinkedList<PersonLocation>(); //list of where has been in chronologically descending order
 	
 	public Person(){} //No args constructor is needed for GWT serialization
 	
