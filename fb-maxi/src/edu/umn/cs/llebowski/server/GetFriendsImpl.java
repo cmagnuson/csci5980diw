@@ -62,7 +62,25 @@ public class GetFriendsImpl extends RemoteServiceServlet implements GetFriends {
 		return p;
 	}
 	
+	public LinkedList<Person> getAllFriends(FacebookCredentials credentials){
+		LinkedList<Person> ret = new LinkedList<Person>();
+		try{
+			FacebookSession fs = getSession(credentials);
+			long[] friends = fs.getFriendIds();
+			for(long friend: friends){
+				UserInfo ui = fs.getUserInfo(friend, UserInfo.Field.PIC_SMALL, UserInfo.Field.NAME, UserInfo.Field.UID);
+				Person p = new Person(ui.getId(), ui.getPicSmall(), ui.getName(), new LinkedList<PersonLocation>());
+				ret.add(p);
+			}
+			return ret;
+		}
+		catch(FacebookClientException fce){
+			fce.printStackTrace();
+			return ret;
+		}
+	}
+	
 	public FacebookSession getSession(FacebookCredentials c){
-		return new FacebookSession(c.getApiKey(), c.getSecretKey(), c.getSessionId(), c.getUid()); //TODO: this is wrong!  See fb4j javadoc, use CanvasRequest or instantiate directly?
+		return new FacebookSession(c.getApiKey(), c.getSecretKey(), c.getSessionId(), c.getUid());
 	}
 }
