@@ -37,8 +37,8 @@ public class Index implements EntryPoint, WindowResizeListener {
 
 	private MultiWordSuggestOracle autoComplete;
 
-	public LinkedList<Person> friends = new LinkedList<Person>();
-	public Person you = new Person();
+	public static LinkedList<Person> friends = new LinkedList<Person>();
+	public static Person you = new Person();
 
 	public void onModuleLoad() {
 		getCredentials();
@@ -235,7 +235,6 @@ public class Index implements EntryPoint, WindowResizeListener {
 			if(friend.getLocations().size()>0){
 				pl = friend.getLocations().getFirst();
 			}
-			mapPanel.addPersonPoint(friend, pl);
 
 			VerticalPanel vp = new VerticalPanel();
 			Image pic = new Image( friend.getProfilePic() );
@@ -320,5 +319,9 @@ public class Index implements EntryPoint, WindowResizeListener {
 	private void inviteFriend( String friend )
 	{
 		// invite a friend to use Friend Mapper
+	}
+	
+	public static LinkedList<Person> getFriends(){
+		return friends;
 	}
 }

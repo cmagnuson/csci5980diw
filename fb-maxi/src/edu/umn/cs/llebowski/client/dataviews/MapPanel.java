@@ -12,14 +12,14 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.maps.client.overlay.Marker;
 import com.google.gwt.maps.client.geom.LatLng;
-
+import edu.umn.cs.llebowski.client.*;
 import edu.umn.cs.llebowski.client.datamodels.*;
 
 public class MapPanel extends SimplePanel {
 
 	private final MapWidget mapWidget = new MapWidget();
 	
-	private static final int REFRESH_RATE = 15*1000;
+	private static final int REFRESH_RATE = 1000;
 	private static final String LINE_COLOR = "#52FF52";
 	private static final int LINE_WIDTH = 4;
 	private static final double LINE_OPACITY = 1;
@@ -50,14 +50,14 @@ public class MapPanel extends SimplePanel {
 		mapWidget.setHeight(height+"px");
 	}
 
-//	private void scheduleTimer(){
-//		Timer t = new Timer() {
-//			public void run() {
-//				refreshMap();
-//			}
-//		};
-//		t.scheduleRepeating(REFRESH_RATE);
-//	}
+	private void scheduleTimer(){
+		Timer t = new Timer() {
+			public void run() {
+				refreshMap();
+			}
+		};
+		t.scheduleRepeating(REFRESH_RATE);
+	}
 
 
 
@@ -71,13 +71,13 @@ public class MapPanel extends SimplePanel {
 		checkResizeAndCenter();	
 	}
 
-//	public void refreshMap(){
-//		//LinkedList<Split> splits = mtrack.getSplits(runnerPid);
-////		if(splits==null){
-////		splits = new LinkedList<Split>();
-////		}
-//		drawMap();
-//	}
+	public void refreshMap(){
+		//LinkedList<Split> splits = mtrack.getSplits(runnerPid);
+//		if(splits==null){
+//		splits = new LinkedList<Split>();
+//		}
+		drawMap();
+	}
 
 	public void checkResizeAndCenter(){
 		if(mapWidget!=null){
@@ -85,11 +85,17 @@ public class MapPanel extends SimplePanel {
 		}
 	}
 
-//	private void drawMap(){
-//		//mapWidget.clearOverlays(); //or just check which ones need to be redrawn
-//
-//		//do drawing stuff
-//	}
+	private void drawMap(){
+		mapWidget.clearOverlays(); //or just check which ones need to be redrawn
+
+		//do drawing stuff
+		Person you = Index.you;
+		for(Person p: Index.getFriends()){
+			if(p!=you){
+				addPersonPoint(p, p.getLocations().getFirst());
+			}
+		}
+	}
 
 	public void addPersonPoint(Person p, PersonLocation l){
 		String infoText = "";
