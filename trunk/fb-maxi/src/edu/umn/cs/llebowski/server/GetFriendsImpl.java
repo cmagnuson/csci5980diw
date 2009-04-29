@@ -8,7 +8,6 @@ import edu.umn.cs.llebowski.client.datamodels.*;
 import net.sf.fb4j.*;
 import net.sf.fb4j.client.*;
 import net.sf.fb4j.model.*;
-
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class GetFriendsImpl extends RemoteServiceServlet implements GetFriends {
@@ -25,7 +24,7 @@ public class GetFriendsImpl extends RemoteServiceServlet implements GetFriends {
 			long[] appFriends = fs.getAppUserFriendIds();
 			for(long friendid: appFriends){
 				LinkedList<PersonLocation> places = new LinkedList<PersonLocation>();
-				PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM places WHERE uid=? SORT BY time DESC");
+				PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM places WHERE uid=? ORDER BY time DESC");
 				pstmt.setLong(1, friendid);
 				ResultSet rs = pstmt.executeQuery();
 				while(rs.next()){
