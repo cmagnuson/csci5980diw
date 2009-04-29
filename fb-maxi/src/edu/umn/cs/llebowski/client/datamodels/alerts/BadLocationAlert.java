@@ -7,7 +7,7 @@ public class BadLocationAlert implements Alert, IsSerializable {
 	public BadLocationAlert(){}
 	
 	public String getAlertText() {
-		return "I dunno what to put here...";
+		return "Please enter a more specific address!";
 	}
 
 	public AlertType getAlertType() {

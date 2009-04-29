@@ -39,17 +39,17 @@ public class Index implements EntryPoint, WindowResizeListener {
 
 	public LinkedList<Person> friends = new LinkedList<Person>();
 	public Person you = new Person();
-	
+
 	public void onModuleLoad() {
 		getCredentials();
-		
+
 		// ALL PANEL
 		allPanel = new AbsolutePanel();
 		allPanel.setSize("100%", Window.getClientHeight()+"px");
 		RootPanel.get().add(allPanel);
 
 		drawMap();
-		
+
 		GetFriends.Util.getInstance().getFriends( credentials, new AsyncCallback<LinkedList<Person>>() {
 
 			public void onFailure(Throwable caught) {
@@ -67,7 +67,7 @@ public class Index implements EntryPoint, WindowResizeListener {
 			}
 		});
 	}
-	
+
 	private void drawMap(){
 		// MAP PANEL
 		mapPanel = new MapPanel();
@@ -145,21 +145,22 @@ public class Index implements EntryPoint, WindowResizeListener {
 		VerticalPanel vPanel = new VerticalPanel();
 		HorizontalPanel hPanel = new HorizontalPanel();
 
-		HTML h1 = new HTML("<b>Your current location:</b>");
-		HTML h2 = new HTML( you.getLocations().getFirst().getAddress());
-		HTML h3 = new HTML("<b>Last updated:</b>");
-		HTML h4 = new HTML(""+new Date(you.getLocations().getFirst().getTime()));
-		HTML h5 = new HTML("<b>Update your location:");
+		final HTML h1 = new HTML("<b>Your current location:</b>");
+		final HTML h2 = new HTML( you.getLocations().getFirst().getAddress());
+		final HTML h3 = new HTML("<b>Last updated:</b>");
+		final HTML h4 = new HTML(""+new Date(you.getLocations().getFirst().getTime()));
+		final HTML h5 = new HTML("<b>Update your location:");
 		final TextBox tb = new TextBox();
 		tb.addKeyboardListener(new KeyboardListener(){
 
 			public void onKeyDown(Widget sender, char keyCode, int modifiers) {
-				if( keyCode == KeyboardListener.KEY_ENTER )
-					updateLocation( tb.getText() );
+				if( keyCode == KeyboardListener.KEY_ENTER ){
+					handleLocationUpdate(h2, h4, tb);
+				}
 				else if( keyCode == KeyboardListener.KEY_ESCAPE )
 					tb.setText("");
 			}
-
+			
 			public void onKeyPress(Widget sender, char keyCode, int modifiers) {
 				// TODO Auto-generated method stub
 
@@ -175,13 +176,8 @@ public class Index implements EntryPoint, WindowResizeListener {
 		b.addClickListener(new ClickListener(){
 
 			public void onClick(Widget sender) {
-				if(tb.getText().equals("")){
-					return;
-				}
-				updateLocation( tb.getText() );
-				tb.setText("");
+				handleLocationUpdate(h2, h4, tb);
 			}
-
 		});
 
 		hPanel.add(tb);
@@ -195,6 +191,17 @@ public class Index implements EntryPoint, WindowResizeListener {
 		vPanel.add(hPanel);
 
 		return vPanel;
+	}
+	
+	private void handleLocationUpdate(final HTML h2, final HTML h4,
+			final TextBox tb) {
+		if(tb.getText().equals("")){
+			return;
+		}
+		updateLocation( tb.getText() );
+		h2.setHTML(tb.getText());
+		h4.setHTML(""+new Date(System.currentTimeMillis()/1000));
+		tb.setText("");
 	}
 
 	private void updateLocation( String location )
