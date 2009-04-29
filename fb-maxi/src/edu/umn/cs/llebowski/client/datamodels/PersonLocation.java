@@ -7,6 +7,8 @@ public class PersonLocation implements IsSerializable {
 	private long lon, lat, time;
 	private String address;
 	
+	public PersonLocation(){} //empty constuctor for serialization
+	
 	public PersonLocation(long lon, long lat, long time, String address){
 		this.lon = lon;
 		this.lat = lat;
