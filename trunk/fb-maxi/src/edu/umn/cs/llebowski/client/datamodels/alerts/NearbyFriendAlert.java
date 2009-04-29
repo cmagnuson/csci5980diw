@@ -8,7 +8,7 @@ public class NearbyFriendAlert implements Alert, IsSerializable {
 	public NearbyFriendAlert(){};
 	
 	public String getAlertText() {
-		return "I dunno what to put here...";
+		return "You are near a friend...";
 	}
 
 	public AlertType getAlertType() {
