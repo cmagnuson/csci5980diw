@@ -169,9 +169,18 @@ public class Index implements EntryPoint, WindowResizeListener {
 		HorizontalPanel hPanel = new HorizontalPanel();
 
 		final HTML h1 = new HTML("<b>Your current location:</b>");
-		final HTML h2 = new HTML( you.getLocations().getFirst().getAddress());
+		final HTML h2, h4;
+		if( you.getLocations().size() > 0 )
+		{
+			h2 = new HTML( you.getLocations().getFirst().getAddress());
+			h4 = new HTML(""+new Date(you.getLocations().getFirst().getTime()));
+		}
+		else
+		{
+			h2 = new HTML( "<br />");
+			h4 = new HTML( "<br />");
+		}
 		final HTML h3 = new HTML("<b>Last updated:</b>");
-		final HTML h4 = new HTML(""+new Date(you.getLocations().getFirst().getTime()));
 		final HTML h5 = new HTML("<b>Update your location:");
 		final TextBox tb = new TextBox();
 		tb.addKeyboardListener(new KeyboardListener(){
@@ -274,7 +283,7 @@ public class Index implements EntryPoint, WindowResizeListener {
 			t.setText( i, 1, "1.88 mi" );
 
 			// third column (last updated);
-			t.setText( i, 2, "April 20, 2009" );
+			t.setText( i, 2, ""+new Date(friend.getLocations().getFirst().getTime()) );
 
 			// fourth column (history)
 			t.setWidget( i, 3, b );
@@ -334,7 +343,8 @@ public class Index implements EntryPoint, WindowResizeListener {
 	{
 		MultiWordSuggestOracle oracle = new MultiWordSuggestOracle();
 
-		// add FB friends that are have NOT joined Friend Mapper
+		for( Person f : friends )
+			oracle.add(f.getName());
 
 		return oracle;
 	}

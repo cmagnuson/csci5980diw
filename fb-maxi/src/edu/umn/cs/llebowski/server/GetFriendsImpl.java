@@ -58,7 +58,7 @@ public class GetFriendsImpl extends RemoteServiceServlet implements GetFriends {
 			places.add(pl);
 		}
 		UserInfo ui = fs.getUserInfo(friendid, UserInfo.Field.PIC_SMALL, UserInfo.Field.NAME, UserInfo.Field.UID);
-		Person p = new Person(ui.getId(), ui.getPicSmall(), ui.getPicSmall(), places);
+		Person p = new Person(ui.getId(), ui.getPicSmall(), ui.getName(), places);
 		return p;
 	}
 	
