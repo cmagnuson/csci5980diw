@@ -11,6 +11,7 @@ import java.util.*;
 public interface GetFriends extends RemoteService {
 
 	LinkedList<Person> getFriends(FacebookCredentials credentials);
+	LinkedList<Person> getAllFriends(FacebookCredentials credentials);
 	
 	public static class Util {
 
