@@ -4,12 +4,13 @@ import com.google.gwt.user.client.rpc.*;
 
 public class PersonLocation implements IsSerializable {
 
-	private long lon, lat, time;
+	private double lon, lat;
+	private long time;
 	private String address;
 	
 	public PersonLocation(){} //empty constuctor for serialization
 	
-	public PersonLocation(long lon, long lat, long time, String address){
+	public PersonLocation(double lon, double lat, long time, String address){
 		this.lon = lon;
 		this.lat = lat;
 		this.time = time;
@@ -30,19 +31,19 @@ public class PersonLocation implements IsSerializable {
 
 
 
-	public long getLon() {
+	public double getLon() {
 		return lon;
 	}
 
-	public void setLon(long lon) {
+	public void setLon(double lon) {
 		this.lon = lon;
 	}
 
-	public long getLat() {
+	public double getLat() {
 		return lat;
 	}
 
-	public void setLat(long lat) {
+	public void setLat(double lat) {
 		this.lat = lat;
 	}
 

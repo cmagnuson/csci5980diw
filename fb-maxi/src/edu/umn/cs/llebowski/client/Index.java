@@ -10,9 +10,8 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.layout.AccordionLayout;
-import java.util.*;
 import edu.umn.cs.llebowski.client.datamodels.alerts.*;
-
+import java.util.Date;
 import edu.umn.cs.llebowski.client.dataviews.*;
 
 public class Index implements EntryPoint, WindowResizeListener {
@@ -66,6 +65,30 @@ public class Index implements EntryPoint, WindowResizeListener {
 				drawGraphics();
 			}
 		});
+
+		Timer t = new Timer() {
+			public void run() {
+				GetFriends.Util.getInstance().getFriends( credentials, new AsyncCallback<LinkedList<Person>>() {
+
+					public void onFailure(Throwable caught) {
+						//HTML h = new HTML("Error retrieving list of friends.");
+						schedule(1000);		
+					}
+
+					public void onSuccess(LinkedList<Person> result) {
+						friends = result;
+						for(Person p: friends){
+							if(p.getFbUid()==uid){
+								you = p;
+							}
+							mapPanel.refreshMap();
+						}
+						schedule(1000);		
+					}
+				});
+			}
+		};
+		t.schedule(3000);		
 	}
 
 	private void drawMap(){
@@ -160,7 +183,7 @@ public class Index implements EntryPoint, WindowResizeListener {
 				else if( keyCode == KeyboardListener.KEY_ESCAPE )
 					tb.setText("");
 			}
-			
+
 			public void onKeyPress(Widget sender, char keyCode, int modifiers) {
 				// TODO Auto-generated method stub
 
@@ -192,7 +215,7 @@ public class Index implements EntryPoint, WindowResizeListener {
 
 		return vPanel;
 	}
-	
+
 	private void handleLocationUpdate(final HTML h2, final HTML h4,
 			final TextBox tb) {
 		if(tb.getText().equals("")){
@@ -320,7 +343,7 @@ public class Index implements EntryPoint, WindowResizeListener {
 	{
 		// invite a friend to use Friend Mapper
 	}
-	
+
 	public static LinkedList<Person> getFriends(){
 		return friends;
 	}

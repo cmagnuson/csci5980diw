@@ -15,7 +15,7 @@ public class GetFriendsImpl extends RemoteServiceServlet implements GetFriends {
 	public LinkedList<Person> getFriends(FacebookCredentials credentials){
 		LinkedList<Person> ret = new LinkedList<Person>();
 
-		Connection conn = InitalizeDB.connectToMySqlDatabase("127.0.0.1/google-maxi", "5980-groupf", "lebowskiSEKKRIT55");
+		Connection conn = InitalizeDB.connectToMySqlDatabase("c.onetendev.com:8306/google-maxi", "5980-groupf", "lebowskiSEKKRIT55");
 		if(conn==null){
 			return ret;
 		}
@@ -54,7 +54,7 @@ public class GetFriendsImpl extends RemoteServiceServlet implements GetFriends {
 		pstmt.setLong(1, friendid);
 		ResultSet rs = pstmt.executeQuery();
 		while(rs.next()){
-			PersonLocation pl = new PersonLocation(rs.getLong("lon"), rs.getLong("lat"), rs.getTime("time").getTime(), rs.getString("place"));
+			PersonLocation pl = new PersonLocation(rs.getDouble("lon"), rs.getDouble("lat"), rs.getTime("time").getTime(), rs.getString("place"));
 			places.add(pl);
 		}
 		UserInfo ui = fs.getUserInfo(friendid, UserInfo.Field.PIC_SMALL, UserInfo.Field.NAME, UserInfo.Field.UID);

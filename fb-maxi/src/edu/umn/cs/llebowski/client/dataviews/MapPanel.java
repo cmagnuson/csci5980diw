@@ -8,7 +8,6 @@ import com.google.gwt.maps.client.control.*;
 import com.google.gwt.maps.client.event.MarkerClickHandler;
 import com.google.gwt.maps.client.overlay.MarkerOptions;
 import com.google.gwt.maps.client.overlay.Polyline;
-import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.maps.client.overlay.Marker;
 import com.google.gwt.maps.client.geom.LatLng;
@@ -42,7 +41,7 @@ public class MapPanel extends SimplePanel {
 		//mapWidget.addControl(new SmallMapControl(), new ControlPosition(ControlAnchor.TOP_RIGHT, 10, 10));  
 		mapWidget.checkResizeAndCenter();	
 
-		//mp.scheduleTimer();	
+	//	mp.scheduleTimer();	
 	}
 
 	public void setHeight(int height){
@@ -50,14 +49,14 @@ public class MapPanel extends SimplePanel {
 		mapWidget.setHeight(height+"px");
 	}
 
-	private void scheduleTimer(){
-		Timer t = new Timer() {
-			public void run() {
-				refreshMap();
-			}
-		};
-		t.scheduleRepeating(REFRESH_RATE);
-	}
+//	private void scheduleTimer(){
+//		Timer t = new Timer() {
+//			public void run() {
+//				refreshMap();
+//			}
+//		};
+//		t.scheduleRepeating(REFRESH_RATE);
+//	}
 
 
 
@@ -91,9 +90,9 @@ public class MapPanel extends SimplePanel {
 		//do drawing stuff
 		Person you = Index.you;
 		for(Person p: Index.getFriends()){
-			if(p!=you){
+			//if(p!=you){
 				addPersonPoint(p, p.getLocations().getFirst());
-			}
+			//}
 		}
 	}
 
