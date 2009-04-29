@@ -1,7 +1,10 @@
 package edu.umn.cs.llebowski.client;
 
+import java.util.LinkedList;
+
 import com.google.gwt.core.client.EntryPoint;
 import edu.umn.cs.llebowski.client.datamodels.*;
+
 import com.google.gwt.user.client.*;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
@@ -55,6 +58,7 @@ public class Index implements EntryPoint, WindowResizeListener {
 		
 		// FOOTER PANEL
 		footerPanel = new SimplePanel();
+		footerPanel.getElement().setId("footer");
 		footerPanel.setWidth("960px");
 		footerPanel.add(new HTML("Copyright &copy; 2009 Little Lebowski Urban Achievers"));
 		
@@ -92,7 +96,7 @@ public class Index implements EntryPoint, WindowResizeListener {
 		
 		friendsPanel = new Panel("Friends");
 		friendsPanel.setCtCls("opaque");
-		//friendsPanel.add( getFriendsPanel() );
+		friendsPanel.add( getFriendsPanel() );
 		navWidget.add(friendsPanel);
 		
 		invitePanel = new Panel("Invite");
@@ -174,6 +178,52 @@ public class Index implements EntryPoint, WindowResizeListener {
 			}
 		});
 				
+	}
+	
+	private VerticalPanel getFriendsPanel()
+	{
+		final VerticalPanel vPanel = new VerticalPanel();
+		
+		GetFriends.Util.getInstance().getFriends( credentials, new AsyncCallback<LinkedList<Person>>() {
+
+			public void onFailure(Throwable caught) {
+				HTML h = new HTML("Error retrieving list of friends.");
+				vPanel.add(h);				
+			}
+
+			public void onSuccess(LinkedList<Person> result) {
+				int i = 0;
+				FlexTable t = new FlexTable();
+				
+				for( Person friend : result )
+				{
+					VerticalPanel vp = new VerticalPanel();
+					Image pic = new Image( friend.getProfilePic() );
+					HTML name = new HTML( friend.getName() );
+					vp.add(pic);
+					vp.add(name);
+					
+					Button b = new Button("History");
+					
+					// first column (pic/name)
+					t.setWidget( i, 0, vp );
+					
+					// second column (distance)
+					t.setText( i, 1, "1.88 mi" );
+					
+					// third column (last updated);
+					t.setText( i, 2, "April 20, 2009" );
+					
+					// fourth column (history)
+					t.setWidget( i, 3, b );
+					
+					i++;
+				}
+				
+			}
+			
+		});
+		return vPanel;
 	}
 	
 	private VerticalPanel getInvitePanel()
