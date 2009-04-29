@@ -42,7 +42,7 @@ public class MapPanel extends SimplePanel {
 		//mapWidget.addControl(new SmallMapControl(), new ControlPosition(ControlAnchor.TOP_RIGHT, 10, 10));  
 		mapWidget.checkResizeAndCenter();	
 
-		mp.scheduleTimer();	
+		//mp.scheduleTimer();	
 	}
 
 	public void setHeight(int height){
@@ -50,14 +50,14 @@ public class MapPanel extends SimplePanel {
 		mapWidget.setHeight(height+"px");
 	}
 
-	private void scheduleTimer(){
-		Timer t = new Timer() {
-			public void run() {
-				refreshMap();
-			}
-		};
-		t.scheduleRepeating(REFRESH_RATE);
-	}
+//	private void scheduleTimer(){
+//		Timer t = new Timer() {
+//			public void run() {
+//				refreshMap();
+//			}
+//		};
+//		t.scheduleRepeating(REFRESH_RATE);
+//	}
 
 
 
@@ -71,13 +71,13 @@ public class MapPanel extends SimplePanel {
 		checkResizeAndCenter();	
 	}
 
-	public void refreshMap(){
-		//LinkedList<Split> splits = mtrack.getSplits(runnerPid);
-//		if(splits==null){
-//		splits = new LinkedList<Split>();
-//		}
-		drawMap();
-	}
+//	public void refreshMap(){
+//		//LinkedList<Split> splits = mtrack.getSplits(runnerPid);
+////		if(splits==null){
+////		splits = new LinkedList<Split>();
+////		}
+//		drawMap();
+//	}
 
 	public void checkResizeAndCenter(){
 		if(mapWidget!=null){
@@ -85,11 +85,11 @@ public class MapPanel extends SimplePanel {
 		}
 	}
 
-	private void drawMap(){
-		mapWidget.clearOverlays(); //or just check which ones need to be redrawn
-
-		//do drawing stuff
-	}
+//	private void drawMap(){
+//		//mapWidget.clearOverlays(); //or just check which ones need to be redrawn
+//
+//		//do drawing stuff
+//	}
 
 	public void addPersonPoint(Person p, PersonLocation l){
 		String infoText = "";
