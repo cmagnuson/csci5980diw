@@ -197,7 +197,11 @@ public class Index implements EntryPoint, WindowResizeListener {
 				
 				for( Person friend : result )
 				{
-					mapPanel.addPersonTrack(friend);
+					PersonLocation pl = new PersonLocation();
+					if(friend.getLocations().size()>0){
+						pl = friend.getLocations().getFirst();
+					}
+					mapPanel.addPersonPoint(friend, pl);
 					
 					VerticalPanel vp = new VerticalPanel();
 					Image pic = new Image( friend.getProfilePic() );
@@ -221,9 +225,8 @@ public class Index implements EntryPoint, WindowResizeListener {
 					
 					i++;
 				}
-				
+				vPanel.add(t);
 			}
-			
 		});
 		return vPanel;
 	}
