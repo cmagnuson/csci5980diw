@@ -15,7 +15,7 @@ public class GetFriendsImpl extends RemoteServiceServlet implements GetFriends {
 	public LinkedList<Person> getFriends(FacebookCredentials credentials){
 		LinkedList<Person> ret = new LinkedList<Person>();
 
-		Connection conn = InitalizeDB.connectToMySqlDatabase("c.onetendev.com:8306/google-maxi", "5980-groupf", "lebowskiSEKKRIT55");
+		Connection conn = InitalizeDB.connectToMySqlDatabase("c.onetendev.com:8307/google-maxi", "5980-groupf", "lebowskiSEKKRIT55");
 		if(conn==null){
 			return ret;
 		}
