@@ -22,7 +22,7 @@ public class MapPanel extends SimplePanel {
 	private static final String LINE_COLOR = "#52FF52";
 	private static final int LINE_WIDTH = 4;
 	private static final double LINE_OPACITY = 1;
-	private HashSet<Person> tracking = new HashSet<Person>();
+	private LinkedList<Person> tracking = new LinkedList<Person>();
 	
 	public MapPanel(){
 		super();
@@ -87,7 +87,6 @@ public class MapPanel extends SimplePanel {
 
 	private void drawMap(){
 		mapWidget.clearOverlays(); //or just check which ones need to be redrawn
-
 		//do drawing stuff
 		//Person you = Index.you;
 		for(Person p: Index.getFriends()){

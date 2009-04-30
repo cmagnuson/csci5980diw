@@ -54,7 +54,7 @@ public class InsertLocationsImpl extends RemoteServiceServlet implements InsertL
 
 	private LinkedList<Alert> checkNear(Location l, FacebookCredentials credentials){
 		LinkedList<Alert> ret = new LinkedList<Alert>();
-		Connection conn = InitalizeDB.connectToMySqlDatabase("c.onetendev.com:8307/google-maxi", "5980-groupf", "lebowskiSEKKRIT55");
+		Connection conn = InitalizeDB.connectToMySqlDatabase("championchipmn.com/google-maxi", "5980-groupf", "lebowskiSEKKRIT55");
 		if(conn==null){
 			return ret;
 		}
@@ -103,7 +103,7 @@ public class InsertLocationsImpl extends RemoteServiceServlet implements InsertL
 	private LinkedList<Alert> insertLocation(Location l, String address, java.util.Date time, FacebookCredentials credentials, Long eventid){
 		LinkedList<Alert> ret = new LinkedList<Alert>();;
 		long uid = credentials.getUid();
-		Connection conn = InitalizeDB.connectToMySqlDatabase("c.onetendev.com:8307/google-maxi", "5980-groupf", "lebowskiSEKKRIT55");
+		Connection conn = InitalizeDB.connectToMySqlDatabase("championchipmn.com/google-maxi", "5980-groupf", "lebowskiSEKKRIT55");
 		if(conn==null){
 			return ret;
 		}

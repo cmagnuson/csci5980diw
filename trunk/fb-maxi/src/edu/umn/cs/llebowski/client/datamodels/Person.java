@@ -26,6 +26,13 @@ public class Person implements IsSerializable {
 		return l.hashCode();
 	}
 	
+	public boolean equals(Object o){
+		if(o instanceof Person){
+			return ((Person) o).hashCode()==hashCode();
+		}
+		return false;
+	}
+
 	public double getDistance() {
 		return distance;
 	}
