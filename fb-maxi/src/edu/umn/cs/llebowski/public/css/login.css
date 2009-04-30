@@ -1,0 +1,34 @@
+#all
+{
+	width: 960px;
+}
+
+#header
+{
+
+}
+
+#body
+{
+
+}
+
+#bodyLeft
+{
+	width: 400px;
+	float: left;
+	display: block;
+}
+
+#bodyRight
+{
+	width: 560px;
+	float: left;
+	display: block;
+}
+
+#footer
+{
+	text-align: center;
+	font-weight: bold;
+}
