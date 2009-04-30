@@ -90,6 +90,7 @@ public class Index implements EntryPoint, WindowResizeListener {
 						}
 						friendsPanel.clear();
 						friendsPanel.add( getFriendsPanel() );
+						friendsPanel.doLayout();
 						schedule(1000);		
 					}
 				});
