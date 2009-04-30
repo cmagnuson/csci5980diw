@@ -40,6 +40,8 @@ public class Index implements EntryPoint, WindowResizeListener {
 	public static LinkedList<Person> friends = new LinkedList<Person>();
 	public static LinkedList<Person> allFriends = new LinkedList<Person>();
 	public static Person you = new Person();
+	
+	private HTML distance = new HTML("");
 
 	public void onModuleLoad() {
 		getCredentials();
@@ -84,7 +86,10 @@ public class Index implements EntryPoint, WindowResizeListener {
 								you = p;
 							}
 							mapPanel.refreshMap();
+							
 						}
+						friendsPanel.clear();
+						friendsPanel.add( getFriendsPanel() );
 						schedule(1000);		
 					}
 				});
@@ -187,6 +192,7 @@ public class Index implements EntryPoint, WindowResizeListener {
 		}
 		final HTML h3 = new HTML("<br /><b>Last updated:</b>");
 		final HTML h5 = new HTML("<br /><b>Update your location:");
+		final HTML h6 = new HTML("<br /><b>See your location history:");
 		final TextBox tb = new TextBox();
 		tb.addKeyboardListener(new KeyboardListener(){
 
@@ -216,6 +222,13 @@ public class Index implements EntryPoint, WindowResizeListener {
 				handleLocationUpdate(h2, h4, tb);
 			}
 		});
+		
+		Button b2 = new Button("History");
+		b.addClickListener(new ClickListener(){
+			public void onClick(Widget w){
+				mapPanel.togglePersonTrack(you);
+			}
+		});
 
 		hPanel.add(tb);
 		hPanel.add(b);
@@ -226,6 +239,8 @@ public class Index implements EntryPoint, WindowResizeListener {
 		vPanel.add(h2);
 		vPanel.add(h3);
 		vPanel.add(h4);
+		vPanel.add(h6);
+		vPanel.add(b2);
 		vPanel.add(h5);
 		vPanel.add(hPanel);
 
@@ -266,7 +281,7 @@ public class Index implements EntryPoint, WindowResizeListener {
 		});
 
 	}
-
+	
 	private ScrollPanel getFriendsPanel()
 	{
 		final ScrollPanel sPanel = new ScrollPanel();
