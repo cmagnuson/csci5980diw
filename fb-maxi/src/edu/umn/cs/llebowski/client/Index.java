@@ -238,7 +238,7 @@ public class Index implements EntryPoint, WindowResizeListener {
 		}
 		updateLocation( tb.getText() );
 		h2.setHTML(tb.getText());
-		h4.setHTML(""+new Date(System.currentTimeMillis()/1000));
+		h4.setHTML(""+new Date(System.currentTimeMillis()));
 		tb.setText("");
 	}
 
@@ -294,8 +294,8 @@ public class Index implements EntryPoint, WindowResizeListener {
 			t.setText( i, 1, distance.substring(0,pt+2)+" mi" );
 
 			// third column (last updated);
-			t.setText( i, 2, ""+new Date(friend.getLocations().getLast().getTime()) );
-
+			t.setText( i, 2, ""+new Date(friend.getLocations().getFirst().getTime()) );
+			
 			// fourth column (history)
 			t.setWidget( i, 3, b );
 
