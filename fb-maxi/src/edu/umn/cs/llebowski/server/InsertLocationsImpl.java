@@ -123,6 +123,7 @@ public class InsertLocationsImpl extends RemoteServiceServlet implements InsertL
 				pstmt.setLong(6, eventid);
 			}
 			pstmt.executeUpdate();
+			System.err.println("Insert Done");
 			return ret;
 		}
 		catch(SQLException sql){
