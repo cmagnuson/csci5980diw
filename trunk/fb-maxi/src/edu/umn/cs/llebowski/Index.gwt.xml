@@ -18,7 +18,7 @@
   	<!-- <inherits name="com.google.gwt.user.theme.dark.Dark"/> -->
 
 	<!-- mtectracking -->
-	<script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;v=2.x&amp;key=ABQIAAAAiuPVg850W_6nz_Xq0YZbBhQg-rmhZeOshYCs7CInkj2WXWuOpxQeHXTkIxzN7Ij4yHFOAffa05YkyA"/>	
+	<script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;v=2.x&amp;key=ABQIAAAAiuPVg850W_6nz_Xq0YZbBhTBy2Ydox1_ZRW4gsMq2Ucp6C9UixThvAWJUwQy2Abyzah_7T51BusoDQ"/>	
 	
 	<!-- ExtJS -->
 	<script src="js/ext/adapter/ext/ext-base.js" />
