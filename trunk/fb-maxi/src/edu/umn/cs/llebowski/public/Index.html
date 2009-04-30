@@ -50,11 +50,11 @@
             });
             }catch(e){alert(e.message);}
         }
-        function js_showFeedDialog() {
+        function js_showFeedDialog(location) {
             try {
                 FB.ensureInit(function() {
                     // I got this number from here: http://developers.facebook.com/tools.php?templates
-                    FB.Connect.showFeedDialog(73168657573);
+                    FB.Connect.showFeedDialog(73400482573, {"location": location});
                 });
             }catch(e){alert(e.message);}
         }
