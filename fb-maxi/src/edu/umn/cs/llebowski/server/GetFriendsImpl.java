@@ -67,16 +67,21 @@ public class GetFriendsImpl extends RemoteServiceServlet implements GetFriends {
 		Person p = new Person(ui.getId(), ui.getPicSmall(), ui.getName(), places);
 		return p;
 	}
-	
+
 	public LinkedList<Person> getAllFriends(FacebookCredentials credentials){
 		LinkedList<Person> ret = new LinkedList<Person>();
 		try{
 			FacebookSession fs = getSession(credentials);
 			long[] friends = fs.getFriendIds();
 			for(long friend: friends){
-				UserInfo ui = fs.getUserInfo(friend, UserInfo.Field.PIC_SMALL, UserInfo.Field.NAME, UserInfo.Field.UID);
-				Person p = new Person(ui.getId(), ui.getPicSmall(), ui.getName(), new LinkedList<PersonLocation>());
-				ret.add(p);
+				try{
+					UserInfo ui = fs.getUserInfo(friend, UserInfo.Field.PIC_SMALL, UserInfo.Field.NAME, UserInfo.Field.UID);
+					Person p = new Person(ui.getId(), ui.getPicSmall(), ui.getName(), new LinkedList<PersonLocation>());
+					ret.add(p);
+				}
+				catch(NullPointerException npe){
+					continue;
+				}
 			}
 			return ret;
 		}
@@ -85,7 +90,7 @@ public class GetFriendsImpl extends RemoteServiceServlet implements GetFriends {
 			return ret;
 		}
 	}
-	
+
 	public FacebookSession getSession(FacebookCredentials c){
 		return new FacebookSession(c.getApiKey(), c.getSecretKey(), c.getSessionId(), c.getUid());
 	}
