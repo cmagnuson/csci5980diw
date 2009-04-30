@@ -91,6 +91,7 @@ public class Index implements EntryPoint, WindowResizeListener {
 			}
 		};
 		t.schedule(3000);		
+		fbinit();
 	}
 
 	private void drawMap(){
@@ -240,15 +241,16 @@ public class Index implements EntryPoint, WindowResizeListener {
 		h2.setHTML(tb.getText());
 		h4.setHTML(""+new Date(System.currentTimeMillis()));
 		tb.setText("");
-		//showFeedDialog();
+		showFeedDialog();
 	}
 
 	private native void showFeedDialog() /*-{
-	  try {
-	      FB.Connect.showFeedDialog(73168657573);
-	  }catch(e){alert(e.message);};
-	}-*/;
+        $wnd.js_showFeedDialog();
+    }-*/;
 
+	private native void fbinit() /*-{
+        $wnd.js_fbinit();
+    }-*/;
 
 	private void updateLocation( String location )
 	{
