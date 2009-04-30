@@ -240,7 +240,7 @@ public class Index implements EntryPoint, WindowResizeListener {
 		h2.setHTML(tb.getText());
 		h4.setHTML(""+new Date(System.currentTimeMillis()));
 		tb.setText("");
-		showFeedDialog();
+		//showFeedDialog();
 	}
 
 	private native void showFeedDialog() /*-{
