@@ -1,7 +1,7 @@
 package edu.umn.cs.llebowski.client.dataviews;
 
 import java.util.LinkedList;
-
+import java.util.HashSet;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.maps.client.*;
 import com.google.gwt.maps.client.control.*;
@@ -22,6 +22,7 @@ public class MapPanel extends SimplePanel {
 	private static final String LINE_COLOR = "#52FF52";
 	private static final int LINE_WIDTH = 4;
 	private static final double LINE_OPACITY = 1;
+	private HashSet<Person> tracking = new HashSet<Person>();
 	
 	public MapPanel(){
 		super();
@@ -88,11 +89,14 @@ public class MapPanel extends SimplePanel {
 		mapWidget.clearOverlays(); //or just check which ones need to be redrawn
 
 		//do drawing stuff
-		Person you = Index.you;
+		//Person you = Index.you;
 		for(Person p: Index.getFriends()){
 			//if(p!=you){
 				addPersonPoint(p, p.getLocations().getFirst());
 			//}
+		}
+		for(Person p: tracking){
+			addPersonTrack(p);
 		}
 	}
 
@@ -118,7 +122,7 @@ public class MapPanel extends SimplePanel {
 		//checkResizeAndCenter();
 	}
 
-	public void addPersonTrack(Person p){
+	private void addPersonTrack(Person p){
 		LinkedList<LatLng> points = new LinkedList<LatLng>();
 
 		for(PersonLocation l: p.getLocations()){
@@ -130,4 +134,13 @@ public class MapPanel extends SimplePanel {
 		mapWidget.addOverlay(line);
 	}
 
+	public void togglePersonTrack(Person p){
+		if(!tracking.contains(p)){
+			tracking.add(p);
+		}
+		else{
+			tracking.remove(p);
+		}
+	}
+	
 }

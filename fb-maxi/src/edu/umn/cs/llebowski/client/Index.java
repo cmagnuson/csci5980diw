@@ -284,7 +284,13 @@ public class Index implements EntryPoint, WindowResizeListener {
 			vp.add(name);
 
 			Button b = new Button("History");
-
+			final Person friendF = friend;
+			b.addClickListener(new ClickListener(){
+				public void onClick(Widget w){
+					mapPanel.togglePersonTrack(friendF);
+				}
+			});
+			
 			// first column (pic/name)
 			t.setWidget( i, 0, vp );
 
