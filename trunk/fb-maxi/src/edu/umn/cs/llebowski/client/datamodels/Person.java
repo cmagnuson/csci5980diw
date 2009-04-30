@@ -21,7 +21,10 @@ public class Person implements IsSerializable {
 		this.locations = locations;
 	}
 
-	
+	public int hashCode(){
+		Long l = new Long(fbUid);
+		return l.hashCode();
+	}
 	
 	public double getDistance() {
 		return distance;
