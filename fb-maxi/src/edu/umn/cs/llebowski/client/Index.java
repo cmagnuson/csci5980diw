@@ -280,7 +280,9 @@ public class Index implements EntryPoint, WindowResizeListener {
 			t.setWidget( i, 0, vp );
 
 			// second column (distance)
-			t.setText( i, 1, "1.88 mi" );
+			String distance = friend.getDistance()+"";
+			int pt = distance.indexOf(".");
+			t.setText( i, 1, distance.substring(0,pt+2)+" mi" );
 
 			// third column (last updated);
 			t.setText( i, 2, ""+new Date(friend.getLocations().getFirst().getTime()) );

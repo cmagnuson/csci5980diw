@@ -9,6 +9,7 @@ public class Person implements IsSerializable {
 	private long fbUid = 1;
 	private String profilePic = "";
 	private String name = "";
+	private double distance = 0;
 	private LinkedList<PersonLocation> locations = new LinkedList<PersonLocation>(); //list of where has been in chronologically descending order
 	
 	public Person(){} //No args constructor is needed for GWT serialization
@@ -18,6 +19,16 @@ public class Person implements IsSerializable {
 		this.profilePic = profilePic;
 		this.name = name;
 		this.locations = locations;
+	}
+
+	
+	
+	public double getDistance() {
+		return distance;
+	}
+
+	public void setDistance(double distance) {
+		this.distance = distance;
 	}
 
 	public long getFbUid() {
