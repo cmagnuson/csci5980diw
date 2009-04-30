@@ -32,7 +32,33 @@
 	<!-- to create a completely dynamic ui         -->
 	<!--                                           -->
 	<body>
-
+        <script type="text/javascript" src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php"></script>
+        <script type="text/javascript">
+        function js_fbinit() {
+            try{
+            FB_RequireFeatures(["XFBML"], function() {
+                FB.Facebook.init("19f4193d09b5598edfb05c56249d9a9b", "connect/xd_receiver.htm");
+                alert("FB.Facebook.init");
+            	FB.Facebook.get_sessionState().waitUntilReady(function() {
+            	    window.alert("Session is ready");
+            	    //If you want to make Facebook API calls from JavaScript do something like
+            	    FB.Facebook.apiClient.friends_get(null, function(result, ex) {
+            	        //Do something with result
+            	        window.alert("Friends list: " + result);
+            	    });
+            	});
+            });
+            }catch(e){alert(e.message);}
+        }
+        function js_showFeedDialog() {
+            try {
+                FB.ensureInit(function() {
+                    alert("ensureInit");
+                    FB.Connect.showFeedDialog(73168657573, {});
+                });
+            }catch(e){alert(e.message);}
+        }
+        </script>
 
 		<!-- OPTIONAL: include this if you want history support -->
 		<iframe src="javascript:''" id="__gwt_historyFrame" style="width:0;height:0;border:0"></iframe>
