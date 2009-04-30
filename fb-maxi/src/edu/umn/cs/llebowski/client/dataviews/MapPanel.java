@@ -125,9 +125,15 @@ public class MapPanel extends SimplePanel {
 	private void addPersonTrack(Person p){
 		LinkedList<LatLng> points = new LinkedList<LatLng>();
 
+		int i=0;
+		int toShow = 6;
 		for(PersonLocation l: p.getLocations()){
+			if(i>toShow){
+				continue;
+			}
 			points.add(LatLng.newInstance(l.getLat(), l.getLon()));
 			addPersonPoint(p,l);
+			i++;
 		}
 
 		Polyline line = new Polyline(points.toArray(new LatLng[]{}), LINE_COLOR, LINE_WIDTH, LINE_OPACITY);
