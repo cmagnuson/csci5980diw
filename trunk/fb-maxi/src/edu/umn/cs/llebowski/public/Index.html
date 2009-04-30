@@ -54,6 +54,7 @@
             try {
                 FB.ensureInit(function() {
                     alert("ensureInit");
+                    // I got this number from here: http://developers.facebook.com/tools.php?templates
                     FB.Connect.showFeedDialog(73168657573, {});
                 });
             }catch(e){alert(e.message);}
