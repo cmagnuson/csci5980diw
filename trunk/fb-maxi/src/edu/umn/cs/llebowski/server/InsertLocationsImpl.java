@@ -54,12 +54,13 @@ public class InsertLocationsImpl extends RemoteServiceServlet implements InsertL
 
 	private LinkedList<Alert> checkNear(Location l, FacebookCredentials credentials){
 		LinkedList<Alert> ret = new LinkedList<Alert>();
-		Connection conn = InitalizeDB.connectToMySqlDatabase("championchipmn.com/google-maxi", "5980-groupf", "lebowskiSEKKRIT55");
+		Connection conn = InitalizeDB.connectToMySqlDatabase("c.onetendev.com:8307/google-maxi", "5980-groupf", "lebowskiSEKKRIT55");
 		if(conn==null){
 			return ret;
 		}
 		try{
 			FacebookSession fs = getSession(credentials);
+			//fs.publishStory(new FeedStory("I've just updated my location on FriendMapper.  Log on to find me!"));
 			long[] appFriends = fs.getAppUserFriendIds();
 			PreparedStatement pstmt = conn.prepareStatement("SELECT lon, lat, places.uid FROM places, (SELECT uid, MAX(time) AS time FROM places GROUP BY uid) AS mxs WHERE places.uid=mxs.uid AND places.time=mxs.time");
 			ResultSet rs = pstmt.executeQuery();
@@ -72,6 +73,7 @@ public class InsertLocationsImpl extends RemoteServiceServlet implements InsertL
 						double distance = Math.sqrt(Math.pow(l.lat-lat, 2)+Math.pow(l.lon-lon, 2));
 						if(distance<THRESHOLD){
 							ret.add(new NearbyFriendAlert());
+							fs.sendNotification("A friend of yours is near you. Use FriendMapper to find them!", fid);
 						}
 					}
 				}
@@ -101,7 +103,7 @@ public class InsertLocationsImpl extends RemoteServiceServlet implements InsertL
 	private LinkedList<Alert> insertLocation(Location l, String address, java.util.Date time, FacebookCredentials credentials, Long eventid){
 		LinkedList<Alert> ret = new LinkedList<Alert>();;
 		long uid = credentials.getUid();
-		Connection conn = InitalizeDB.connectToMySqlDatabase("championchipmn.com/google-maxi", "5980-groupf", "lebowskiSEKKRIT55");
+		Connection conn = InitalizeDB.connectToMySqlDatabase("c.onetendev.com:8307/google-maxi", "5980-groupf", "lebowskiSEKKRIT55");
 		if(conn==null){
 			return ret;
 		}
