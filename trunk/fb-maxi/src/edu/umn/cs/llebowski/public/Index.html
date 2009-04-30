@@ -37,31 +37,24 @@
         <script type="text/javascript" src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php"></script>
         <script type="text/javascript">
         function js_fbinit() {
-            alert("js_fbinit");
             try{
             FB_RequireFeatures(["XFBML"], function() {
                 FB.Facebook.init("31d94beadd44d773aea835f67edc4979", "connect/xd_receiver.htm");
-                alert("FB.Facebook.init");
-            	FB.Facebook.get_sessionState().waitUntilReady(function() {
-            	    window.alert("Session is ready");
-            	    //If you want to make Facebook API calls from JavaScript do something like
-            	    FB.Facebook.apiClient.friends_get(null, function(result, ex) {
-            	        //Do something with result
-            	        window.alert("Friends list: " + result);
-            	    });
-            	});
+            	//FB.Facebook.get_sessionState().waitUntilReady(function() {
+            	//    //If you want to make Facebook API calls from JavaScript do something like
+            	//    FB.Facebook.apiClient.friends_get(null, function(result, ex) {
+            	//        //Do something with result
+            	//        window.alert("Friends list: " + result);
+            	//    });
+            	//});
             });
             }catch(e){alert(e.message);}
         }
         function js_showFeedDialog() {
-            alert("js_showFeedDialog");
             try {
                 FB.ensureInit(function() {
-                    alert("ensureInit");
                     // I got this number from here: http://developers.facebook.com/tools.php?templates
-                    FB.Connect.showFeedDialog(73168657573, {}, null, null, null, FB.RequireConnect.promptConnect,
-                            function() {alert("connect closed");});
-                    alert("finished connect dialog");
+                    FB.Connect.showFeedDialog(73168657573);
                 });
             }catch(e){alert(e.message);}
         }
