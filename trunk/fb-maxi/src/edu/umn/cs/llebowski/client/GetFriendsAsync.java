@@ -8,5 +8,6 @@ public interface GetFriendsAsync {
 
 	void getFriends(FacebookCredentials credentials, AsyncCallback<LinkedList<Person>> callback);
 	void getAllFriends(FacebookCredentials credentials, AsyncCallback<LinkedList<Person>> callback);
+	void sendInvite(Person p, FacebookCredentials credentials, AsyncCallback<Boolean> callback);
 
 }

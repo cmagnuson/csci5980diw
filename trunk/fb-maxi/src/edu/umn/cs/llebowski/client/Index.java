@@ -401,6 +401,15 @@ public class Index implements EntryPoint, WindowResizeListener {
 		{
 			HTML h = new HTML("<br /><br />Your friend, " + friend + ", has been invited to join Friend Mapper.");
 			inviteVPanel.add(h);
+		
+			GetFriends.Util.getInstance().sendInvite(invitee, credentials, new AsyncCallback<Boolean>() {
+				public void onFailure(Throwable caught) {
+					// TODO Auto-generated method stub	
+				}
+				public void onSuccess(Boolean b) {			
+				}
+				
+			});
 		}	
 	}
 
