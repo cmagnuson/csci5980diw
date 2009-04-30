@@ -16,8 +16,8 @@ import edu.umn.cs.llebowski.client.dataviews.*;
 
 public class Index implements EntryPoint, WindowResizeListener {
 
-	public static final String API_KEY = "d4dd44d81ce3c4076e4c55ae2329f13d";
-	public static final String SECRET_KEY = "4803662fcf9e1bdfdc8c29d2adfe2bdd";
+	public static final String API_KEY = "31d94beadd44d773aea835f67edc4979";
+	public static final String SECRET_KEY = "68ecd0a09347c63014a9fc2beee036fb";
 
 	private long uid = 1;
 	private String sessionKey = "";
