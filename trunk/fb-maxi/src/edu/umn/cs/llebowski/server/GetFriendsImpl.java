@@ -25,7 +25,13 @@ public class GetFriendsImpl extends RemoteServiceServlet implements GetFriends {
 			for(long friendid: appFriends){
 				ret.add(getFriendByUid(friendid, conn, fs));
 			}
-			ret.add(getFriendByUid(credentials.getUid(), conn, fs));
+			Person me = getFriendByUid(credentials.getUid(), conn, fs);
+			ret.add(me);
+			PersonLocation myLoc = me.getLocations().getFirst();
+			for(Person p: ret){
+				PersonLocation pl = p.getLocations().getFirst();
+				p.setDistance(Math.sqrt(Math.pow(myLoc.getLat()-pl.getLat(), 2) + Math.pow(myLoc.getLon()-pl.getLon(), 2))/.01824);
+			}
 			return ret;
 		}
 		catch(SQLException sql){
