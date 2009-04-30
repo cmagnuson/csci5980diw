@@ -94,4 +94,16 @@ public class GetFriendsImpl extends RemoteServiceServlet implements GetFriends {
 	public FacebookSession getSession(FacebookCredentials c){
 		return new FacebookSession(c.getApiKey(), c.getSecretKey(), c.getSessionId(), c.getUid());
 	}
+
+	public Boolean sendInvite(Person p, FacebookCredentials credentials){
+		try{
+			FacebookSession fs = getSession(credentials);
+			fs.sendNotification(p.getName()+" you should check out this really cool app! - http://localhost:8888/5980_Facebook_Maxi/login.html", p.getFbUid());
+			return true;
+		}
+		catch(FacebookClientException fce){
+			fce.printStackTrace();
+			return false;
+		}
+	}
 }
