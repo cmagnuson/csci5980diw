@@ -33,10 +33,12 @@ public class Index implements EntryPoint, WindowResizeListener {
 	private Panel youPanel;
 	private Panel friendsPanel;
 	private Panel invitePanel;
+	private VerticalPanel inviteVPanel;
 
 	private MultiWordSuggestOracle autoComplete;
 
 	public static LinkedList<Person> friends = new LinkedList<Person>();
+	public static LinkedList<Person> allFriends = new LinkedList<Person>();
 	public static Person you = new Person();
 
 	public void onModuleLoad() {
@@ -106,8 +108,8 @@ public class Index implements EntryPoint, WindowResizeListener {
 
 		// NAV PANEL
 		navPanel = new SimplePanel();
-		navPanel.setWidth("300px");
-		navPanel.setHeight("400px");
+		navPanel.setWidth("400px");
+		navPanel.setHeight("500px");
 		navPanel.add( getNav() );
 
 		// FOOTER PANEL
@@ -120,7 +122,7 @@ public class Index implements EntryPoint, WindowResizeListener {
 		//All Panel
 		allPanel.add(mapPanel,0,0);
 		allPanel.add(headerPanel,50,0);
-		allPanel.add(navPanel,Window.getClientWidth()-330,120);
+		allPanel.add(navPanel,Window.getClientWidth()-430,120);
 		allPanel.add(footerPanel,Window.getClientWidth()/2-150,Window.getClientHeight()-50);
 	}
 
@@ -137,7 +139,7 @@ public class Index implements EntryPoint, WindowResizeListener {
 	{
 		navWidget = new Panel("Options");
 		navWidget.setLayout(new AccordionLayout(true));
-		navWidget.setSize("300px", "500px");
+		navWidget.setSize("400px", "500px");
 		navWidget.setCls("opaque");
 
 		youPanel = new Panel("You");
@@ -168,7 +170,9 @@ public class Index implements EntryPoint, WindowResizeListener {
 		VerticalPanel vPanel = new VerticalPanel();
 		HorizontalPanel hPanel = new HorizontalPanel();
 
-		final HTML h1 = new HTML("<b>Your current location:</b>");
+		final HTML name = new HTML("<h1>" + you.getName() + "</h1>");
+		final Image youPic = new Image( you.getProfilePic() );
+		final HTML h1 = new HTML("<br /><b>Your current location:</b>");
 		final HTML h2, h4;
 		if( you.getLocations().size() > 0 )
 		{
@@ -180,8 +184,8 @@ public class Index implements EntryPoint, WindowResizeListener {
 			h2 = new HTML( "<br />");
 			h4 = new HTML( "<br />");
 		}
-		final HTML h3 = new HTML("<b>Last updated:</b>");
-		final HTML h5 = new HTML("<b>Update your location:");
+		final HTML h3 = new HTML("<br /><b>Last updated:</b>");
+		final HTML h5 = new HTML("<br /><b>Update your location:");
 		final TextBox tb = new TextBox();
 		tb.addKeyboardListener(new KeyboardListener(){
 
@@ -215,6 +219,8 @@ public class Index implements EntryPoint, WindowResizeListener {
 		hPanel.add(tb);
 		hPanel.add(b);
 
+		vPanel.add(youPic);
+		vPanel.add(name);
 		vPanel.add(h1);
 		vPanel.add(h2);
 		vPanel.add(h3);
@@ -251,12 +257,15 @@ public class Index implements EntryPoint, WindowResizeListener {
 
 	}
 
-	private VerticalPanel getFriendsPanel()
+	private ScrollPanel getFriendsPanel()
 	{
-		final VerticalPanel vPanel = new VerticalPanel();
-
+		final ScrollPanel sPanel = new ScrollPanel();
+		sPanel.setAlwaysShowScrollBars(true);
+		
 		int i = 0;
 		FlexTable t = new FlexTable();
+		t.setCellPadding(2);
+		t.setBorderWidth(1);
 
 		for( Person friend : friends )
 		{
@@ -285,28 +294,29 @@ public class Index implements EntryPoint, WindowResizeListener {
 			t.setText( i, 1, distance.substring(0,pt+2)+" mi" );
 
 			// third column (last updated);
-			t.setText( i, 2, ""+new Date(friend.getLocations().getFirst().getTime()) );
+			t.setText( i, 2, ""+new Date(friend.getLocations().getLast().getTime()) );
 
 			// fourth column (history)
 			t.setWidget( i, 3, b );
 
 			i++;
 		}
-		vPanel.add(t);
-		return vPanel;
+		sPanel.add(t);
+		return sPanel;
 	}
 
 	private VerticalPanel getInvitePanel()
 	{
-		VerticalPanel inviteVPanel = new VerticalPanel();
+		inviteVPanel = new VerticalPanel();
 		HorizontalPanel inviteHPanel = new HorizontalPanel();
 
-		HTML h = new HTML("<b>Invite your Facebook friends to join Friend Mapper!</b><br />");
-		HTML h2 = new HTML("Name: ");
+		HTML h = new HTML("<b>Invite your Facebook friends to join Friend Mapper!</b><br /><br />");
+		HTML h2 = new HTML("Friend: ");
 		autoComplete = getAutoComplete();
 		final SuggestBox sb = new SuggestBox(autoComplete);
 		sb.addKeyboardListener(new KeyboardListener() {
 			public void onKeyDown(Widget sender, char keyCode, int modifiers) {
+				inviteVPanel.remove(2);
 				if( keyCode == KeyboardListener.KEY_ENTER )
 					inviteFriend( sb.getText() );
 				else if( keyCode == KeyboardListener.KEY_ESCAPE )
@@ -343,17 +353,49 @@ public class Index implements EntryPoint, WindowResizeListener {
 
 	private MultiWordSuggestOracle getAutoComplete()
 	{
-		MultiWordSuggestOracle oracle = new MultiWordSuggestOracle();
+		final MultiWordSuggestOracle oracle = new MultiWordSuggestOracle();
+		
+		GetFriends.Util.getInstance().getAllFriends(credentials, new AsyncCallback<LinkedList<Person>>() {
 
-		for( Person f : friends )
-			oracle.add(f.getName());
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void onSuccess(LinkedList<Person> result) {
+				allFriends = result;
+				for( Person f : result )
+					oracle.add(f.getName());				
+			}
+			
+		});
 
 		return oracle;
 	}
 
 	private void inviteFriend( String friend )
 	{
+		Person invitee = null;
 		// invite a friend to use Friend Mapper
+		for( Person f : allFriends )
+		{
+			if( f.getName() == friend )
+			{
+				invitee = f;
+				break;
+			}
+		}
+		
+		if( invitee == null )
+		{
+			HTML h = new HTML("<br /><br /><span class=\"error\">Error: Your friend, " + friend + ", is not one of your friends on Facebook.</span>");
+			inviteVPanel.add(h);
+		}
+		else
+		{
+			HTML h = new HTML("<br /><br />Your friend, " + friend + ", has been invited to join Friend Mapper.");
+			inviteVPanel.add(h);
+		}	
 	}
 
 	public static LinkedList<Person> getFriends(){
