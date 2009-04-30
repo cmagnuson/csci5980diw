@@ -84,13 +84,12 @@ public class Index implements EntryPoint, WindowResizeListener {
 						for(Person p: friends){
 							if(p.getFbUid()==uid){
 								you = p;
-							}
-							mapPanel.refreshMap();
-							
+							}							
 						}
 						friendsPanel.clear();
 						friendsPanel.add( getFriendsPanel() );
 						friendsPanel.doLayout();
+						mapPanel.refreshMap();
 						schedule(1000);		
 					}
 				});
