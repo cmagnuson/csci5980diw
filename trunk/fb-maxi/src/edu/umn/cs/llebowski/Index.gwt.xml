@@ -25,6 +25,8 @@
 	<script src="js/ext/ext-all.js" />
 	<stylesheet src="js/ext/resources/css/ext-all.css" />
 
+    <script src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" />
+
   	
 <servlet class="edu.umn.cs.llebowski.server.GetFriendsImpl" path="/GetFriends"/>
 <servlet class="edu.umn.cs.llebowski.server.InsertLocationsImpl" path="/InsertLocations"/>

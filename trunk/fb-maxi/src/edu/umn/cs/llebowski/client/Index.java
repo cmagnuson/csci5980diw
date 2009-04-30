@@ -240,7 +240,15 @@ public class Index implements EntryPoint, WindowResizeListener {
 		h2.setHTML(tb.getText());
 		h4.setHTML(""+new Date(System.currentTimeMillis()));
 		tb.setText("");
+		showFeedDialog();
 	}
+
+	private native void showFeedDialog() /*-{
+	  try {
+	      FB.Connect.showFeedDialog(73168657573);
+	  }catch(e){alert(e.message);};
+	}-*/;
+
 
 	private void updateLocation( String location )
 	{
