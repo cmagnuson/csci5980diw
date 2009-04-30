@@ -247,7 +247,7 @@ public class Index implements EntryPoint, WindowResizeListener {
 	private native void showFeedDialog() /*-{
         $wnd.js_showFeedDialog();
     }-*/;
-
+    
 	private native void fbinit() /*-{
         $wnd.js_fbinit();
     }-*/;
