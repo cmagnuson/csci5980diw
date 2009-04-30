@@ -16,7 +16,7 @@ public class InsertLocationsImpl extends RemoteServiceServlet implements InsertL
 	public static final double THRESHOLD = .002;
 	
 	public LinkedList<Alert> insertUserAddedLocation(String location, FacebookCredentials credentials){
-		java.util.Date time = Calendar.getInstance().getTime();
+		java.util.Date time = new java.util.Date();//Calendar.getInstance().getTime();
 		LinkedList<Alert> ret = new LinkedList<Alert>();
 		Location l = AddressToCord.convertToCord(location);
 		System.err.println("checking loc");
