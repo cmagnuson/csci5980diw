@@ -255,7 +255,7 @@ public class Index implements EntryPoint, WindowResizeListener {
 		updateLocation( tb.getText() );
 		h2.setHTML(tb.getText());
 		h4.setHTML(""+new Date(System.currentTimeMillis()));
-		showFeedDialog(tb.getText());
+		//showFeedDialog(tb.getText());
 		tb.setText("");
 	}
 
@@ -267,15 +267,22 @@ public class Index implements EntryPoint, WindowResizeListener {
         $wnd.js_fbinit();
     }-*/;
 
-	private void updateLocation( String location )
+	private void updateLocation(final String location )
 	{
 		InsertLocations.Util.getInstance().insertUserAddedLocation(location, credentials, new AsyncCallback<LinkedList<Alert>>() {
 			public void onFailure(Throwable caught) {
 				Window.alert(caught.getLocalizedMessage());
 			}
 			public void onSuccess(LinkedList<Alert> alerts) {
+				boolean badLoc = false;
 				for(Alert a: alerts){
 					Window.alert(a.getAlertText());
+					if(a instanceof BadLocationAlert){
+						badLoc = true;
+					}
+				}
+				if(!badLoc){
+					showFeedDialog(location);
 				}
 			}
 		});
