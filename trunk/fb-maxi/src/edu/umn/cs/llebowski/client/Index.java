@@ -224,7 +224,7 @@ public class Index implements EntryPoint, WindowResizeListener {
 		});
 		
 		Button b2 = new Button("History");
-		b.addClickListener(new ClickListener(){
+		b2.addClickListener(new ClickListener(){
 			public void onClick(Widget w){
 				mapPanel.togglePersonTrack(you);
 			}
